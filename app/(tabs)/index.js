@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  TextInput, 
-  TouchableOpacity, 
-  FlatList, 
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
   StyleSheet,
-  Platform
-} from 'react-native';
+  Platform,
+} from "react-native";
 
 const TodoList = () => {
+  const data = { id: 1, name: "issa", lastname: "mwanga" };
   const [todos, setTodos] = useState([]);
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState("");
 
   const addTodo = () => {
     if (inputText.trim()) {
@@ -20,23 +21,23 @@ const TodoList = () => {
         {
           id: Date.now().toString(),
           text: inputText,
-          completed: false
-        }
+          completed: false,
+        },
       ]);
-      setInputText('');
+      setInputText("");
     }
   };
 
   const toggleTodo = (id) => {
     setTodos(
-      todos.map(todo => 
+      todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -59,23 +60,26 @@ const TodoList = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.todoItem}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[styles.checkbox, item.completed && styles.checked]}
               onPress={() => toggleTodo(item.id)}
             >
               {item.completed && <Text style={styles.checkmark}>✓</Text>}
             </TouchableOpacity>
-            
-            <Text 
-              style={[
-                styles.todoText,
-                item.completed && styles.completedText
-              ]}
+            <TouchableOpacity
+              onPress={() => alert("Button Pressed!")}
+              style={{ padding: 10, backgroundColor: "blue" }}
+            >
+              <Text style={{ color: "white" }}>Click Me</Text>
+            </TouchableOpacity>
+
+            <Text
+              style={[styles.todoText, item.completed && styles.completedText]}
             >
               {item.text}
             </Text>
-            
-            <TouchableOpacity 
+
+            <TouchableOpacity
               style={styles.deleteButton}
               onPress={() => deleteTodo(item.id)}
             >
@@ -84,7 +88,9 @@ const TodoList = () => {
           </View>
         )}
         ListEmptyComponent={
-          <Text style={styles.emptyText}>No todos yet! Add your first todo.</Text>
+          <Text style={styles.emptyText}>
+            No todos yet! Add your first todo.
+          </Text>
         }
       />
     </View>
@@ -94,47 +100,47 @@ const TodoList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
     padding: 20,
-    paddingTop: Platform.OS === 'android' ? 20 : 40,
+    paddingTop: Platform.OS === "android" ? 20 : 40,
   },
   inputContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 20,
   },
   input: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 15,
     borderRadius: 10,
     marginRight: 10,
     fontSize: 16,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
   },
   addButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: "#007bff",
     padding: 15,
     borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   todoItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
@@ -145,40 +151,40 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#007bff',
+    borderColor: "#007bff",
     marginRight: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   checked: {
-    backgroundColor: '#007bff',
-    borderColor: '#007bff',
+    backgroundColor: "#007bff",
+    borderColor: "#007bff",
   },
   checkmark: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
   todoText: {
     flex: 1,
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
   completedText: {
-    textDecorationLine: 'line-through',
-    color: '#999',
+    textDecorationLine: "line-through",
+    color: "#999",
   },
   deleteButton: {
     marginLeft: 10,
     padding: 5,
   },
   deleteText: {
-    color: '#ff4444',
+    color: "#ff4444",
     fontSize: 24,
     lineHeight: 24,
   },
   emptyText: {
-    textAlign: 'center',
-    color: '#999',
+    textAlign: "center",
+    color: "#999",
     marginTop: 20,
     fontSize: 16,
   },

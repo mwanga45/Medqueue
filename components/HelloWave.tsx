@@ -9,6 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { ThemedText } from '@/components/ThemedText';
+import { FlatList } from 'react-native-reanimated/lib/typescript/Animated';
 
 export function HelloWave() {
   const rotationAnimation = useSharedValue(0);
@@ -28,6 +29,7 @@ export function HelloWave() {
     <Animated.View style={animatedStyle}>
       <ThemedText style={styles.text}>👋</ThemedText>
     </Animated.View>
+   
   );
 }
 
