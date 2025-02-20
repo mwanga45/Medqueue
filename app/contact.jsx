@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 const text = () => {
   return (
     <View>
-      <Text></Text>
+      <Text style={{color:"white" , display:"flex", width:"100%", justifyContent:"center", alignContent:"center"}}>I new I new</Text>
     </View>
   );
 }
