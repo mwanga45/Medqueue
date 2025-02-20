@@ -7,7 +7,11 @@ const Homepage = () => {
   return (
     <View style={styles.HomepageContainer}>
       <View style={styles.Homepagecover1}>
-        <Icon name="hospital-symbol" size={100} style={{color:"silver"}}></Icon>
+        <Icon
+          name="hospital-symbol"
+          size={100}
+          style={{ color: "silver" }}
+        ></Icon>
       </View>
       <Text style={styles.TextQuick}>Quick Action</Text>
       <View style={styles.Homepagecover2}>
@@ -27,7 +31,24 @@ const Homepage = () => {
             backgroundColor={"#00d4ff"}
           />
         </View>
-     
+      </View>
+      <View style={styles.Homepagecover2}>
+        <View style={{ flex: 1, padding: 10 }}>
+          <QuickAction
+            name={"calendar-day"}
+            size={30}
+            text={"calender"}
+            backgroundColor={"#274b5f"}
+          />
+        </View>
+        <View style={{ flex: 1, padding: 10 }}>
+          <QuickAction
+            name={"user-check"}
+            size={30}
+            text={"Doctor Available"}
+            backgroundColor={"#d51341"}
+          />
+        </View>
       </View>
     </View>
   );
@@ -65,7 +86,7 @@ const styles = StyleSheet.create({
   Homepagecover2: {
     flexDirection: "row",
     width: "100%",
-    justifyContent:"center",
-    alignContent:"center"
+    justifyContent: "center",
+    alignContent: "center",
   },
 });

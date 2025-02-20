@@ -13,7 +13,6 @@ const QuickAction = ({backgroundColor, text , size , name, }) => {
 
 export default QuickAction;
 
-
 const Quickstyles = StyleSheet.create({
   Quickcontainer:{
     display:"flex",
