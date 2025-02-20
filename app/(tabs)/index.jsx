@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Platform,
 } from "react-native";
+// import HelloWave from "../../components/HelloWave"
 
 const TodoList = () => {
   const data = { id: 1, name: "issa", lastname: "mwanga" };
@@ -42,6 +43,7 @@ const TodoList = () => {
 
   return (
     <View style={styles.container}>
+      {/* <HelloWave/> */}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
