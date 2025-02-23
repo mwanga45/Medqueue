@@ -7,7 +7,7 @@ const Entrypage = () => {
   const route = useRouter()
   const fadeAnim =  useRef(new Animated.Value(0)).current;
   const bounceAnim = useRef(new Animated.Value(0.5)).current;
-
+// having the animation once the page is mount and remove it after the page is unmount
 useEffect(()=>{
   Animated.parallel([
     Animated.timing(fadeAnim,{
