@@ -37,7 +37,11 @@ const Quickstyles = StyleSheet.create({
     margin: 4,       
     color: "white",
     borderRadius: 15, 
-    boxShadow:
-      "rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px",
+    shadowColor: "rgba(0, 0, 0, 0.09)",  // Using one of the outer shadow colors from your example
+    shadowOffset: { width: 0, height: 32 }, // Choosing one of the offsets (e.g., 32px)
+    shadowOpacity: 0.5,                    // Adjust to your liking
+    shadowRadius: 16,                      // Adjust to match the blur
+    // Android shadow (elevation)
+    elevation: 10,                         // Adjust for similar effect on Android
   },
 });
