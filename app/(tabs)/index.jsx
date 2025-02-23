@@ -24,7 +24,7 @@ useEffect(()=>{
   ]).start()
 
   const Timer = setInterval(()=>{
-    route.replace("/(main)/home")
+    route.replace("/authentic")
   },2000)
 
   return  ()=> clearInterval(Timer)
