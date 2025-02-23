@@ -4,7 +4,7 @@ import QuickAction from "../component/QuickAction";
 import { View, Text, StyleSheet,Dimensions } from "react-native";
 
 const Homepage = () => {
-  const [windowchange, setwindowchange] = useState(Dimensions.get("window"))
+  // const [windowchange, setwindowchange] = useState(Dimensions.get("window"))
 
   useState(()=>{
 
