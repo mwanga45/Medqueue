@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "../component/QuickAction";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet,Dimensions } from "react-native";
 
 const Homepage = () => {
+  const [windowchange, setwindowchange] = useState(Dimensions.get("window"))
+
+  useState(()=>{
+
+  })
   return (
     <View style={styles.HomepageContainer}>
       <View style={styles.Homepagecover1}>
@@ -69,7 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderBottomLeftRadius: "45px",
     borderBottomRightRadius: "45px",
-    height: "50%",
+    height: "35%",
     width: "cover",
     alignItems: "center",
     backgroundColor: "#275f38",
@@ -82,6 +87,7 @@ const styles = StyleSheet.create({
     fontWeight: 900,
     fontFamily: "'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif",
     margin: "12px",
+    color:"silver"
   },
   Homepagecover2: {
     flexDirection: "row",
