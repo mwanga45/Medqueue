@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const QuickAction = ({ backgroundColor, text, size, name }) => {
+const QuickAction = ({ backgroundColor, text, size, name, onclick }) => {
 
   const [screenWidth, setScreenWidth] = useState(Dimensions.get("window").width);
 
@@ -21,8 +21,10 @@ const QuickAction = ({ backgroundColor, text, size, name }) => {
   // Use screenWidth in your styles, here we set the container width to 90% of screen width
   return (
     <View style={[Quickstyles.Quickcontainer, { backgroundColor, width: screenWidth * 0.45 }]}>
+      <TouchableOpacity onPress={onclick}>
       <Icon size={size} name={name} style={{ color: "white" }} />
       <Text style={{ color: "white" }}>{text}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
