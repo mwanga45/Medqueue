@@ -34,36 +34,36 @@ const Dktcard = ({ specialist, name }) => {
       </View>
       <View style={stylescard.Avacontainer}>
         <View>
-          <Text>Availability</Text>
+          <Text style= {{marginBottom:12, fontSize:20 }}>Availability</Text>
         </View>
         <View style = {stylescard.AvadayDate}>
           <View style = {stylescard.shape}>
-            <Text>Mon</Text>
-            <Text>13</Text>
+            <Text style={stylescard.dayText}>Mon</Text>
+            <Text style={stylescard.dayText}>13</Text>
           </View>
-          <View>
-            <Text>Tue</Text>
-            <Text>14</Text>
+          <View style = {stylescard.shape}>
+            <Text style={stylescard.dayText}>Tue</Text>
+            <Text style={stylescard.dayText}>14</Text>
           </View>
-          <View>
-            <Text>Wed</Text>
-            <Text>15</Text>
+          <View style = {stylescard.shape}>
+            <Text style={stylescard.dayText}>Wed</Text>
+            <Text style={stylescard.dayText}>15</Text>
           </View>
-          <View>
-            <Text>Thu</Text>
-            <Text>16</Text>
+          <View style = {stylescard.shape}>
+            <Text style={stylescard.dayText}>Thu</Text>
+            <Text style={stylescard.dayText}>16</Text>
           </View>
-          <View>
-            <Text>Fri</Text>
-            <Text>17</Text>
+          <View style = {stylescard.shape}>
+            <Text style={stylescard.dayText}>Fri</Text>
+            <Text style={stylescard.dayText}>17</Text>
           </View>
-          <View>
-            <Text>Sat</Text>
-            <Text>18</Text>
+          <View style = {stylescard.shape}>
+            <Text style={stylescard.dayText}>Sat</Text>
+            <Text style={stylescard.dayText}>18</Text>
           </View>
-          <View>
-            <Text>Sun</Text>
-            <Text>19</Text>
+          <View style = {stylescard.shape}>
+            <Text style={stylescard.dayText}>Sun</Text>
+            <Text style = {stylescard.dayText}>19</Text>
           </View>
         </View>
       </View>
@@ -91,14 +91,24 @@ const stylescard = StyleSheet.create({
     rowGap:12
 
   },
+  dayText: {
+    fontSize: 14,
+    color: "white",
+    fontWeight: "600",
+  },
   AvadayDate: {
   flexDirection:"row",
   columnGap:15
   
 },
 Avacontainer: {
-    width: "100%",
-    backgroundColor: "transparent",
+    width:"100%",
+    backgroundColor:"rgba(0,0,0,0.2)",
+    borderRadius:8,
+    height:200,
+    justifyContent:"center",
+    alignItems:"center",
+    marginBottom:12
 
   },
   booknowbtncontainer: {
