@@ -37,7 +37,7 @@ const Dktcard = ({ specialist, name }) => {
           <Text>Availability</Text>
         </View>
         <View style = {stylescard.AvadayDate}>
-          <View>
+          <View style = {stylescard.shape}>
             <Text>Mon</Text>
             <Text>13</Text>
           </View>
@@ -71,7 +71,7 @@ const Dktcard = ({ specialist, name }) => {
       <View>
         <TouchableOpacity style={stylescard.booknowbtn}>
           <Text style={{ fontSize: 20, color: "white", fontWeight: "medium" }}>
-            Booking Now{" "}
+            Booking Now
           </Text>
         </TouchableOpacity>
       </View>
@@ -80,6 +80,17 @@ const Dktcard = ({ specialist, name }) => {
 };
 
 const stylescard = StyleSheet.create({
+
+  shape:{
+    backgroundColor:"rgba(0,0,0,0.2)",
+    height:60,
+    width:40,
+    justifyContent:"center",
+    alignItems:"center",
+    borderRadius:12,
+    rowGap:12
+
+  },
   AvadayDate: {
   flexDirection:"row",
   columnGap:15
