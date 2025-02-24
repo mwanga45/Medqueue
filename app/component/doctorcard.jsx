@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import MyCalendar from "../component/calender";
+
 const Dktcard = ({ specialist, name }) => {
   return (
     <LinearGradient
@@ -19,7 +19,7 @@ const Dktcard = ({ specialist, name }) => {
             <Text
               style={stylescard.dktname}
               numberOfLines={1}
-              ellipsizeMode={"middle"}
+              ellipsizeMode={"head"}
             >
               Dr.{name}
             </Text>
@@ -34,7 +34,7 @@ const Dktcard = ({ specialist, name }) => {
       </View>
       <View style={stylescard.Avacontainer}>
         <View>
-          <Text style= {{marginBottom:12, fontSize:20 }}>Availability</Text>
+          <Text style= {{marginBottom:12, fontSize:24, fontWeight:"800", color:"white" }}>Availability</Text>
         </View>
         <View style = {stylescard.AvadayDate}>
           <View style = {stylescard.shape}>
