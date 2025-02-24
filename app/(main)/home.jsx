@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "../component/QuickAction";
 import MyCalendar from "../component/calender";
-import Dktcard from "../component/doctorcard";
+
 import { View, Text, StyleSheet,Dimensions, ScrollView, TouchableOpacity } from "react-native";
 
 const Homepage = () => {

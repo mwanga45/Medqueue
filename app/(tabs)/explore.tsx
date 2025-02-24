@@ -6,7 +6,7 @@ import Dktcard from "../component/doctorcard";
 export default function TabTwoScreen() {
   return (
     <View style= {teststyle.maintest}>
-        <Dktcard specialist={"Neurologist"} name={"Paul solm"}/>
+        <Dktcard specialist={"Neurologist"} name={"Paul Solm"}/>
     </View>
     )
   }

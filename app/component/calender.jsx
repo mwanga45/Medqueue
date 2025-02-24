@@ -2,9 +2,11 @@ import React from 'react';
 import { View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
+
 const MyCalendar = () => {
     return (
         <View>
+         
             <Calendar
                 current={"2025-02-01"}
                 minDate={"2025-01-01"}
@@ -18,8 +20,8 @@ const MyCalendar = () => {
                     },
                 }}
                 theme={{
-                    backgroundColor: '#ffffff',
-                    calendarBackground: '#ffffff',
+                    backgroundColor:"rgba(0,0,0,0.2)",
+                    calendarBackground: 'transparent',
                     textSectionTitleColor: '#b6c1cd',
                     selectedDayBackgroundColor: '#00adf5',
                     selectedDayTextColor: '#ffffff',
