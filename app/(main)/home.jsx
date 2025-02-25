@@ -4,80 +4,80 @@ import QuickAction from "../component/QuickAction";
 import MyCalendar from "../component/calender";
 import Navigationbar from "../component/navigation";
 
-import { View, Text, StyleSheet,Dimensions, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 
 const Homepage = () => {
-  const [showcalender, setshowcalender] = useState(false)
-  const handleshowcalender = ()=>{
-    setshowcalender(!showcalender)
-  }
-  return (
-    <ScrollView style ={styles.Scrollstyle}>
-      <View style={styles.HomepageContainer}>
-        <View style={styles.Homepagecover1}>
-          <Icon
-            name="hospital-symbol"
-            size={100}
-            style={{ color: "silver" }}
-          ></Icon>
-        </View>
-        <Text style={styles.TextQuick}>Quick Action</Text>
-        <View style={styles.Homepagecover2}>
-          <View style={{ flex: 1, padding: 10 }}>
-            <QuickAction
-              name={"bell"}
-              size={30}
-              text={"Set Remainder"}
-              backgroundColor={"#274b5f"}
-            />
-          </View>
-          <View style={{ flex: 1, padding: 10 }}>
-            <QuickAction
-              name={"book"}
-              size={30}
-              text={"Booking"}
-              backgroundColor={"#00d4ff"}
-            />
-          </View>
-        </View>
-        <View style={styles.Homepagecover2}>
-          <View style={{ flex: 1, padding: 10 }}>
-            <QuickAction
-              name={"calendar-day"}
-              size={30}
-              text={"calender"}
-              backgroundColor={"#274b5f"}
-              onclick={handleshowcalender}
-      
-            />
-          </View>
-          <View style={{ flex: 1, padding: 10 }}>
-            <QuickAction
-              name={"user-check"}
-              size={30}
-              text={"Doctor Available"}
-              backgroundColor={"#d51341"}
-            />
-          </View> 
-        </View>
-        {
-          showcalender && <MyCalendar/>   
-        }
-      </View>
+  const [showcalender, setshowcalender] = useState(false);
+  const handleshowcalender = () => {
+    setshowcalender(!showcalender);
+  };
 
-      <View>
-          <Navigationbar/>
-      </View>
-      
-    </ScrollView>
+  return (
+    <View style={styles.container}>
+      {/* Scrollable content */}
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.HomepageContainer}>
+          <View style={styles.Homepagecover1}>
+            <Icon name="hospital-symbol" size={100} style={{ color: "silver" }} />
+          </View>
+          <Text style={styles.TextQuick}>Quick Action</Text>
+          <View style={styles.Homepagecover2}>
+            <View style={{ flex: 1, padding: 10 }}>
+              <QuickAction
+                name={"bell"}
+                size={30}
+                text={"Set Remainder"}
+                backgroundColor={"#274b5f"}
+              />
+            </View>
+            <View style={{ flex: 1, padding: 10 }}>
+              <QuickAction
+                name={"book"}
+                size={30}
+                text={"Booking"}
+                backgroundColor={"#00d4ff"}
+              />
+            </View>
+          </View>
+          <View style={styles.Homepagecover2}>
+            <View style={{ flex: 1, padding: 10 }}>
+              <QuickAction
+                name={"calendar-day"}
+                size={30}
+                text={"calender"}
+                backgroundColor={"#274b5f"}
+                onclick={handleshowcalender}
+              />
+            </View>
+            <View style={{ flex: 1, padding: 10 }}>
+              <QuickAction
+                name={"user-check"}
+                size={30}
+                text={"Doctor Available"}
+                backgroundColor={"#d51341"}
+              />
+            </View>
+          </View>
+          {showcalender && <MyCalendar />}
+        </View>
+      </ScrollView>
+
+      {/* Fixed Navigation Bar */}
+      <Navigationbar />
+    </View>
   );
 };
 
 export default Homepage;
 
 const styles = StyleSheet.create({
-  Scrollstyle:{
+  container: {
+    flex: 1, // Ensures the container takes the full screen height
     backgroundColor: "#F7F7F7",
+  },
+  scrollContainer: {
+    flexGrow: 1, //this allow the scrollview content to expand to fill the content 
+    paddingBottom: 80, 
   },
   HomepageContainer: {
     flex: 1,
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     paddingLeft: 1.5,
     paddingRight: 2,
     paddingBottom: 1,
-  
   },
   Homepagecover1: {
     position: "relative",
@@ -97,14 +96,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#275f38",
     shadowColor: "rgba(0, 0, 0, 0.17)",
-    shadowOffset: { width: 0, height: 4 }, // X and Y shadow position
-    shadowOpacity: 0.3, // Darkness of shadow
-    shadowRadius: 5, // Blur effect
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
     zIndex: 100,
   },
   TextQuick: {
     fontSize: 25,
-    fontWeight: 900,
+    fontWeight: "900",
     margin: 12,
     color: "silver",
   },

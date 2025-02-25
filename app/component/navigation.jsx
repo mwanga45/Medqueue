@@ -5,53 +5,58 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 
 const Navigationbar = () => {
   const router = useRouter()
-  const handlenavigation = ()=>{
-      router.replace("/(tabs)/explore")
-  }
+
   return (
     <View style= {navstyles.navcontainer}>
       <View style = {navstyles.mainnavcontainer}>
-        <TouchableOpacity >
+        <TouchableOpacity style= {navstyles.link}  onPress={()=> router.replace("/(main)/home")}>
+          <Icon name= "home"  ></Icon>
       <Text style= {{color:"white"}}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity >
-          <Icon name= "home" ></Icon>
-      <Text style= {{color:"white"}}>Home</Text>
+        <TouchableOpacity style= {navstyles.link} onPress={()=> router.replace("/(tabs)/explore")} >
+          <Icon name= "home"  ></Icon>
+      <Text style= {{color:"white"}}>Explore</Text>
         </TouchableOpacity>
-        <TouchableOpacity  onPress={handlenavigation}>
-      <Text style= {{color:"white"}}>export</Text>
+        <TouchableOpacity style= {navstyles.link} >
+          <Icon name= "home"  ></Icon>
+      <Text style= {{color:"white"}}>Return</Text>
         </TouchableOpacity>
+
+
 
     
       </View>
     </View>
   );
 }
- const navstyles = StyleSheet.create({
-    navcontainer:{
-    //    backgroundColor:"rgba(0, 0, 0, 0.2)",
-       width:"100%",
-       paddingHorizontal:12,
-       height:60,
-       justifyContent:"center",
-       position:"relative",
-       top:281
-
-
-   
-    },
-    mainnavcontainer:{
-       alignItems:"center",
-       height:60,
-       justifyContent:"space-between",
-       flexDirection:"row", 
-       backgroundColor:"rgba(23, 22, 22, 0.9)",  
-       borderRadius:12,
-       paddingHorizontal:12,
-    },
-    
-
- })
+const navstyles = StyleSheet.create({
+  navcontainer: {
+     flex:1,
+     width: "100%",
+     position: "absolute",  // Fix the position
+     bottom: 0,             // Stick it to the bottom
+     left: 0,
+     right: 0,
+     justifyContent: "center",
+  },
+  mainnavcontainer: {
+     alignItems: "center",
+     height: 80,
+     justifyContent: "space-between",
+     flexDirection: "row", 
+     backgroundColor: "rgba(23, 22, 22, 0.9)",  
+     borderRadius: 12,
+     paddingHorizontal: 22,
+  },
+  link: {
+     backgroundColor: "#9aef6a",
+     justifyContent: "center",
+     alignItems: "center",
+     width: 60,
+     height: 50,
+     borderRadius: 15,
+  }
+});
 
 
 export default Navigationbar;
