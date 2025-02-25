@@ -1,13 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 const Navigationbar = () => {
+  const router = useRouter()
+  const handlenavigation = ()=>{
+      router.replace("/(tabs)/explore")
+  }
   return (
     <View style= {navstyles.navcontainer}>
       <View style = {navstyles.mainnavcontainer}>
+        <TouchableOpacity >
       <Text style= {{color:"white"}}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity >
+          <Icon name= "home" ></Icon>
       <Text style= {{color:"white"}}>Home</Text>
-      <Text style= {{color:"white"}}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity  onPress={handlenavigation}>
+      <Text style= {{color:"white"}}>export</Text>
+        </TouchableOpacity>
+
     
       </View>
     </View>
@@ -21,7 +35,7 @@ const Navigationbar = () => {
        height:60,
        justifyContent:"center",
        position:"relative",
-       top:283
+       top:281
 
 
    

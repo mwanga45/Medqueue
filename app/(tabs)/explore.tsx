@@ -1,5 +1,6 @@
 import { StyleSheet, Image, Platform, View } from 'react-native';
 import Dklistcard from "../component/doctorlistcard";
+import Dktcard from "../component/doctorcard"
 
 
 
@@ -7,7 +8,8 @@ import Dklistcard from "../component/doctorlistcard";
 export default function TabTwoScreen() {
   return (
     <View style= {teststyle.maintest}>
-        <Dklistcard/>
+        {/* <Dklistcard/> */}
+        <Dktcard name={"Paul Solm"} specialist={"health"}/>
     </View>
     )
   }
