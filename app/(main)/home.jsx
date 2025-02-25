@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "../component/QuickAction";
 import MyCalendar from "../component/calender";
+import Navigationbar from "../component/navigation";
 
 import { View, Text, StyleSheet,Dimensions, ScrollView, TouchableOpacity } from "react-native";
 
@@ -63,6 +64,10 @@ const Homepage = () => {
           showcalender && <MyCalendar/>   
         }
       </View>
+
+      <View>
+          <Navigationbar/>
+      </View>
       
     </ScrollView>
   );
@@ -80,13 +85,14 @@ const styles = StyleSheet.create({
     paddingLeft: 1.5,
     paddingRight: 2,
     paddingBottom: 1,
+  
   },
   Homepagecover1: {
     position: "relative",
     justifyContent: "center",
     borderBottomLeftRadius: 45,
     borderBottomRightRadius: 45,
-    height: 200,
+    height: 300,
     width: "100%",
     alignItems: "center",
     backgroundColor: "#275f38",
