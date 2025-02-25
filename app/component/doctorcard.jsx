@@ -4,17 +4,18 @@ import { LinearGradient } from "expo-linear-gradient";
 // import { BlurView } from "expo-blur";
 
 const Dktcard = ({ specialist, name }) => {
+    // function that return  day of week
   const getDayName = (date) => {
     return date.toLocaleDateString("en-US", { weekday: "short" });
   };
-
+//  function which return date of day
   const getDayNumber = (date) => {
     return date.getDate();
   };
 
-  const today = new Date();
+  const today = new Date(); // return current date and time 
   const daysArray = Array.from({ length: 7 }, (_, index) => {
-    const newDate = new Date(today);
+    const newDate = new Date(today); // new Date(today): Clone today's date to avoid modifying the original
     newDate.setDate(today.getDate() + index);
     return newDate;
   });

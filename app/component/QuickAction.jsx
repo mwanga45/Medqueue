@@ -11,7 +11,6 @@ const QuickAction = ({ backgroundColor, text, size, name, onclick }) => {
     const updateDimensions = ({ window }) => {
       setScreenWidth(window.width);
     };
-
     const subscription = Dimensions.addEventListener("change", updateDimensions);
 
     // Cleanup the subscription when the component unmounts
