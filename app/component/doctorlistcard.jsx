@@ -1,51 +1,63 @@
-import React from 'react';
-import { View, Text,StyleSheet, Image } from 'react-native';
-import iconSet from '@expo/vector-icons/build/FontAwesome5';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 const Dklistcard = () => {
   return (
-    <View style= {styleslistcard.dklcontainer}>
-         <View style = {styleslistcard.dkAgment}>
-              <View style = {styleslistcard.imgdk}>
-                <Image source={require("../../assets/images/react-logo.png")}  style= {{height:20, width:45}}/>
-              </View>
-              <View>
-                <Text>Dr. Jenny Wilson</Text>
-                <Text>Bone Health</Text>
-                <Text>10:25AM - 11:25 AM Scheduled </Text>
-              </View>
-              <Ionicons name='chevron-right' size={20}></Ionicons>
-              <View>
-                  
-              </View>
-         </View>
+    <View style={styleslistcard.dklcontainer}>
+      <View style={styleslistcard.dkAgment}>
+        <View style={styleslistcard.imgdk}>
+          <Image
+            source={require("../../assets/images/react-logo.png")}
+            style={{ height: 50, width: 60 }}
+          />
+        </View>
+        <View>
+          <Text style={{ fontSize: 18, fontWeight: 600 }}>
+            Dr. Jenny Wilson
+          </Text>
+          <Text>Bone Health</Text>
+          <Text style={{ fontSize: 12, fontWeight: 400, color: "grey" }}>
+            10:25 AM - 11:25 AM Scheduled{" "}
+          </Text>
+        </View>
+        <View style={styleslistcard.IconArrow}>
+          <TouchableOpacity>
+            <Icon name="chevron-right" size={20} style={{ color: "grey" }} />
+          </TouchableOpacity>
+        </View>
+        <View></View>
+      </View>
     </View>
   );
-}
+};
 
 const styleslistcard = StyleSheet.create({
-    dklcontainer:{
-        justifyContent:"center",
-        alignItems:"center",
-        height:70,
-        backgroundColor:"white",
-        padding:5,
-        borderRadius:10
-    },
-    dkAgment:{
-       flexDirection:"row",
-       columnGap:12
-
-
-    },
-    imgdk:{
-        backgroundColor:"grey",
-        justifyContent:"center",
-        alignItems:"center",
-        borderRadius:10
-
-    }
-})
+  dklcontainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 100,
+    backgroundColor: "#f4f4f4",
+    padding: 2,
+    width: "95%",
+    borderRadius: 10,
+  },
+  dkAgment: {
+    flexDirection: "row",
+    columnGap: 30,
+  },
+  imgdk: {
+    backgroundColor: "#d7dfe7",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    width: 90,
+    height: 80,
+  },
+  IconArrow: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default Dklistcard;
