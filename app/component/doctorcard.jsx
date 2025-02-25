@@ -1,8 +1,24 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Platform } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+// import { BlurView } from "expo-blur";
 
 const Dktcard = ({ specialist, name }) => {
+  const getDayName = (date) => {
+    return date.toLocaleDateString("en-US", { weekday: "short" });
+  };
+
+  const getDayNumber = (date) => {
+    return date.getDate();
+  };
+
+  const today = new Date();
+  const daysArray = Array.from({ length: 7 }, (_, index) => {
+    const newDate = new Date(today);
+    newDate.setDate(today.getDate() + index);
+    return newDate;
+  });
+
   return (
     <LinearGradient
       colors={["rgba(0,36,2,1)", "rgba(19,213,84,1)", "rgba(3,234,25,1)"]}
@@ -19,9 +35,9 @@ const Dktcard = ({ specialist, name }) => {
             <Text
               style={stylescard.dktname}
               numberOfLines={1}
-              ellipsizeMode={"head"}
+              ellipsizeMode="middle"
             >
-              Dr.{name}
+              Dr. {name}
             </Text>
           </View>
         </View>
@@ -32,47 +48,33 @@ const Dktcard = ({ specialist, name }) => {
           />
         </View>
       </View>
+
       <View style={stylescard.Avacontainer}>
-        <View>
-          <Text style= {{marginBottom:12, fontSize:24, fontWeight:"800", color:"white" }}>Availability</Text>
+        <View style={stylescard.availabilityHeader}>
+          <Text style={stylescard.availabilityHeaderText}>Availability</Text>
         </View>
-        <View style = {stylescard.AvadayDate}>
-          <View style = {stylescard.shape}>
-            <Text style={stylescard.dayText}>Mon</Text>
-            <Text style={stylescard.dayText}>13</Text>
+        
+        {/* <BlurView
+          intensity={Platform.OS === 'ios' ? 30 : 20}
+          tint="light"
+          style={stylescard.blurContainer}
+        > */}
+          <View style={stylescard.AvadayDate}>
+            {daysArray.map((day, index) => (
+              <View key={index} style={stylescard.avadayItem}>
+                <View style={stylescard.glassDayContainer}>
+                  <Text style={stylescard.dayText}>{getDayName(day)}</Text>
+                  <Text style={stylescard.dateText}>{getDayNumber(day)}</Text>
+                </View>
+              </View>
+            ))}
           </View>
-          <View style = {stylescard.shape}>
-            <Text style={stylescard.dayText}>Tue</Text>
-            <Text style={stylescard.dayText}>14</Text>
-          </View>
-          <View style = {stylescard.shape}>
-            <Text style={stylescard.dayText}>Wed</Text>
-            <Text style={stylescard.dayText}>15</Text>
-          </View>
-          <View style = {stylescard.shape}>
-            <Text style={stylescard.dayText}>Thu</Text>
-            <Text style={stylescard.dayText}>16</Text>
-          </View>
-          <View style = {stylescard.shape}>
-            <Text style={stylescard.dayText}>Fri</Text>
-            <Text style={stylescard.dayText}>17</Text>
-          </View>
-          <View style = {stylescard.shape}>
-            <Text style={stylescard.dayText}>Sat</Text>
-            <Text style={stylescard.dayText}>18</Text>
-          </View>
-          <View style = {stylescard.shape}>
-            <Text style={stylescard.dayText}>Sun</Text>
-            <Text style = {stylescard.dayText}>19</Text>
-          </View>
-        </View>
+        {/* </BlurView> */}
       </View>
 
       <View>
         <TouchableOpacity style={stylescard.booknowbtn}>
-          <Text style={{ fontSize: 20, color: "white", fontWeight: "medium" }}>
-            Booking Now
-          </Text>
+          <Text style={stylescard.booknowbtnText}>Booking Now</Text>
         </TouchableOpacity>
       </View>
     </LinearGradient>
@@ -80,88 +82,132 @@ const Dktcard = ({ specialist, name }) => {
 };
 
 const stylescard = StyleSheet.create({
-
-  shape:{
-    backgroundColor:"rgba(0,0,0,0.2)",
-    height:60,
-    width:40,
-    justifyContent:"center",
-    alignItems:"center",
-    borderRadius:12,
-    rowGap:12
-
+  AvadayDate: {
+    flexDirection: "row",
+    paddingVertical: 8,
+    justifyContent: "space-around",
+  },
+  Avacontainer: {
+    width: "100%",
+    backgroundColor: "transparent",
+    marginVertical: 10,
+  },
+  availabilityHeader: {
+    marginBottom: 12,
+  },
+  availabilityHeaderText: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#fff",
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+  avadayItem: {
+    marginHorizontal: 6,
+    marginVertical: 4,
+  },
+  blurContainer: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    padding: 12,
+    marginHorizontal: -4,
+  },
+  glassDayContainer: {
+    backgroundColor: Platform.select({
+      ios: 'rgba(255, 255, 255, 0.2)',
+      android: 'rgba(255, 255, 255, 0.3)'
+    }),
+    borderRadius: 12,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.4)',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
   },
   dayText: {
     fontSize: 14,
-    color: "white",
+    color: "#fff",
     fontWeight: "600",
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
-  AvadayDate: {
-  flexDirection:"row",
-  columnGap:15
-  
-},
-Avacontainer: {
-    width:"100%",
-    backgroundColor:"rgba(0,0,0,0.2)",
-    borderRadius:8,
-    height:200,
-    justifyContent:"center",
-    alignItems:"center",
-    marginBottom:12
-
-  },
-  booknowbtncontainer: {
-    width: "90%",
-    justifyContent: "center",
-    alignItems: "center",
+  dateText: {
+    fontSize: 16,
+    color: "#fff",
+    fontWeight: "bold",
+    marginTop: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   booknowbtn: {
     width: "100%",
     height: 50,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#2769ae",
+    backgroundColor: "rgba(39, 105, 174, 0.9)",
     borderRadius: 20,
+    marginTop: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  booknowbtnText: {
+    fontSize: 20,
+    color: "white",
+    fontWeight: "500",
   },
   Cardcontainer: {
     flex: 1,
-    backgroundColor: "#d0f0c0",
     width: "95%",
-    padding: 12,
-    borderRadius: 15,
+    padding: 16,
+    borderRadius: 24,
+    margin: 8,
   },
   image: {
     width: 100,
     height: 100,
-    resizeMode: "contain", // Adjusts image scaling mode
+    resizeMode: "contain",
   },
-  //   always view component is flex so there is no need to write flex
   cardsides: {
     justifyContent: "space-between",
     flexDirection: "row",
+    marginBottom: 16,
   },
   handlespecialist: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.1)",
-    width: 100,
-    height: 20,
-    borderRadius: 4,
+    backgroundColor: "rgba(0,0,0,0.15)",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
     marginBottom: 12,
   },
   handlename: {
-    width: 200,
-    borderRadius: 4,
+    maxWidth: 200,
   },
-
   dktname: {
     color: "white",
-    fontSize: 20,
+    fontSize: 22,
+    fontWeight: "700",
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   Specialist: {
     color: "white",
-    fontSize: 10,
+    fontSize: 12,
+    fontWeight: "600",
   },
 });
 
