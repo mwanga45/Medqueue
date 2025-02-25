@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
   Homepagecover1: {
     position: "relative",
     justifyContent: "center",
-    borderBottomLeftRadius: "45px",
-    borderBottomRightRadius: "45px",
+    borderBottomLeftRadius: 45,
+    borderBottomRightRadius: 45,
     height: 200,
     width: "100%",
     alignItems: "center",
