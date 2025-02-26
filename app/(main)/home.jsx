@@ -33,16 +33,15 @@ const Homepage = () => {
                 backgroundColor={"#274b5f"}
               />
             </View>
-              <TouchableOpacity onPress={() => router.push("booking")}>
             <View style={{ flex: 1, padding: 10 }}>
               <QuickAction
                 name={"book"}
                 size={30}
                 text={"Booking"}
                 backgroundColor={"#00d4ff"}
+                onclick={()=>router.push("booking")}
               />
             </View>
-              </TouchableOpacity>
           </View>
           <View style={styles.Homepagecover2}>
             <View style={{ flex: 1, padding: 10 }}>

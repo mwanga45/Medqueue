@@ -5,7 +5,7 @@ import Navigationbar from "../component/navigation";
 const Booking = () => {
   return (
     <View style = {bookingstyles.maincontainer}>
-      <Text>hellow world</Text>
+      <Text>hello world</Text>
       <Navigationbar />
     </View>
   );
@@ -13,7 +13,8 @@ const Booking = () => {
 
 const bookingstyles =  StyleSheet.create({
     maincontainer:{
-        flex:1
+        flex:1,
+        backgroundColor:"#4CAF50",
     }
 })
 
