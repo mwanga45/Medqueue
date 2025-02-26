@@ -38,9 +38,10 @@ const styleslistcard = StyleSheet.create({
     alignItems: "center",
     height: 100,
     backgroundColor: "#f4f4f4",
-    padding: 2,
+    padding:8,
     width: "95%",
-    borderRadius: 10,
+    borderRadius: 20,
+    marginBottom:12
   },
   dkAgment: {
     flexDirection: "row",

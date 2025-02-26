@@ -43,7 +43,7 @@ useEffect(()=>{
         ]}
       >
         <Ionicons name="medical" size={100} color="white" />
-        <Text style={styles.appName}>MedQueue</Text>
+        <Text style={styles.appName}>Medqueue</Text>
       </Animated.View>
     </View>
   );

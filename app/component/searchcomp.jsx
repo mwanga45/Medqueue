@@ -20,12 +20,13 @@ const searchstyles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
         backgroundColor:"#e1e1e1",
-        height:60
+        height:60,
+        borderRadius:23
 
         // backgroundColor:"black"
     },
     inputsearchstyles:{
-        width:"85%"
+        width:"85%",
     }
 });
 

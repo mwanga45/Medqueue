@@ -19,7 +19,7 @@ const Navigationbar = () => {
       <Text style= {{color:"white"}}>Explore</Text>
         </TouchableOpacity>
         <TouchableOpacity style= {navstyles.link} onPress={() => router.replace("/(main)/doctors")} >
-          <Icon name= "home"  ></Icon>
+          <Icon name= "list"   ></Icon>
       <Text style= {{color:"white"}}>doctors</Text>
         </TouchableOpacity>
 
