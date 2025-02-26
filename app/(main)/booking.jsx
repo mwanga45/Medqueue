@@ -8,9 +8,9 @@ const Booking = () => {
       <View style={bookingstyles.bkcontainer}>
         <View style = {bookingstyles.Dperiod}>
            <View style = {bookingstyles.period}><Text style= {bookingstyles.Dperiodname}>Morning</Text></View>
-           <View style = {bookingstyles.period}><Text>Afternoon</Text></View>
-           <View style = {bookingstyles.period}><Text>Evening</Text></View>
-           <View style = {bookingstyles.period}><Text>Night</Text></View>
+           <View style = {bookingstyles.period}><Text style= {bookingstyles.Dperiodname}>Afternoon</Text></View>
+           <View style = {bookingstyles.period}><Text  style= {bookingstyles.Dperiodname}>Evening</Text></View>
+           <View style = {bookingstyles.period}><Text  style= {bookingstyles.Dperiodname}>Night</Text></View>
         </View>
         <View style= {bookingstyles.bookng}>
              <View>
