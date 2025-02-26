@@ -10,8 +10,8 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 
 const Searchcomp = () => {
   const [search, setsearch] = useState("");
-  const handlesearch = (e) => {
-    setsearch(e.target.value)
+  const handlesearch = (text) => {
+    setsearch(text)
   };
   return (
     <View>

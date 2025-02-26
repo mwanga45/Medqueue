@@ -22,10 +22,6 @@ const Navigationbar = () => {
           <Icon name= "list"   ></Icon>
       <Text style= {{color:"white"}}>doctors</Text>
         </TouchableOpacity>
-
-
-
-    
       </View> 
     </View>
   );
@@ -42,14 +38,14 @@ const navstyles = StyleSheet.create({
   },
   mainnavcontainer: {
      alignItems: "center",
-     height: 90,
+     height: 80,
      justifyContent: "space-between",
      flexDirection: "row", 
      backgroundColor: "rgba(23, 22, 22, 0.9)",  
      paddingHorizontal: 22,
      marginBottom:1,
      borderBottomRightRadius:33,
-     borderBottomLeftRadius:33,
+     borderRadius:33,
   },
   link: {
      backgroundColor: "#9aef6a",
