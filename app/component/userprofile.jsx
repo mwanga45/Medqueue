@@ -27,7 +27,8 @@ const UserProf = () => {
 const useprop = StyleSheet.create({
   mainprofContainer: {
     width:"100%",
-    backgroundColor: "#f5f5f5",
+    // backgroundColor: "#f5f5f5",
+    backgroundColor:"transparent",
     borderRadius:12
   },
   profContainer: {

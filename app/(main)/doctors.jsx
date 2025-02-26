@@ -90,11 +90,11 @@ const doctorsstyles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    height: 250,
-    backgroundColor: "white",
+    height: 270,
+    backgroundColor: "#eff5ec",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    // paddingTop:14,
+    paddingTop:34,
   },
 });
 export default DoctorPresence;
