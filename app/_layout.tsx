@@ -36,7 +36,7 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack
         screenOptions={{
-          animation:Platform.OS ==="ios" ? "ios_from_left":"ios_from_left",
+          animation:Platform.OS ==="ios" ? "ios_from_left":"slide_from_right",
           headerShown: false,
         }}
       >
