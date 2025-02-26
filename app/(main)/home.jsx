@@ -3,10 +3,13 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "../component/QuickAction";
 import MyCalendar from "../component/calender";
 import Navigationbar from "../component/navigation";
+import { useNavigation, useRouter } from "expo-router";
 
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 
 const Homepage = () => {
+  const router = useRouter()
+  const navigation = useNavigation
   const [showcalender, setshowcalender] = useState(false);
   const handleshowcalender = () => {
     setshowcalender(!showcalender);
@@ -30,6 +33,7 @@ const Homepage = () => {
                 backgroundColor={"#274b5f"}
               />
             </View>
+              <TouchableOpacity onPress={() => router.push("booking")}>
             <View style={{ flex: 1, padding: 10 }}>
               <QuickAction
                 name={"book"}
@@ -38,6 +42,7 @@ const Homepage = () => {
                 backgroundColor={"#00d4ff"}
               />
             </View>
+              </TouchableOpacity>
           </View>
           <View style={styles.Homepagecover2}>
             <View style={{ flex: 1, padding: 10 }}>

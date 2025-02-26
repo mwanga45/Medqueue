@@ -1,14 +1,20 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React from "react";
+import { View, Text , StyleSheet} from "react-native";
+import Navigationbar from "../component/navigation";
 
 const Booking = () => {
   return (
-    <View>
-      <Text>
-          it time to booking page
-      </Text>
+    <View style = {bookingstyles.maincontainer}>
+      <Text>hellow world</Text>
+      <Navigationbar />
     </View>
   );
-}
+};
+
+const bookingstyles =  StyleSheet.create({
+    maincontainer:{
+        flex:1
+    }
+})
 
 export default Booking;
