@@ -7,7 +7,7 @@ const Booking = () => {
     <View style={bookingstyles.maincontainer}>
       <View style={bookingstyles.bkcontainer}>
         <View style = {bookingstyles.Dperiod}>
-           <View style = {bookingstyles.period}><Text>Morning</Text></View>
+           <View style = {bookingstyles.period}><Text style= {bookingstyles.Dperiodname}>Morning</Text></View>
            <View style = {bookingstyles.period}><Text>Afternoon</Text></View>
            <View style = {bookingstyles.period}><Text>Evening</Text></View>
            <View style = {bookingstyles.period}><Text>Night</Text></View>
@@ -32,6 +32,9 @@ const bookingstyles = StyleSheet.create({
    width:"94%",
    backgroundColor:"white",
    paddingHorizontal:4
+  },
+  Dperiodname:{
+    fontSize:17
   },
   period:{
     backgroundColor:"white",
