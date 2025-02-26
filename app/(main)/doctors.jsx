@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
 import Navigationbar from "../component/navigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import UserProf from "../component/userprofile";
 
 const DoctorPresence = () => {
   const currentdate = new Date();
@@ -18,7 +19,7 @@ const DoctorPresence = () => {
           <Icon name="bell" size={20} />
         </View>
         <View>
-          <Text>Hellow</Text>
+            <UserProf/>
         </View>
         <View></View>
       </View>
