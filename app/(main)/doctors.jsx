@@ -22,7 +22,7 @@ const DoctorPresence = () => {
             <UserProf/>
         </View>
         <View style = {doctorsstyles.searchdoctor}>
-        
+           
         </View>
       </View>
       <Navigationbar />
