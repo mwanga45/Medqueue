@@ -52,7 +52,7 @@ const DoctorPresence = () => {
 const doctorsstyles = StyleSheet.create({
   scrollcontainer:{
      flexGrow:1,
-     paddingBottom:800
+
   },
  
   doclist: {
@@ -85,6 +85,7 @@ const doctorsstyles = StyleSheet.create({
   doctosMaincontainer: {
     flex: 1,
     backgroundColor: "#d3d2d2",
+    paddingBottom:80
   },
   usercontent: {
     width: "100%",
@@ -95,6 +96,7 @@ const doctorsstyles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     paddingTop:34,
+
   },
 });
 export default DoctorPresence;
