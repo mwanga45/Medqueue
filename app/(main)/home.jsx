@@ -9,7 +9,6 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-nati
 
 const Homepage = () => {
   const router = useRouter()
-  const navigation = useNavigation
   const [showcalender, setshowcalender] = useState(false);
   const handleshowcalender = () => {
     setshowcalender(!showcalender);
