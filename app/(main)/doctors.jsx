@@ -3,6 +3,7 @@ import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
 import Navigationbar from "../component/navigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import UserProf from "../component/userprofile";
+import Searchcomp from "../component/searchcomp";
 
 const DoctorPresence = () => {
   const currentdate = new Date();
@@ -22,7 +23,7 @@ const DoctorPresence = () => {
             <UserProf/>
         </View>
         <View style = {doctorsstyles.searchdoctor}>
-           
+             <Searchcomp/> 
         </View>
       </View>
       <Navigationbar />
@@ -31,7 +32,8 @@ const DoctorPresence = () => {
 };
 const doctorsstyles = StyleSheet.create({
   searchdoctor:{
-
+   width:"98%",
+   marginTop:12
   },
   propfile:{
      justifyContent:"center",
