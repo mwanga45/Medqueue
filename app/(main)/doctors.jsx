@@ -18,19 +18,32 @@ const DoctorPresence = () => {
           <Text style= {doctorsstyles.datestyle}>{formated}</Text>
           <Icon name="bell" size={20} />
         </View>
-        <View>
+        <View style = {doctorsstyles.propfile}>
             <UserProf/>
         </View>
-        <View></View>
+        <View style = {doctorsstyles.searchdoctor}>
+        
+        </View>
       </View>
       <Navigationbar />
     </View>
   );
 };
 const doctorsstyles = StyleSheet.create({
+  searchdoctor:{
+
+  },
+  propfile:{
+     justifyContent:"center",
+     alignItems:"center",
+     flexDirection:"row",
+     width:"96%"
+
+  },
   datestyle:{
-    fontSize:15,
+    fontSize:18,
     color:"grey",
+    fontWeight:"800"
   },
   datebell: {
     width: "90%",

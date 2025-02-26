@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import Icon from "react-native-vector-icons/FontAwesome5"
 
 const UserProf = () => {
   return (
@@ -12,7 +13,11 @@ const UserProf = () => {
           />
         </View>
         <View>
-          <Text>Hello Issa Mwanga</Text>
+          <Text style = {useprop.usernamestyles}>Hello, Issa Mwanga</Text>
+          <Text>Status</Text>
+        </View>
+        <View>
+        <Icon name="chevron-right" size={20} style={{ color: "grey" }} />
         </View>
       </View>
     </View>
@@ -21,14 +26,18 @@ const UserProf = () => {
 
 const useprop = StyleSheet.create({
   mainprofContainer: {
-    // flex: 1,
-    // backgroundColor: "white"
+    width:"100%",
+    backgroundColor: "#f5f5f5",
+    borderRadius:12
   },
   profContainer: {
     width: "100%",
-    justifyContent: "center",
-    alignItems: "center", // ensures vertical centering
-    flexDirection: "row"
+    justifyContent:"space-around",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingVertical:12,
+    paddingHorizontal:12,
+    
   },
   imagecontainer: {
     height: 80,
@@ -36,13 +45,17 @@ const useprop = StyleSheet.create({
     backgroundColor: "grey",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 40,      // half of 80 for a perfect circle
-    overflow: 'hidden'     // clips any overflow content
+    borderRadius: 40,      
+    overflow: 'hidden'    
   },
   imageprof: {
-    height: 80,           // match the container's dimensions
+    height: 80,           
     width: 80,
-    resizeMode: "cover"    // or "contain" if you prefer to see the whole image
+    resizeMode: "cover",
+  },
+  usernamestyles:{
+    fontSize:20,
+    fontWeight:"bold"
   }
 });
 
