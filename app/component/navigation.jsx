@@ -3,12 +3,13 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import Icon from "react-native-vector-icons/FontAwesome5";
 
+
 const Navigationbar = () => {
   const router = useRouter()
 
   return (
     <View style= {navstyles.navcontainer}>
-      <View style = {navstyles.mainnavcontainer}>
+       <View style = {navstyles.mainnavcontainer}>
         <TouchableOpacity style= {navstyles.link}  onPress={()=> router.replace("/(main)/home")}>
           <Icon name= "home"  ></Icon>
       <Text style= {{color:"white"}}>Home</Text>
@@ -17,15 +18,15 @@ const Navigationbar = () => {
           <Icon name= "home"  ></Icon>
       <Text style= {{color:"white"}}>Explore</Text>
         </TouchableOpacity>
-        <TouchableOpacity style= {navstyles.link} >
+        <TouchableOpacity style= {navstyles.link} onPress={() => router.replace("/(main)/doctors")} >
           <Icon name= "home"  ></Icon>
-      <Text style= {{color:"white"}}>Return</Text>
+      <Text style= {{color:"white"}}>doctors</Text>
         </TouchableOpacity>
 
 
 
     
-      </View>
+      </View> 
     </View>
   );
 }
