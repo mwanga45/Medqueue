@@ -18,7 +18,7 @@ const Booking = () => {
           color="#f0f0f0"
         />
         <View>
-          <ServiceAvailablecomp />
+          <ServiceAvailablecomp/>
         </View>
         <View style={bookingstyles.suggestiontitle}>
           <Text style={{ color: "#f0f0f0", fontSize: 20, fontWeight: 700 }}>Select Day Period For Qiuck Suggestion</Text>
