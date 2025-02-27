@@ -2,13 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Navigationbar from "../component/navigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Booking = () => {
   return (
     <View style={bookingstyles.maincontainer}>
-         <Ionicons name="medical" size={100} color="white" />
+      <Ionicons name="medical" size={100} color="white" />
       <View style={bookingstyles.bkcontainer}>
         <View style={bookingstyles.Dperiod}>
           <View style={bookingstyles.period}>
@@ -33,54 +32,59 @@ const Booking = () => {
               </Text>
             </View>
             <View style={bookingstyles.Datebooking}>
-              <View style = {bookingstyles.dateday}>
+              <View style={bookingstyles.dateday}>
                 <Text>2</Text>
                 <Text>Mon</Text>
               </View>
-              <View style = {bookingstyles.dateday}>
+              <View style={bookingstyles.dateday}>
                 <Text>2</Text>
                 <Text>Mon</Text>
               </View>
-              <View style = {bookingstyles.dateday}>
+              <View style={bookingstyles.dateday}>
                 <Text>2</Text>
                 <Text>Mon</Text>
               </View>
-              <View style = {bookingstyles.dateday}>
+              <View style={bookingstyles.dateday}>
                 <Text>2</Text>
                 <Text>Mon</Text>
               </View>
             </View>
-            <View style = {bookingstyles.timecontainer}>
-               <Ionicons name="timer" size={20} style = {{color:"grey"}}/>
-               <Text style ={{color:"grey"}}>Select time slot</Text>
+            <View style={bookingstyles.timecontainer}>
+              <Ionicons name="timer" size={20} style={{ color: "grey" }} />
+              <Text style={{ color: "grey" }}>Select time slot</Text>
             </View>
-            <ScrollView horizontal= {true} style={bookingstyles.scrollslot} showsHorizontalScrollIndicator={true}>
-            <View style = {bookingstyles.slottmt}>
-              <View style = {bookingstyles.slot}>
-                <Text>12:30-12:45</Text>
+            <ScrollView
+              horizontal={true}
+              style={bookingstyles.scrollslot}
+              showsHorizontalScrollIndicator={true}
+              persistentScrollbar={true}
+            >
+              <View style={bookingstyles.slottmt}>
+                <View style={bookingstyles.slot}>
+                  <Text>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text>12:30-12:45</Text>
+                </View>
               </View>
-              <View style = {bookingstyles.slot}>
-                <Text>12:30-12:45</Text>
-              </View>
-              <View style = {bookingstyles.slot}>
-                <Text>12:30-12:45</Text>
-              </View>
-              <View style = {bookingstyles.slot}>
-                <Text>12:30-12:45</Text>
-              </View>
-              <View style = {bookingstyles.slot}>
-                <Text>12:30-12:45</Text>
-              </View>
-              <View style = {bookingstyles.slot}>
-                <Text>12:30-12:45</Text>
-              </View>
-              <View style = {bookingstyles.slot}>
-                <Text>12:30-12:45</Text>
-              </View>
-              <View style = {bookingstyles.slot}>
-                <Text>12:30-12:45</Text>
-              </View>
-            </View>
             </ScrollView>
           </View>
         </View>
@@ -91,46 +95,44 @@ const Booking = () => {
 };
 
 const bookingstyles = StyleSheet.create({
-  scrollslot:{
-    paddingHorizontal:1,
+  scrollslot: {
+    paddingHorizontal: 1,
   },
-  slot:{
-    width:150,
-    height:50,
-    backgroundColor:"grey",
-    justifyContent:"center",
-    alignItems:"center",
-    borderRadius:13
-    
-
+  slot: {
+    width: 150,
+    height: 50,
+    backgroundColor: "grey",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 13,
   },
-  slottmt:{
-    justifyContent:"space-between",
-    alignItems:"center",
-    flexDirection:"row",
-    columnGap:32
+  slottmt: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    columnGap: 32,
   },
-  timecontainer:{
-    flexDirection:"row",
-    alignItems:"center",
-    columnGap:8,
-    marginBottom:12
+  timecontainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    columnGap: 8,
+    marginBottom: 12,
   },
-  dateday:{
-    backgroundColor:"#c5c5c5",
-    width:70,
-    height:90,
-    justifyContent:"center",
-    alignItems:"center",
-    rowGap:12,
-    borderRadius:12
+  dateday: {
+    backgroundColor: "#c5c5c5",
+    width: 70,
+    height: 90,
+    justifyContent: "center",
+    alignItems: "center",
+    rowGap: 12,
+    borderRadius: 12,
   },
   Datebooking: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    columnGap:12,
-    marginBottom:40
+    columnGap: 12,
+    marginBottom: 40,
   },
   descriptiontxt: {
     flexDirection: "row",
