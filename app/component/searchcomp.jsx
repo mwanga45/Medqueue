@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-const Searchcomp = () => {
+const Searchcomp = ({placeholder}) => {
   const [search, setsearch] = useState("");
   const handlesearch = (text) => {
     setsearch(text)
@@ -18,7 +18,7 @@ const Searchcomp = () => {
       <View style={searchstyles.searchcontainer}>
         <TextInput
           style={searchstyles.inputsearchstyles}
-          placeholder="search for doctor"
+          placeholder={placeholder}
           onChangeText={handlesearch}
           value={search}
         />
