@@ -30,19 +30,19 @@ const Booking = () => {
               </Text>
             </View>
             <View style={bookingstyles.Datebooking}>
-              <View>
+              <View style = {bookingstyles.dateday}>
                 <Text>2</Text>
                 <Text>Mon</Text>
               </View>
-              <View>
+              <View style = {bookingstyles.dateday}>
                 <Text>2</Text>
                 <Text>Mon</Text>
               </View>
-              <View>
+              <View style = {bookingstyles.dateday}>
                 <Text>2</Text>
                 <Text>Mon</Text>
               </View>
-              <View>
+              <View style = {bookingstyles.dateday}>
                 <Text>2</Text>
                 <Text>Mon</Text>
               </View>
@@ -56,6 +56,15 @@ const Booking = () => {
 };
 
 const bookingstyles = StyleSheet.create({
+  dateday:{
+    backgroundColor:"grey",
+    width:70,
+    height:90,
+    justifyContent:"center",
+    alignItems:"center",
+    rowGap:12,
+    borderRadius:12
+  },
   Datebooking: {
     flexDirection: "row",
     justifyContent: "center",
