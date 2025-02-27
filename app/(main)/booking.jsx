@@ -11,15 +11,15 @@ const Booking = () => {
       <View style={bookingstyles.bkcontainer}>
         <Ionicons
           name="medical"
-          style={{ marginBottom: 20 }}
-          size={100}
+          style={{ marginBottom: 10 }}
+          size={90}
           color="white"
         />
         <View>
           <ServiceAvailablecomp />
         </View>
-        <View>
-          <Text style={{ color: "white", fontSize: 18, fontWeight: 600 }}>Select Day Period for Qiuck suggestion</Text>
+        <View style={bookingstyles.suggestiontitle}>
+          <Text style={{ color: "white", fontSize: 20, fontWeight: 700 }}>Select Day Period for Qiuck suggestion</Text>
         </View>
         <View style={bookingstyles.Dperiod}>
           <View style={bookingstyles.period}>
@@ -49,16 +49,16 @@ const Booking = () => {
                 <Text style={bookingstyles.dayName}>Mon</Text>
               </View>
               <View style={bookingstyles.dateday}>
-                <Text style={bookingstyles.dayNum}>2</Text>
-                <Text style={bookingstyles.dayName}>Mon</Text>
+                <Text style={bookingstyles.dayNum}>3</Text>
+                <Text style={bookingstyles.dayName}>Tue</Text>
               </View>
               <View style={bookingstyles.dateday}>
-                <Text style={bookingstyles.dayNum}>2</Text>
-                <Text style={bookingstyles.dayName}>Mon</Text>
+                <Text style={bookingstyles.dayNum}>4</Text>
+                <Text style={bookingstyles.dayName}>Wen</Text>
               </View>
               <View style={bookingstyles.dateday}>
-                <Text style={bookingstyles.dayNum}>2</Text>
-                <Text style={bookingstyles.dayName}>Mon</Text>
+                <Text style={bookingstyles.dayNum}>5</Text>
+                <Text style={bookingstyles.dayName}>Fri</Text>
               </View>
             </View>
             <View style={bookingstyles.timecontainer}>
@@ -75,28 +75,43 @@ const Booking = () => {
             >
               <View style={bookingstyles.slottmt}>
                 <View style={bookingstyles.slot}>
-                  <Text>12:30-12:45</Text>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
                 </View>
                 <View style={bookingstyles.slot}>
-                  <Text>12:30-12:45</Text>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
                 </View>
                 <View style={bookingstyles.slot}>
-                  <Text>12:30-12:45</Text>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
                 </View>
                 <View style={bookingstyles.slot}>
-                  <Text>12:30-12:45</Text>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
                 </View>
                 <View style={bookingstyles.slot}>
-                  <Text>12:30-12:45</Text>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
                 </View>
                 <View style={bookingstyles.slot}>
-                  <Text>12:30-12:45</Text>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
                 </View>
                 <View style={bookingstyles.slot}>
-                  <Text>12:30-12:45</Text>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
                 </View>
                 <View style={bookingstyles.slot}>
-                  <Text>12:30-12:45</Text>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
+                </View>
+                <View style={bookingstyles.slot}>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
                 </View>
               </View>
             </ScrollView>
@@ -178,6 +193,9 @@ const bookingstyles = StyleSheet.create({
     fontSize: 19,
     fontWeight: 800,
     color: "grey",
+  },
+  suggestiontitle:{
+    marginVertical:12
   },
   period: {
     backgroundColor: "white",
