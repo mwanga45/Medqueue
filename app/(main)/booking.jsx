@@ -31,8 +31,8 @@ const Booking = () => {
         <View style={bookingstyles.bookng}>
           <View>
             <View style={bookingstyles.descriptiontxt}>
-              <Icon name="calendar" size={20} style={{ color: "grey" }} />
-              <Text style={{ color: "grey", fontSize: 16 }}>
+              <Icon name="calendar" size={20} style={{ color: "white" }} />
+              <Text style={{ color: "white", fontSize: 16 }}>
                 Select the meeting date
               </Text>
             </View>
@@ -55,8 +55,8 @@ const Booking = () => {
               </View>
             </View>
             <View style={bookingstyles.timecontainer}>
-              <Ionicons name="timer" size={20} style={{ color: "grey" }} />
-              <Text style={{ color: "grey" }}>Select time slot</Text>
+              <Ionicons name="timer" size={20} style={{ color: "white" }} />
+              <Text style={{ color: "white" }}>Select time slot</Text>
             </View>
             <ScrollView
               horizontal={true}
@@ -148,7 +148,8 @@ const bookingstyles = StyleSheet.create({
   },
   bookng: {
     width: "94%",
-    backgroundColor: "#eff5ec",
+    // backgroundColor: "#eff5ec",
+    backgroundColor: "rgba(0,0,0,0.2)",
     paddingHorizontal: 4,
     borderRadius: 23,
     paddingHorizontal: 12,
