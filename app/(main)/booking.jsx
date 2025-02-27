@@ -8,10 +8,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Booking = () => {
     const router = useRouter();
-    // const [bgcolor , setbgcolor] = useEffect("grey");
-    // const handledateday = ()=>{
-    //   setbgcolor("blue")
-    // }
+    const [bgcolor , setbgcolor] = useEffect(false);
+    const handledateday = ()=>{
+      setbgcolor("bgcolor")
+    }
   return (
     <View style={bookingstyles.maincontainer}>
       <View style={bookingstyles.bkcontainer}>
@@ -50,12 +50,12 @@ const Booking = () => {
               </Text>
             </View>
             <View style={bookingstyles.Datebooking}>
-              {/* <TouchableOpacity onPress={handledateday}> */}
-              <View style={bookingstyles.dateday}>
+              <TouchableOpacity onPress={handledateday}>
+              <View style={[bookingstyles.dateday, bgcolor && bookingstyles.bgcolor]}>
                 <Text style={bookingstyles.dayNum}>2</Text>
                 <Text style={bookingstyles.dayName}>Mon</Text>
               </View>
-              {/* </TouchableOpacity> */}
+              </TouchableOpacity>
               <View style={bookingstyles.dateday}>
                 <Text style={bookingstyles.dayNum}>3</Text>
                 <Text style={bookingstyles.dayName}>Tue</Text>
@@ -137,6 +137,9 @@ const Booking = () => {
 };
 
 const bookingstyles = StyleSheet.create({
+  bgcolor:{
+    backgroundColor:"blue"
+  },
   bookngbtn:{
      backgroundColor:"white",
      height:50,
