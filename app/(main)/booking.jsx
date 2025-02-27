@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import {useRouter} from "expo-router"
 import ServiceAvailablecomp from "../component/serviceAvailablecomp";
@@ -7,7 +7,11 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Booking = () => {
-    const router = useRouter()
+    const router = useRouter();
+    // const [bgcolor , setbgcolor] = useEffect("grey");
+    // const handledateday = ()=>{
+    //   setbgcolor("blue")
+    // }
   return (
     <View style={bookingstyles.maincontainer}>
       <View style={bookingstyles.bkcontainer}>
@@ -46,10 +50,12 @@ const Booking = () => {
               </Text>
             </View>
             <View style={bookingstyles.Datebooking}>
+              {/* <TouchableOpacity onPress={handledateday}> */}
               <View style={bookingstyles.dateday}>
                 <Text style={bookingstyles.dayNum}>2</Text>
                 <Text style={bookingstyles.dayName}>Mon</Text>
               </View>
+              {/* </TouchableOpacity> */}
               <View style={bookingstyles.dateday}>
                 <Text style={bookingstyles.dayNum}>3</Text>
                 <Text style={bookingstyles.dayName}>Tue</Text>
