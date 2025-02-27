@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Navigationbar from "../component/navigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -54,6 +54,34 @@ const Booking = () => {
                <Ionicons name="timer" size={20} style = {{color:"grey"}}/>
                <Text style ={{color:"grey"}}>Select time slot</Text>
             </View>
+            <ScrollView horizontal= {true} style={bookingstyles.scrollslot} showsHorizontalScrollIndicator={true}>
+            <View style = {bookingstyles.slottmt}>
+              <View style = {bookingstyles.slot}>
+                <Text>12:30-12:45</Text>
+              </View>
+              <View style = {bookingstyles.slot}>
+                <Text>12:30-12:45</Text>
+              </View>
+              <View style = {bookingstyles.slot}>
+                <Text>12:30-12:45</Text>
+              </View>
+              <View style = {bookingstyles.slot}>
+                <Text>12:30-12:45</Text>
+              </View>
+              <View style = {bookingstyles.slot}>
+                <Text>12:30-12:45</Text>
+              </View>
+              <View style = {bookingstyles.slot}>
+                <Text>12:30-12:45</Text>
+              </View>
+              <View style = {bookingstyles.slot}>
+                <Text>12:30-12:45</Text>
+              </View>
+              <View style = {bookingstyles.slot}>
+                <Text>12:30-12:45</Text>
+              </View>
+            </View>
+            </ScrollView>
           </View>
         </View>
       </View>
@@ -63,6 +91,25 @@ const Booking = () => {
 };
 
 const bookingstyles = StyleSheet.create({
+  scrollslot:{
+    paddingHorizontal:1,
+  },
+  slot:{
+    width:150,
+    height:50,
+    backgroundColor:"grey",
+    justifyContent:"center",
+    alignItems:"center",
+    borderRadius:13
+    
+
+  },
+  slottmt:{
+    justifyContent:"space-between",
+    alignItems:"center",
+    flexDirection:"row",
+    columnGap:32
+  },
   timecontainer:{
     flexDirection:"row",
     alignItems:"center",
