@@ -1,18 +1,25 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import  ServiceAvailablecomp from "../component/serviceAvailablecomp"
+import ServiceAvailablecomp from "../component/serviceAvailablecomp";
 import Navigationbar from "../component/navigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-
 const Booking = () => {
   return (
     <View style={bookingstyles.maincontainer}>
-      <Ionicons name="medical" size={100} color="white" />
       <View style={bookingstyles.bkcontainer}>
+        <Ionicons
+          name="medical"
+          style={{ marginBottom: 20 }}
+          size={100}
+          color="white"
+        />
         <View>
-          <ServiceAvailablecomp/>
+          <ServiceAvailablecomp />
+        </View>
+        <View>
+          <Text style={{ color: "white", fontSize: 18, fontWeight: 600 }}>Select Day Period for Qiuck suggestion</Text>
         </View>
         <View style={bookingstyles.Dperiod}>
           <View style={bookingstyles.period}>
@@ -32,31 +39,33 @@ const Booking = () => {
           <View>
             <View style={bookingstyles.descriptiontxt}>
               <Icon name="calendar" size={20} style={{ color: "white" }} />
-              <Text style={{ color: "white", fontSize: 16 }}>
+              <Text style={{ color: "white", fontSize: 18, fontWeight: 600 }}>
                 Select the meeting date
               </Text>
             </View>
             <View style={bookingstyles.Datebooking}>
               <View style={bookingstyles.dateday}>
-                <Text>2</Text>
-                <Text>Mon</Text>
+                <Text style={bookingstyles.dayNum}>2</Text>
+                <Text style={bookingstyles.dayName}>Mon</Text>
               </View>
               <View style={bookingstyles.dateday}>
-                <Text>2</Text>
-                <Text>Mon</Text>
+                <Text style={bookingstyles.dayNum}>2</Text>
+                <Text style={bookingstyles.dayName}>Mon</Text>
               </View>
               <View style={bookingstyles.dateday}>
-                <Text>2</Text>
-                <Text>Mon</Text>
+                <Text style={bookingstyles.dayNum}>2</Text>
+                <Text style={bookingstyles.dayName}>Mon</Text>
               </View>
               <View style={bookingstyles.dateday}>
-                <Text>2</Text>
-                <Text>Mon</Text>
+                <Text style={bookingstyles.dayNum}>2</Text>
+                <Text style={bookingstyles.dayName}>Mon</Text>
               </View>
             </View>
             <View style={bookingstyles.timecontainer}>
               <Ionicons name="timer" size={20} style={{ color: "white" }} />
-              <Text style={{ color: "white" }}>Select time slot</Text>
+              <Text style={{ color: "white", fontSize: 18, fontWeight: 600 }}>
+                Select time slot
+              </Text>
             </View>
             <ScrollView
               horizontal={true}
@@ -106,7 +115,7 @@ const bookingstyles = StyleSheet.create({
   slot: {
     width: 150,
     height: 50,
-    backgroundColor: "grey",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 13,
@@ -123,8 +132,18 @@ const bookingstyles = StyleSheet.create({
     columnGap: 8,
     marginBottom: 12,
   },
+  dayName: {
+    fontSize: 20,
+    fontWeight: 800,
+    color: "grey",
+  },
+  dayNum: {
+    fontSize: 20,
+    fontWeight: 800,
+    color: "grey",
+  },
   dateday: {
-    backgroundColor: "#c5c5c5",
+    backgroundColor: "white",
     width: 70,
     height: 90,
     justifyContent: "center",
@@ -156,7 +175,9 @@ const bookingstyles = StyleSheet.create({
     paddingVertical: 12,
   },
   Dperiodname: {
-    fontSize: 17,
+    fontSize: 19,
+    fontWeight: 800,
+    color: "grey",
   },
   period: {
     backgroundColor: "white",
