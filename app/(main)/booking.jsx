@@ -1,11 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import {useRouter} from "expo-router"
 import ServiceAvailablecomp from "../component/serviceAvailablecomp";
 import Navigationbar from "../component/navigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Booking = () => {
+    const router = useRouter()
   return (
     <View style={bookingstyles.maincontainer}>
       <View style={bookingstyles.bkcontainer}>
@@ -112,6 +114,11 @@ const Booking = () => {
                 </View>
                 <View style={bookingstyles.slot}>
                   <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
+                </View>
+                <View>
+                  <TouchableOpacity onPress={()=>router.push("booking")}>
+                    <Text>Book now</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             </ScrollView>
