@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Navigationbar from "../component/navigation";
+import Icon from "react-native-vector-icons/FontAwesome5"
 
 const Booking = () => {
   return (
@@ -15,23 +16,8 @@ const Booking = () => {
         <View style= {bookingstyles.bookng}>
              <View>
                 <View style={bookingstyles.descriptiontxt}>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
-                    <Text>Select the meeting date</Text>
+                    <Icon name="calendar" size={20}></Icon>
+                    <Text style = {{color:"grey",fontSize:16}}>Select the meeting date</Text>
                 </View>
                 <View></View>
              </View>
@@ -45,12 +31,19 @@ const Booking = () => {
 
 const bookingstyles = StyleSheet.create({
   descriptiontxt:{
-    marginTop:12
+    flexDirection:"row",
+    justifyContent:"flex-start",
+    alignItems:"center",
+    columnGap:12
+
   },
   bookng:{
    width:"94%",
    backgroundColor:"white",
-   paddingHorizontal:4
+   paddingHorizontal:4,
+   borderRadius:23,
+   paddingHorizontal:12,
+   paddingVertical:12
   },
   Dperiodname:{
     fontSize:17
