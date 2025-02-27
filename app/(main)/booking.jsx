@@ -1,14 +1,19 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import  ServiceAvailablecomp from "../component/serviceAvailablecomp"
 import Navigationbar from "../component/navigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
 
 const Booking = () => {
   return (
     <View style={bookingstyles.maincontainer}>
       <Ionicons name="medical" size={100} color="white" />
       <View style={bookingstyles.bkcontainer}>
+        <View>
+          <ServiceAvailablecomp/>
+        </View>
         <View style={bookingstyles.Dperiod}>
           <View style={bookingstyles.period}>
             <Text style={bookingstyles.Dperiodname}>Morning</Text>
