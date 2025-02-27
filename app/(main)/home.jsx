@@ -94,6 +94,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderBottomLeftRadius: 45,
     borderBottomRightRadius: 45,
+    borderRadius:45,
+    marginTop:1,
     height: 300,
     width: "100%",
     alignItems: "center",
