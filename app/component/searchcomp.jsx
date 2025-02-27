@@ -35,7 +35,8 @@ const searchstyles = StyleSheet.create({
     justifyContent: "space-evenly",
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#e1e1e1",
+    // backgroundColor: "#e1e1e1",
+    backgroundColor: "#f0f0f0",
     height: 60,
     borderRadius: 23,
 

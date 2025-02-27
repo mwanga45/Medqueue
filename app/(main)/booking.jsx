@@ -15,13 +15,13 @@ const Booking = () => {
           name="medical"
           style={{ marginBottom: 10 }}
           size={90}
-          color="white"
+          color="#f0f0f0"
         />
         <View>
           <ServiceAvailablecomp />
         </View>
         <View style={bookingstyles.suggestiontitle}>
-          <Text style={{ color: "white", fontSize: 20, fontWeight: 700 }}>Select Day Period For Qiuck Suggestion</Text>
+          <Text style={{ color: "#f0f0f0", fontSize: 20, fontWeight: 700 }}>Select Day Period For Qiuck Suggestion</Text>
         </View>
         <View style={bookingstyles.Dperiod}>
           <View style={bookingstyles.period}>
@@ -40,8 +40,8 @@ const Booking = () => {
         <View style={bookingstyles.bookng}>
           <View>
             <View style={bookingstyles.descriptiontxt}>
-              <Icon name="calendar" size={20} style={{ color: "white" }} />
-              <Text style={{ color: "white", fontSize: 18, fontWeight: 600 }}>
+              <Icon name="calendar" size={20} style={{ color: "#f0f0f0" }} />
+              <Text style={{ color: "#f0f0f0", fontSize: 18, fontWeight: 600 }}>
                 Select the meeting date
               </Text>
             </View>
@@ -64,8 +64,8 @@ const Booking = () => {
               </View>
             </View>
             <View style={bookingstyles.timecontainer}>
-              <Ionicons name="timer" size={20} style={{ color: "white" }} />
-              <Text style={{ color: "white", fontSize: 18, fontWeight: 600 }}>
+              <Ionicons name="timer" size={20} style={{ color: "#f0f0f0" }} />
+              <Text style={{ color: "#f0f0f0", fontSize: 18, fontWeight: 600 }}>
                 Select time slot
               </Text>
             </View>
@@ -119,7 +119,7 @@ const Booking = () => {
             </ScrollView>
             <View style = {bookingstyles.bookngcontainer}>
                   <TouchableOpacity onPress={()=>router.push("booking")} style={bookingstyles.bookngbtn}>
-                    <Text>Book Now</Text>
+                    <Text style={{ color: "#f0f0f0", fontSize: 18, fontWeight: 600 }}>Book Now</Text>
                   </TouchableOpacity>
                 </View>
           </View>
@@ -137,7 +137,8 @@ const bookingstyles = StyleSheet.create({
      width:200,
      justifyContent:"center",
      alignItems:"center",
-     borderRadius:23
+     borderRadius:23,
+     backgroundColor: "rgba(0,0,0,0.8)",
   },
   bookngcontainer:{
      marginTop:12,
@@ -191,7 +192,7 @@ const bookingstyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     columnGap: 12,
-    marginBottom: 40,
+    marginBottom: 25,
   },
   descriptiontxt: {
     flexDirection: "row",
@@ -242,6 +243,7 @@ const bookingstyles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
     marginBottom: 89,
+
   },
 });
 
