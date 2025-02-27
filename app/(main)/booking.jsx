@@ -21,7 +21,7 @@ const Booking = () => {
           <ServiceAvailablecomp />
         </View>
         <View style={bookingstyles.suggestiontitle}>
-          <Text style={{ color: "white", fontSize: 20, fontWeight: 700 }}>Select Day Period for Qiuck suggestion</Text>
+          <Text style={{ color: "white", fontSize: 20, fontWeight: 700 }}>Select Day Period For Qiuck Suggestion</Text>
         </View>
         <View style={bookingstyles.Dperiod}>
           <View style={bookingstyles.period}>
@@ -115,13 +115,13 @@ const Booking = () => {
                 <View style={bookingstyles.slot}>
                   <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
                 </View>
-                <View>
-                  <TouchableOpacity onPress={()=>router.push("booking")}>
-                    <Text>Book now</Text>
-                  </TouchableOpacity>
-                </View>
               </View>
             </ScrollView>
+            <View style = {bookingstyles.bookngcontainer}>
+                  <TouchableOpacity onPress={()=>router.push("booking")} style={bookingstyles.bookngbtn}>
+                    <Text>Book Now</Text>
+                  </TouchableOpacity>
+                </View>
           </View>
         </View>
       </View>
@@ -131,6 +131,19 @@ const Booking = () => {
 };
 
 const bookingstyles = StyleSheet.create({
+  bookngbtn:{
+     backgroundColor:"white",
+     height:50,
+     width:200,
+     justifyContent:"center",
+     alignItems:"center",
+     borderRadius:23
+  },
+  bookngcontainer:{
+     marginTop:12,
+     justifyContent:"center",
+     alignItems:"center"
+  },
   scrollslot: {
     paddingHorizontal: 1,
   },

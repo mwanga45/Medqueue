@@ -8,7 +8,7 @@ const [dropvalue, setdropvalue] = useState("position1")
   return (
     <View style = {servicecomp.servcontainer}>
          <View style = {servicecomp.searchcompAva}></View>
-         <View style = {servicecomp.Titlessrvice}><Text style={{color:"white",fontSize:23,fontWeight:800}}>Service Available for booking</Text></View>
+         <View style = {servicecomp.Titlessrvice}><Text style={{color:"white",fontSize:23,fontWeight:800}}>Service Available For Booking</Text></View>
          <View style = {servicecomp.searchsevcomp}>
             <Searchcomp placeholder={"search for service"}/>
          </View>
@@ -44,8 +44,8 @@ const servicecomp = StyleSheet.create({
  },
  servcontainer:{
   backgroundColor:"rgba(0,0,0,0.2)",
-  height:300,
-  width:"90%",
+  height:250,
+  width:"95%",
   borderRadius:12,
   marginBottom:12
  },
