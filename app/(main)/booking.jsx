@@ -14,8 +14,24 @@ const Booking = () => {
         </View>
         <View style= {bookingstyles.bookng}>
              <View>
-                <View>
-                    <Text>Dj Hallid</Text>
+                <View style={bookingstyles.descriptiontxt}>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
+                    <Text>Select the meeting date</Text>
                 </View>
                 <View></View>
              </View>
@@ -28,6 +44,9 @@ const Booking = () => {
 };
 
 const bookingstyles = StyleSheet.create({
+  descriptiontxt:{
+    marginTop:12
+  },
   bookng:{
    width:"94%",
    backgroundColor:"white",
@@ -59,8 +78,9 @@ const bookingstyles = StyleSheet.create({
   },
   bkcontainer: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
+    marginBottom:89
 
   },
 
