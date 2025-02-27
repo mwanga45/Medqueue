@@ -2,10 +2,13 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Navigationbar from "../component/navigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 const Booking = () => {
   return (
     <View style={bookingstyles.maincontainer}>
+         <Ionicons name="medical" size={100} color="white" />
       <View style={bookingstyles.bkcontainer}>
         <View style={bookingstyles.Dperiod}>
           <View style={bookingstyles.period}>
@@ -47,6 +50,10 @@ const Booking = () => {
                 <Text>Mon</Text>
               </View>
             </View>
+            <View style = {bookingstyles.timecontainer}>
+               <Ionicons name="timer" size={20} style = {{color:"grey"}}/>
+               <Text style ={{color:"grey"}}>Select time slot</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -56,8 +63,14 @@ const Booking = () => {
 };
 
 const bookingstyles = StyleSheet.create({
+  timecontainer:{
+    flexDirection:"row",
+    alignItems:"center",
+    columnGap:8,
+    marginBottom:12
+  },
   dateday:{
-    backgroundColor:"grey",
+    backgroundColor:"#c5c5c5",
     width:70,
     height:90,
     justifyContent:"center",
@@ -69,7 +82,8 @@ const bookingstyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    columnGap:12
+    columnGap:12,
+    marginBottom:40
   },
   descriptiontxt: {
     flexDirection: "row",
@@ -80,7 +94,7 @@ const bookingstyles = StyleSheet.create({
   },
   bookng: {
     width: "94%",
-    backgroundColor: "white",
+    backgroundColor: "#eff5ec",
     paddingHorizontal: 4,
     borderRadius: 23,
     paddingHorizontal: 12,
