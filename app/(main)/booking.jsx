@@ -10,9 +10,14 @@ const Booking = () => {
     const router = useRouter();
     const [bgcolor , setbgcolor] = useState({});
     const handledateday = (index)=>{
-      setbgcolor((prev) => ({
-        ...prev , [index]:!prev[index]
-      }))
+      setbgcolor((prev) => {
+        // ...prev , [index]:!prev[index]
+        if (prev[index]) {
+          return {};
+        }
+        // Otherwise, set only this button as selected
+        return { [index]: true };
+      })
     }
     const getDayName = (date) => date.toLocaleString("en-Us", {weekday:"short"});
     const getDayNumber = (date) => date.getDate();
@@ -20,7 +25,7 @@ const Booking = () => {
     const today = new Date()
     const weekday = Array.from({length:4}, (_,index) =>{
       const newDate = new Date(today);
-      newDate.setDate(today.getDate()+index);
+      newDate.setDate(today.getDate() +index);
       return newDate;
 
     } )
@@ -132,14 +137,14 @@ const Booking = () => {
           </View>
         </View>
       </View>
-      <Navigationbar />
+      <Navigationbar/>
     </View>
   );
 };
 
 const bookingstyles = StyleSheet.create({
   bgcolor:{
-    backgroundColor:"red"
+    backgroundColor:"#51bdea"
   },
   bookngbtn:{
      backgroundColor:"white",
