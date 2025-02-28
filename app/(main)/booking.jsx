@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import {useRouter} from "expo-router"
 import ServiceAvailablecomp from "../component/serviceAvailablecomp";
@@ -8,10 +8,18 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Booking = () => {
     const router = useRouter();
-    const [bgcolor , setbgcolor] = useEffect(false);
+    const [bgcolor , setbgcolor] = useState(false);
     const handledateday = ()=>{
-      setbgcolor("bgcolor")
+      setbgcolor(prev => !prev )
     }
+    const getDayName = (date) => date.toLocaleString("en-Us", {weekday:"short"});
+    const getDayNumber = (date) => date.getDate();
+
+    const today = new Date()
+    const weekday = Array.from({length:4}, (_,index) =>{
+      const newDate = new Date(today);
+
+    } )
   return (
     <View style={bookingstyles.maincontainer}>
       <View style={bookingstyles.bkcontainer}>
@@ -56,18 +64,6 @@ const Booking = () => {
                 <Text style={bookingstyles.dayName}>Mon</Text>
               </View>
               </TouchableOpacity>
-              <View style={bookingstyles.dateday}>
-                <Text style={bookingstyles.dayNum}>3</Text>
-                <Text style={bookingstyles.dayName}>Tue</Text>
-              </View>
-              <View style={bookingstyles.dateday}>
-                <Text style={bookingstyles.dayNum}>4</Text>
-                <Text style={bookingstyles.dayName}>Wen</Text>
-              </View>
-              <View style={bookingstyles.dateday}>
-                <Text style={bookingstyles.dayNum}>5</Text>
-                <Text style={bookingstyles.dayName}>Fri</Text>
-              </View>
             </View>
             <View style={bookingstyles.timecontainer}>
               <Ionicons name="timer" size={20} style={{ color: "#f0f0f0" }} />
