@@ -8,9 +8,11 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Booking = () => {
     const router = useRouter();
-    const [bgcolor , setbgcolor] = useState(false);
-    const handledateday = ()=>{
-      setbgcolor(prev => !prev )
+    const [bgcolor , setbgcolor] = useState({});
+    const handledateday = (index)=>{
+      setbgcolor((prev) => ({
+        ...prev , [index]:!prev
+      }))
     }
     const getDayName = (date) => date.toLocaleString("en-Us", {weekday:"short"});
     const getDayNumber = (date) => date.getDate();
@@ -18,6 +20,8 @@ const Booking = () => {
     const today = new Date()
     const weekday = Array.from({length:4}, (_,index) =>{
       const newDate = new Date(today);
+      newDate.setDate(today.getDate()+index);
+      return newDate;
 
     } )
   return (
@@ -58,12 +62,13 @@ const Booking = () => {
               </Text>
             </View>
             <View style={bookingstyles.Datebooking}>
-              <TouchableOpacity onPress={handledateday}>
+            {weekday.map((day,index) =>(
+              <TouchableOpacity onPress={()=> handledateday(index)} key={index}>
               <View style={[bookingstyles.dateday, bgcolor && bookingstyles.bgcolor]}>
-                <Text style={bookingstyles.dayNum}>2</Text>
-                <Text style={bookingstyles.dayName}>Mon</Text>
+                <Text style={bookingstyles.dayNum}>{getDayNumber(day)}</Text>
+                <Text style={bookingstyles.dayName}>{getDayName(day)}</Text>
               </View>
-              </TouchableOpacity>
+              </TouchableOpacity>))}
             </View>
             <View style={bookingstyles.timecontainer}>
               <Ionicons name="timer" size={20} style={{ color: "#f0f0f0" }} />
@@ -134,7 +139,7 @@ const Booking = () => {
 
 const bookingstyles = StyleSheet.create({
   bgcolor:{
-    backgroundColor:"blue"
+    backgroundColor:"white"
   },
   bookngbtn:{
      backgroundColor:"white",
