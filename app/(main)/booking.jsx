@@ -11,7 +11,7 @@ const Booking = () => {
     const [bgcolor , setbgcolor] = useState({});
     const handledateday = (index)=>{
       setbgcolor((prev) => ({
-        ...prev , [index]:!prev
+        ...prev , [index]:!prev[index]
       }))
     }
     const getDayName = (date) => date.toLocaleString("en-Us", {weekday:"short"});
@@ -64,7 +64,7 @@ const Booking = () => {
             <View style={bookingstyles.Datebooking}>
             {weekday.map((day,index) =>(
               <TouchableOpacity onPress={()=> handledateday(index)} key={index}>
-              <View style={[bookingstyles.dateday, bgcolor && bookingstyles.bgcolor]}>
+              <View style={[bookingstyles.dateday, bgcolor[index] && bookingstyles.bgcolor]}>
                 <Text style={bookingstyles.dayNum}>{getDayNumber(day)}</Text>
                 <Text style={bookingstyles.dayName}>{getDayName(day)}</Text>
               </View>
@@ -139,7 +139,7 @@ const Booking = () => {
 
 const bookingstyles = StyleSheet.create({
   bgcolor:{
-    backgroundColor:"white"
+    backgroundColor:"red"
   },
   bookngbtn:{
      backgroundColor:"white",
