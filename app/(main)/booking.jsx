@@ -7,8 +7,31 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Booking = () => {
+  useEffect(()=>{
+    handletimeslot()
+  },[]);
+  const [Timeslot, setTimeSlots]=useState([]);
+  const handletimeslot =()=>{
+    const slot = [];
+    const startTime = new Date();
+    startTime.setHours(6,30,0,0);
+    const endTime = new Date();
+    endTime.setHours(8,30,0,0);
+
+    const currentTime = new Date(startTime);
+
+    while(currentTime <= endTime){
+      slot.push(currentTime.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}))
+      currentTime.setMinutes(currentTime.getMinutes() + 10);
+    }
+    setTimeSlots(slot)
+
+  }
     const router = useRouter();
     const [bgcolor , setbgcolor] = useState({});
+    const [selectedTime , setselectedTime] = useState({});
+
+    
     const handledateday = (index)=>{
       setbgcolor((prev) => {
         // ...prev , [index]:!prev[index]
@@ -86,48 +109,12 @@ const Booking = () => {
               style={bookingstyles.scrollslot}
               showsHorizontalScrollIndicator={true}
               persistentScrollbar={true}
-            >
-              <View style={bookingstyles.slottmt}>
+            >  {Timeslot.map((time,index)=>(
+              <View style={bookingstyles.slottmt} key={index}>
                 <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
+                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>{time}</Text>
                 </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-                <View style={bookingstyles.slot}>
-                  <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>12:30-12:45</Text>
-                </View>
-              </View>
+              </View>))}
             </ScrollView>
             <View style = {bookingstyles.bookngcontainer}>
                   <TouchableOpacity onPress={()=>router.push("booking")} style={bookingstyles.bookngbtn}>
@@ -172,7 +159,7 @@ const bookingstyles = StyleSheet.create({
     borderRadius: 13,
   },
   slottmt: {
-    justifyContent: "space-between",
+    justifyContent:"space-evenly",
     alignItems: "center",
     flexDirection: "row",
     columnGap: 32,
