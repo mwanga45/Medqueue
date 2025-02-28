@@ -31,6 +31,15 @@ const Booking = () => {
     const [bgcolor , setbgcolor] = useState({});
     const [selectedTime , setselectedTime] = useState({});
 
+    const handleSelectedslot= (index)=>{
+       setselectedTime((prev)=>{
+        if(prev[index]){
+          return{}
+        }
+        return{[index]:true}
+       })
+    }
+
     
     const handledateday = (index)=>{
       setbgcolor((prev) => {
@@ -54,6 +63,7 @@ const Booking = () => {
     } )
   return (
     <View style={bookingstyles.maincontainer}>
+      <ScrollView>
       <View style={bookingstyles.bkcontainer}>
         <Ionicons
           name="medical"
@@ -111,9 +121,11 @@ const Booking = () => {
               persistentScrollbar={true}
             >  {Timeslot.map((time,index)=>(
               <View style={bookingstyles.slottmt} key={index}>
-                <View style={bookingstyles.slot}>
+                <TouchableOpacity onPress={()=> handleSelectedslot(index)}>
+                <View style={[bookingstyles.slot ,selectedTime[index] && bookingstyles.bgcolor]}>
                   <Text style={{ color: "grey", fontSize: 18, fontWeight: 600 }}>{time}</Text>
                 </View>
+                </TouchableOpacity>
               </View>))}
             </ScrollView>
             <View style = {bookingstyles.bookngcontainer}>
@@ -124,6 +136,7 @@ const Booking = () => {
           </View>
         </View>
       </View>
+      </ScrollView>
       <Navigationbar/>
     </View>
   );
