@@ -41,7 +41,15 @@ const styleslistcard = StyleSheet.create({
     padding:8,
     width: "95%",
     borderRadius: 20,
-    marginBottom:12
+    marginBottom:12,
+    shadowColor: "#000000",
+shadowOffset: {
+  width: 0,
+  height: 4,
+},
+shadowOpacity:  0.19,
+shadowRadius: 5.62,
+elevation: 6
   },
   dkAgment: {
     flexDirection: "row",

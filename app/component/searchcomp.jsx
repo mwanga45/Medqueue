@@ -8,10 +8,10 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-const Searchcomp = ({placeholder}) => {
+const Searchcomp = ({ placeholder }) => {
   const [search, setsearch] = useState("");
   const handlesearch = (text) => {
-    setsearch(text)
+    setsearch(text);
   };
   return (
     <View>
@@ -39,7 +39,14 @@ const searchstyles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
     height: 60,
     borderRadius: 23,
-
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 1.0,
+    elevation: 1,
   },
   inputsearchstyles: {
     width: "85%",

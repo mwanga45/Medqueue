@@ -47,7 +47,15 @@ const useprop = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 40,      
-    overflow: 'hidden'    
+    overflow: 'hidden',
+    shadowColor: "#000000",
+shadowOffset: {
+  width: 0,
+  height: 1,
+},
+shadowOpacity:  0.15,
+shadowRadius: 1.00,
+elevation: 1  
   },
   imageprof: {
     height: 80,           

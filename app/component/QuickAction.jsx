@@ -38,11 +38,13 @@ const Quickstyles = StyleSheet.create({
     margin: 4,       
     color: "white",
     borderRadius: 15, 
-    shadowColor: "rgba(0, 0, 0, 0.09)",  // Using one of the outer shadow colors from your example
-    shadowOffset: { width: 0, height: 32 }, // Choosing one of the offsets (e.g., 32px)
-    shadowOpacity: 0.5,                    // Adjust to your liking
-    shadowRadius: 16,                      // Adjust to match the blur
-    // Android shadow (elevation)
-    elevation: 10,                         // Adjust for similar effect on Android
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity:  0.19,
+    shadowRadius: 5.62,
+    elevation: 6                      // Adjust for similar effect on Android
   },
 });
