@@ -26,10 +26,11 @@ const Homepage = () => {
           <View style={styles.Homepagecover2}>
             <View style={{ flex: 1, padding: 10 }}>
               <QuickAction
-                name={"bell"}
+                name={"medkit"}
                 size={30}
-                text={"Set Remainder"}
+                text={"Emergence"}
                 backgroundColor={"#274b5f"}
+                onclick={()=>router.push("emergence")}
               />
             </View>
             <View style={{ flex: 1, padding: 10 }}>
