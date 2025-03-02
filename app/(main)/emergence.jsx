@@ -1,25 +1,37 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Navigationbar from '../component/navigation';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import Navigationbar from "../component/navigation";
+import { ScrollView } from "react-native";
 
 const Emergence = () => {
   return (
-    <View style = {emergencestyles.maincontainer} >
-      <View>
-        
+    <View style={emergencestyles.maincontainer}>
+      <View style={emergencestyles.mapcontainer}>
+        <Text>Map view</Text>
       </View>
-      <View></View>
-      <Navigationbar/>
+      <ScrollView>
+        <View>
+          <Text>Emergence-type</Text>
+        </View>
+      </ScrollView>
+      <Navigationbar />
     </View>
   );
-}
+};
 const emergencestyles = StyleSheet.create({
-    maincontainer:{
-        flex:1,
-        // justifyContent:"center",
-        // alignItems:"center",
-        backgroundColor:"white"
-    }
-})
+  mapcontainer: {
+    width:"60%"
+  },
+  maincontainer: {
+    flex: 1,
+    flexDirection:"row",
+    justifyContent:"flex-start",
+    alignItems:"flex-start",
+    backgroundColor: "white",
+    paddingHorizontal:12,
+    paddingVertical:34
+
+  },
+});
 
 export default Emergence;
