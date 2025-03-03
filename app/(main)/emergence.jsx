@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Navigationbar from "../component/navigation";
 import { ScrollView } from "react-native";
-import {UserProf} from "../component/userprofile"
+import UserProf from "../component/userprofile";
 
 const Emergence = () => {
   return (
@@ -13,12 +13,6 @@ const Emergence = () => {
       <ScrollView>
         <View style = {emergencestyles.emergencesection}>
           <View>
-             <Text style={{color:"white", fontSize:18, fontWeight:600, }}>Jonathan Methew</Text>
-             <Text style={{color:"white", fontSize:18, fontWeight:600, }}>Age 26</Text>
-          </View>
-          <View>
-             {/* <Text style={{color:"white", fontSize:18, fontWeight:600, }}>Jonathan Methew</Text>
-             <Text style={{color:"white", fontSize:18, fontWeight:600, }}>Age 26</Text> */}
              <UserProf/>
           </View>
         </View>
@@ -30,11 +24,11 @@ const Emergence = () => {
 const emergencestyles = StyleSheet.create({
   emergencesection:{
     flex:1,
-    backgroundColor:"rgba(0,0,0,0.9)",
+    backgroundColor:"rgba(255,255,255,0.9)",
     borderRadius:12,
     paddingHorizontal:12,
-    flexDirection:"row",
-    columnGap:12
+    // flexDirection:"row",
+    // columnGap:12
 
   },
   // mapcontainer: {
@@ -45,7 +39,7 @@ const emergencestyles = StyleSheet.create({
     flexDirection:"row",
     justifyContent:"flex-start",
     alignItems:"flex-start",
-    backgroundColor: "white",
+    backgroundColor: "#eff5ec",
     paddingHorizontal:1,
     paddingVertical:34
 
