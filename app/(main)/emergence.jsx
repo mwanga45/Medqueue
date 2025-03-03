@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import Navigationbar from "../component/navigation";
 import { ScrollView } from "react-native";
 import UserProf from "../component/userprofile";
+import MedicalButton from "../component/medicalbtn";
 
 const Emergence = () => {
   return (
@@ -11,10 +12,16 @@ const Emergence = () => {
         <Text>Map view</Text>
       </View> */}
       <ScrollView>
-        <View style = {emergencestyles.emergencesection}>
+        <View style = {emergencestyles.emergenceprofile}>
           <View>
              <UserProf/>
           </View>
+        </View>
+        <View style = {emergencestyles.emergencesection}>
+          <View>
+           <MedicalButton/>
+          </View>
+          <View></View>
         </View>
       </ScrollView>
       <Navigationbar />
@@ -23,12 +30,15 @@ const Emergence = () => {
 };
 const emergencestyles = StyleSheet.create({
   emergencesection:{
+      flexDirection:"row"
+
+  },
+  emergenceprofile:{
     flex:1,
-    backgroundColor:"rgba(255,255,255,0.9)",
+    backgroundColor:"rgba(255,255,255,0.6)",
     borderRadius:12,
     paddingHorizontal:12,
-    // flexDirection:"row",
-    // columnGap:12
+
 
   },
   // mapcontainer: {
