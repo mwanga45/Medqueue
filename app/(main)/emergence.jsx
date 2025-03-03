@@ -76,7 +76,7 @@ const emergencestyles = StyleSheet.create({
     backgroundColor: "green",
     width: "73%",
     borderRadius: 12,
-    position:"relative"
+
   },
   emergencesection: {
     flexDirection: "row",
