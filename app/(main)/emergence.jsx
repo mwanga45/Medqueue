@@ -8,21 +8,21 @@ import MedicalButton from "../component/medicalbtn";
 const Emergence = () => {
   return (
     <View style={emergencestyles.maincontainer}>
-      {/* <View style={emergencestyles.mapcontainer}>
-        <Text>Map view</Text>
-      </View> */}
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={emergencestyles.emergenceprofile}>
-          <View>
-            <UserProf />
-          </View>
+          <UserProf />
         </View>
+        
         <View style={emergencestyles.emergencesection}>
           <View style={emergencestyles.patientemergencyrec}>
             <Text>Heelo</Text>
           </View>
-          <ScrollView>
-            <View style={emergencestyles.patientservice}>
+          
+          <View style={{ flex: 1 }}>
+            <ScrollView
+              showsVerticalScrollIndicator={true}
+              contentContainerStyle={emergencestyles.patientservice}
+            >
               <MedicalButton />
               <MedicalButton />
               <MedicalButton />
@@ -54,44 +54,44 @@ const Emergence = () => {
               <MedicalButton />
               <MedicalButton />
               <MedicalButton />
-            </View>
-          </ScrollView>
+              <MedicalButton />
+              <MedicalButton />
+              <MedicalButton />
+              <MedicalButton />
+              <MedicalButton />
+            </ScrollView>
+          </View>
         </View>
       </ScrollView>
       <Navigationbar />
     </View>
   );
 };
+
 const emergencestyles = StyleSheet.create({
   patientservice: {
-    flexGrow: 1,
+    paddingVertical: 14,
   },
   patientemergencyrec: {
     backgroundColor: "green",
     width: "73%",
     borderRadius: 12,
+    position:"relative"
   },
   emergencesection: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 4,
+    flex: 1,
   },
   emergenceprofile: {
-    flex: 1,
     backgroundColor: "rgba(255,255,255,0.6)",
     borderRadius: 12,
     paddingHorizontal: 12,
   },
-  // mapcontainer: {
-  //   width:"50%"
-  // },
   maincontainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
     backgroundColor: "#eff5ec",
-    paddingHorizontal: 1,
     paddingVertical: 34,
   },
 });
