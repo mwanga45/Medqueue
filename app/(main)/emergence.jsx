@@ -15,7 +15,15 @@ const Emergence = () => {
         
         <View style={emergencestyles.emergencesection}>
           <View style={emergencestyles.patientemergencyrec}>
-            <Text>Heelo</Text>
+            <View>
+               
+            </View>
+            <View>
+
+            </View>
+            <View>
+
+            </View>
           </View>
           
           <View style={{ flex: 1 }}>
@@ -39,12 +47,22 @@ const Emergence = () => {
 
 const emergencestyles = StyleSheet.create({
   patientservice: {
-    paddingVertical: 14,
+    position:"absolute",
+    right:0,
+    backgroundColor:"rgba(175, 185, 185, 0.2)",
+    width:102,
+    borderRadius:12,
   },
   patientemergencyrec: {
-    backgroundColor: "green",
     width: "73%",
+    justifyContent:"center",
+    alignItems:"center",
     borderRadius: 12,
+    position: "absolute", 
+    top:12,           
+    left: 0,
+    right: 0,
+    backgroundColor:"rgba(199, 248, 248, 0.2)",
 
   },
   emergencesection: {

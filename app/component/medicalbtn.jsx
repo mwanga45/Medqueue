@@ -12,7 +12,6 @@ const MedicalButton = ({attacktype}) => {
     </TouchableOpacity>
   );
 };
-
 const styles = StyleSheet.create({
   button: {
     backgroundColor: 'white',
