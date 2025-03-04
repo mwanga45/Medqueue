@@ -23,42 +23,14 @@ const Emergence = () => {
               showsVerticalScrollIndicator={true}
               contentContainerStyle={emergencestyles.patientservice}
             >
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
-              <MedicalButton />
+            {/* {Array.from(({length:40}).map((_,index)=>(
+              <MedicalButton  key={index}/>
+            )))} */}
+            {
+              Array.from({length:40}).map((_,index)=>(
+                <MedicalButton/>
+              ))
+            }
             </ScrollView>
           </View>
         </View>
