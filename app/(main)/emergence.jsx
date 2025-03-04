@@ -23,9 +23,6 @@ const Emergence = () => {
               showsVerticalScrollIndicator={true}
               contentContainerStyle={emergencestyles.patientservice}
             >
-            {/* {Array.from(({length:40}).map((_,index)=>(
-              <MedicalButton  key={index}/>
-            )))} */}
             {
               Array.from({length:40}).map((_,index)=>(
                 <MedicalButton/>
