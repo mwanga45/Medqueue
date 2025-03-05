@@ -17,7 +17,7 @@ const Emergence = () => {
           <View style={emergencestyles.patientemergencyrec}>
             <View style={emergencestyles.transportmeans}>
                <Text style = {emergencestyles.transporttitle}>Choose Transport means </Text>
-               <ScrollView showsHorizontalScrollIndicator={true} horizontal={true} persistentScrollbar={true}> 
+               <ScrollView showsHorizontalScrollIndicator={true} horizontal={true} persistentScrollbar={true} >                
                <View  style = {emergencestyles.costandmeans}>
                 <View style = {emergencestyles.imagecontainer}>
                 <Image source={require("../../assets/images/adaptive-icon.png")} style={emergencestyles.image} />
@@ -27,6 +27,7 @@ const Emergence = () => {
                 <Text style={emergencestyles.cost}>cost 0$</Text>
                 </View>
                </View>
+               
                <View  style = {emergencestyles.costandmeans}>
                 <View style = {emergencestyles.imagecontainer}>
                 <Image source={require("../../assets/images/adaptive-icon.png")} style={emergencestyles.image} />
@@ -85,13 +86,12 @@ const emergencestyles = StyleSheet.create({
    flexDirection:"row"
   },
   costandmeans:{
-   backgroundColor:"transparent",
+   backgroundColor:"white",
    borderRadius:22,
    marginVertical:12,
    paddingVertical:8,
    paddingHorizontal:8,
    marginHorizontal:12,
-   width:200,
   },
   transporttitle:{
     fontSize:20,
@@ -107,6 +107,9 @@ const emergencestyles = StyleSheet.create({
     height: 90,
     resizeMode: "contain",
   },
+  // transportmeans:{
+  //  height:500,
+  // },
   patientservice: {
     position:"absolute",
     right:0,
