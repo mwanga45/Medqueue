@@ -55,10 +55,12 @@ const Emergence = () => {
 
 const emergencestyles = StyleSheet.create({
   innercontainer:{
-
+   justifyContent:"space-around",
+   alignItems:"center",
+   flexDirection:"row"
   },
   costandmeans:{
-
+   backgroundColor:"white"  
   },
   transporttitle:{
     fontSize:20,
