@@ -17,6 +17,7 @@ const Emergence = () => {
           <View style={emergencestyles.patientemergencyrec}>
             <View style={emergencestyles.transportmeans}>
                <Text style = {emergencestyles.transporttitle}>Choose Transport means </Text>
+               <ScrollView showsHorizontalScrollIndicator={true} horizontal={true} persistentScrollbar={true}> 
                <View  style = {emergencestyles.costandmeans}>
                 <View style = {emergencestyles.imagecontainer}>
                 <Image source={require("../../assets/images/adaptive-icon.png")} style={emergencestyles.image} />
@@ -26,6 +27,16 @@ const Emergence = () => {
                 <Text style={emergencestyles.cost}>cost 0$</Text>
                 </View>
                </View>
+               <View  style = {emergencestyles.costandmeans}>
+                <View style = {emergencestyles.imagecontainer}>
+                <Image source={require("../../assets/images/adaptive-icon.png")} style={emergencestyles.image} />
+                </View>
+                <View  style = {emergencestyles.innercontainer}>
+                <Text style={emergencestyles.cost}>helcopter</Text>
+                <Text style={emergencestyles.cost}>cost 0$</Text>
+                </View>
+               </View>
+               </ScrollView>
             </View>
             <View>
             </View>
@@ -70,6 +81,8 @@ const emergencestyles = StyleSheet.create({
    marginVertical:12,
    paddingVertical:8,
    paddingHorizontal:8,
+   marginHorizontal:12,
+
    
   },
   transporttitle:{
