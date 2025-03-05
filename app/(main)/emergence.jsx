@@ -18,34 +18,26 @@ const Emergence = () => {
             <View style={emergencestyles.transportmeans}>
                <Text style = {emergencestyles.transporttitle}>Choose Transport means </Text>
                <ScrollView showsHorizontalScrollIndicator={true} horizontal={true} persistentScrollbar={true} >                
-               <View  style = {emergencestyles.costandmeans}>
-                <View style = {emergencestyles.imagecontainer}>
-                <Image source={require("../../assets/images/adaptive-icon.png")} style={emergencestyles.image} />
-                </View>
-                <View  style = {emergencestyles.innercontainer}>
-                <Text style={emergencestyles.cost}>helcopter</Text>
-                <Text style={emergencestyles.cost}>cost 0$</Text>
-                </View>
-               </View>
-               
-               <View  style = {emergencestyles.costandmeans}>
-                <View style = {emergencestyles.imagecontainer}>
-                <Image source={require("../../assets/images/adaptive-icon.png")} style={emergencestyles.image} />
-                </View>
-                <View  style = {emergencestyles.innercontainer}>
-                <Text style={emergencestyles.cost}>helcopter</Text>
-                <Text style={emergencestyles.cost}>cost 0$</Text>
-                </View>
-               </View>
-               <View  style = {emergencestyles.costandmeans}>
-                <View style = {emergencestyles.imagecontainer}>
-                <Image source={require("../../assets/images/adaptive-icon.png")} style={emergencestyles.image} />
-                </View>
-                <View  style = {emergencestyles.innercontainer}>
-                <Text style={emergencestyles.cost}>helcopter</Text>
-                <Text style={emergencestyles.cost}>cost 0$</Text>
-                </View>
-               </View>
+               <ScrollView 
+                horizontal={true} 
+                showsHorizontalScrollIndicator={true}
+                contentContainerStyle={{ paddingVertical: 12 }}
+              >
+                {[1, 2, 3].map((_, index) => (
+                  <View key={index} style={emergencestyles.costandmeans}>
+                    <View style={emergencestyles.imagecontainer}>
+                      <Image
+                        source={require("../../assets/images/adaptive-icon.png")}
+                        style={emergencestyles.image}
+                      />
+                    </View>
+                    <View style={emergencestyles.innercontainer}>
+                      <Text style={emergencestyles.cost}>helicopter</Text>
+                      <Text style={emergencestyles.cost}>cost 0$</Text>
+                    </View>
+                  </View>
+                ))}
+              </ScrollView>
                </ScrollView>
             </View>
             <View>
@@ -107,33 +99,29 @@ const emergencestyles = StyleSheet.create({
     height: 90,
     resizeMode: "contain",
   },
-  // transportmeans:{
-  //  height:500,
-  // },
-  patientservice: {
-    position:"absolute",
-    right:0,
-    backgroundColor:"rgba(175, 185, 185, 0.2)",
-    width:102,
-    borderRadius:12,
+  transportmeans: {
+    minHeight: 200, // Ensure minimum height for transport section
+    width: '100%',
+  },
+  patientserviceContainer: {
+    flex: 1,
+    marginLeft: 8,
+    maxWidth: 102,
+  },
+  patientserviceContent: {
+    paddingVertical: 8,
   },
   patientemergencyrec: {
     width: "73%",
-    justifyContent:"center",
-    alignItems:"center",
     borderRadius: 12,
-    // position: "absolute", 
-    // top:12,           
-    // left: 0,
-    // right: 0,
-    backgroundColor:"rgba(199, 248, 248, 0.2)",
-
+    backgroundColor: "rgba(199, 248, 248, 0.2)",
+    marginVertical: 12,
   },
   emergencesection: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 4,
     flex: 1,
+    paddingHorizontal: 12,
   },
   emergenceprofile: {
     backgroundColor: "rgba(255,255,255,0.6)",
