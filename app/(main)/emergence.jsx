@@ -85,12 +85,13 @@ const emergencestyles = StyleSheet.create({
    flexDirection:"row"
   },
   costandmeans:{
-   backgroundColor:"white",
+   backgroundColor:"transparent",
    borderRadius:22,
    marginVertical:12,
    paddingVertical:8,
    paddingHorizontal:8,
    marginHorizontal:12,
+   width:200,
   },
   transporttitle:{
     fontSize:20,
@@ -118,10 +119,10 @@ const emergencestyles = StyleSheet.create({
     justifyContent:"center",
     alignItems:"center",
     borderRadius: 12,
-    position: "absolute", 
-    top:12,           
-    left: 0,
-    right: 0,
+    // position: "absolute", 
+    // top:12,           
+    // left: 0,
+    // right: 0,
     backgroundColor:"rgba(199, 248, 248, 0.2)",
 
   },
