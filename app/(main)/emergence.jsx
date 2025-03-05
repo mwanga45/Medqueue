@@ -4,7 +4,6 @@ import Navigationbar from "../component/navigation";
 import { ScrollView } from "react-native";
 import UserProf from "../component/userprofile";
 import MedicalButton from "../component/medicalbtn";
-import { replace } from "expo-router/build/global-state/routing";
 
 const Emergence = () => {
   return (
@@ -19,15 +18,16 @@ const Emergence = () => {
             <View style={emergencestyles.transportmeans}>
                <Text style = {emergencestyles.transporttitle}>Choose Transport means </Text>
                <View  style = {emergencestyles.costandmeans}>
+                <View style = {emergencestyles.imagecontainer}>
                 <Image source={require("../../assets/images/adaptive-icon.png")} style={emergencestyles.image} />
+                </View>
                 <View  style = {emergencestyles.innercontainer}>
-                <Text>helcopter</Text>
-                <Text>Cost ${}</Text>
+                <Text style={emergencestyles.cost}>helcopter</Text>
+                <Text style={emergencestyles.cost}>cost 0$</Text>
                 </View>
                </View>
             </View>
             <View>
-
             </View>
             <View>
 
@@ -54,17 +54,32 @@ const Emergence = () => {
 };
 
 const emergencestyles = StyleSheet.create({
+  cost:{
+   fontWeight:400,
+   fontSize:18,
+  color:"grey"
+  },
   innercontainer:{
    justifyContent:"space-around",
    alignItems:"center",
    flexDirection:"row"
   },
   costandmeans:{
-   backgroundColor:"white"  
+   backgroundColor:"white",
+   borderRadius:22,
+   marginVertical:12,
+   paddingVertical:8,
+   paddingHorizontal:8,
+   
   },
   transporttitle:{
     fontSize:20,
     fontWeight:600,
+  },
+  imagecontainer:{
+   justifyContent:"center",
+   alignItems:"center",
+   backgroundColor:"rgba(236, 236, 236, 0.2)",
   },
   image: {
     width: 90,
