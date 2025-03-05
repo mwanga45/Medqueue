@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome5"
 
-const UserProf = () => {
+const UserProf = ({Age}) => {
   return (
     <View style={useprop.mainprofContainer}>
       <View style={useprop.profContainer}>
@@ -14,7 +14,7 @@ const UserProf = () => {
         </View>
         <View>
           <Text style = {useprop.usernamestyles}>Hello, Issa Mwanga</Text>
-          <Text>Status</Text>
+          <Text>Status:Age{Age}</Text>
         </View>
         <View>
         <Icon name="chevron-right" size={20} style={{ color: "grey" }} />

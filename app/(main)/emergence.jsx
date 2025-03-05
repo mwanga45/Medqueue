@@ -1,22 +1,30 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet,Image } from "react-native";
 import Navigationbar from "../component/navigation";
 import { ScrollView } from "react-native";
 import UserProf from "../component/userprofile";
 import MedicalButton from "../component/medicalbtn";
+import { replace } from "expo-router/build/global-state/routing";
 
 const Emergence = () => {
   return (
     <View style={emergencestyles.maincontainer}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={emergencestyles.emergenceprofile}>
-          <UserProf />
+          <UserProf  Age={26}/>
         </View>
         
         <View style={emergencestyles.emergencesection}>
           <View style={emergencestyles.patientemergencyrec}>
-            <View>
-               
+            <View style={emergencestyles.transportmeans}>
+               <Text style = {emergencestyles.transporttitle}>Choose Transport means </Text>
+               <View  style = {emergencestyles.costandmeans}>
+                <Image source={require("../../assets/images/adaptive-icon.png")} style={emergencestyles.image} />
+                <View  style = {emergencestyles.innercontainer}>
+                <Text>helcopter</Text>
+                <Text>Cost ${}</Text>
+                </View>
+               </View>
             </View>
             <View>
 
@@ -33,7 +41,7 @@ const Emergence = () => {
             >
             {
               Array.from({length:40}).map((_,index)=>(
-                <MedicalButton/>
+                <MedicalButton key={index}/>
               ))
             }
             </ScrollView>
@@ -46,6 +54,21 @@ const Emergence = () => {
 };
 
 const emergencestyles = StyleSheet.create({
+  innercontainer:{
+
+  },
+  costandmeans:{
+
+  },
+  transporttitle:{
+    fontSize:20,
+    fontWeight:600,
+  },
+  image: {
+    width: 90,
+    height: 90,
+    resizeMode: "contain",
+  },
   patientservice: {
     position:"absolute",
     right:0,
