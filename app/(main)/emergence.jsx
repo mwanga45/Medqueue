@@ -4,11 +4,12 @@ import Navigationbar from "../component/navigation";
 import { ScrollView } from "react-native";
 import UserProf from "../component/userprofile";
 import MedicalButton from "../component/medicalbtn";
+import SlideButton from "../component/slidebutton";
 
 const Emergence = () => {
   return (
     <View style={emergencestyles.maincontainer}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={emergencestyles.emergencestart}>
         <View style={emergencestyles.emergenceprofile}>
           <UserProf Age={26} />
         </View>
@@ -59,6 +60,7 @@ const Emergence = () => {
               </View> */}
             </View>
           </View>
+          <View><SlideButton/></View>
 
           <View style={{ flex: 1 }}>
             <ScrollView
@@ -153,8 +155,12 @@ const emergencestyles = StyleSheet.create({
   maincontainer: {
     flex: 1,
     backgroundColor: "#eff5ec",
+
     paddingVertical: 34,
   },
+  emergencestart:{
+    marginBottom:53
+  }
 });
 
 export default Emergence;
