@@ -22,6 +22,10 @@ const Navigationbar = () => {
           <Icon name= "list"   ></Icon>
       <Text style= {{color:"white"}}>doctors</Text>
         </TouchableOpacity>
+        <TouchableOpacity style= {navstyles.link} onPress={() => router.replace("/(main)/chatpage")} >
+          <Icon name= "list"   ></Icon>
+      <Text style= {{color:"white"}}>chatpage</Text>
+        </TouchableOpacity>
       </View> 
     </View>
   );

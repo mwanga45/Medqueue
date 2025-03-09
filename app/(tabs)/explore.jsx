@@ -62,7 +62,10 @@
 import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { usePushNotifications } from "./usePushNotifications";
+import Navigationbar from "../component/navigation"
 import * as Notifications from "expo-notifications";
+// import { GiftedChat } from 'react-native-gifted-chat'
+
 
 const PushNotificationSample = () => {
   const { expoPushToken, notification } = usePushNotifications();
@@ -91,6 +94,7 @@ const PushNotificationSample = () => {
           Last Notification: {notification.request.content.title}
         </Text>
       )}
+      <Navigationbar/>
     </View>
   );
 };
