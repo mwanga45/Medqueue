@@ -56,6 +56,7 @@ const SlideButton = ({
             transform: [{ translateX: animatedValue }],
           },
         ]}
+        // attaches the gesture handling so that this view can be dragged.
         {...panResponder.panHandlers}
       >
         <Text style={styles.buttonText}>{isSuccess ? '✓' : '>>'}</Text>
@@ -74,11 +75,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddd',
     borderRadius: 25,
     overflow: 'hidden',
-    marginTop:8
+    marginVertical:8,
+
   },
   sliderButton: {
     position: 'absolute',
-    backgroundColor: '#4CAF50',
+    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,

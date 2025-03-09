@@ -21,7 +21,7 @@ const Emergence = () => {
           <View style={emergencestyles.patientemergencyrec}>
             <View style={emergencestyles.transportmeans}>
               <Text style={emergencestyles.transporttitle}>
-                Choose Transport means{" "}
+                Choose Transport means
               </Text>
 
               <View style={emergencestyles.costandmeans}>
@@ -50,8 +50,8 @@ const Emergence = () => {
                 </View>
               </View>
             </View>
-           <SlideButton/>
           </View>
+          <View style={emergencestyles.slidebuttoncontainer}><SlideButton/></View>
 
           <View style={{ flex: 1 }}>
             <ScrollView
@@ -64,7 +64,6 @@ const Emergence = () => {
             </ScrollView>
           </View>
         </View>
-       
       </ScrollView>
       <Navigationbar />
     </View>
@@ -72,6 +71,10 @@ const Emergence = () => {
 };
 
 const emergencestyles = StyleSheet.create({
+  slidebuttoncontainer:{
+  justifyContent:"center",
+  left:22
+  },
   cost: {
     fontWeight: 400,
     fontSize: 18,
@@ -104,11 +107,12 @@ const emergencestyles = StyleSheet.create({
   transporttitle: {
     fontSize: 20,
     fontWeight: 600,
+    color:"grey"
   },
   imagecontainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(236, 236, 236, 0.2)",
+    backgroundColor: "rgb(255, 255, 255)",
   },
   image: {
     width: 90,
