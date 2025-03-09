@@ -9,7 +9,10 @@ import SlideButton from "../component/slidebutton";
 const Emergence = () => {
   return (
     <View style={emergencestyles.maincontainer}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={emergencestyles.emergencestart}>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        style={emergencestyles.emergencestart}
+      >
         <View style={emergencestyles.emergenceprofile}>
           <UserProf Age={26} />
         </View>
@@ -46,21 +49,9 @@ const Emergence = () => {
                   <Text style={emergencestyles.cost}>cost 0$</Text>
                 </View>
               </View>
-              {/* <View style={emergencestyles.costandmeans}>
-                <View style={emergencestyles.imagecontainer}>
-                  <Image
-                    source={require("../../assets/images/adaptive-icon.png")}
-                    style={emergencestyles.image}
-                  />
-                </View>
-                <View style={emergencestyles.innercontainer}>
-                  <Text style={emergencestyles.cost}>helcopter</Text>
-                  <Text style={emergencestyles.cost}>cost 0$</Text>
-                </View>
-              </View> */}
             </View>
+           <SlideButton/>
           </View>
-          <View><SlideButton/></View>
 
           <View style={{ flex: 1 }}>
             <ScrollView
@@ -73,6 +64,7 @@ const Emergence = () => {
             </ScrollView>
           </View>
         </View>
+       
       </ScrollView>
       <Navigationbar />
     </View>
@@ -87,9 +79,10 @@ const emergencestyles = StyleSheet.create({
   },
   innercontainer: {
     justifyContent: "space-around",
-    alignItems: "center",
-    flexDirection: "row",
-    columnGap:5,
+    alignItems: "flex-start",
+    paddingLeft: 8,
+    flexDirection: "column",
+    columnGap: 5,
   },
   costandmeans: {
     flexDirection: "row",
@@ -158,9 +151,9 @@ const emergencestyles = StyleSheet.create({
 
     paddingVertical: 34,
   },
-  emergencestart:{
-    marginBottom:53
-  }
+  emergencestart: {
+    marginBottom: 53,
+  },
 });
 
 export default Emergence;

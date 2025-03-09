@@ -3,7 +3,7 @@ import { Animated, View, PanResponder, Text, StyleSheet } from 'react-native';
 
 const SlideButton = ({
   onSlideSuccess,
-  sliderWidth = 300,
+  sliderWidth = 250,
   sliderHeight = 50,
   buttonWidth = 50,
 }) => {
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddd',
     borderRadius: 25,
     overflow: 'hidden',
+    marginTop:8
   },
   sliderButton: {
     position: 'absolute',
@@ -86,6 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    
   },
   sliderText: {
     color: '#555',
