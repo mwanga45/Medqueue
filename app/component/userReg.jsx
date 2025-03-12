@@ -9,46 +9,51 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
-// validate email
-const validateEmail =(email)=>{
-    const em = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
-    return em.test(String(email).toLocaleLowerCase())
-}
-const validatePhone = (phone)=>{
-    const phloc = /^07\d{8}$/;
-    const phIn = /^(?:0|\+255)7\d{8}$/;
-    return phloc.test(phone) ||phIn.test(phone);
-}
-const handlesubmit =async()=>{
-    const {fullname, phone_num, email, home_address}= formstate;
-
-    if (fullname.trim()=== ""||phone_num.trim()==="" || email.trim()==="" ){
-        Alert.alert("fullname , phone_number and email are reuired all")
-        return
-    }
-
-    if(!validateEmail(email)){
-        Alert.alert("invalid email try again ")
-        return
-    }
-    if(!validatePhone(phone_num)){
-        Alert.alert("invalid phone number")
-        return
-    }
-}
-
 const UserReg = ({ close }) => {
   const [Formstate, setFormstate] = useState({
     fullname: "",
     phone_num: "",
-    email_address:"",
+    email_address: "",
     home_address: "",
   });
-  const handleTextchange = (fieldname , value)=>{
-    setFormstate((prevstate)=>({
-        ...prevstate,[fieldname]:value
-    }))
-  }
+  const handleTextchange = (fieldname, value) => {
+    setFormstate((prevstate) => ({
+      ...prevstate,
+      [fieldname]: value,
+    }));
+  };
+  // validate email
+  const validateEmail = (email) => {
+    const em =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
+    return em.test(String(email).toLocaleLowerCase());
+  };
+  const validatePhone = (phone) => {
+    const phloc = /^07\d{8}$/;
+    const phIn = /^(?:0|\+255)7\d{8}$/;
+    return phloc.test(phone) || phIn.test(phone);
+  };
+  const handlesubmit = () => {
+    const { fullname, phone_num, email } = Formstate;
+
+    if (
+      fullname.trim() === "" ||
+      phone_num.trim() === "" ||
+      email.trim() === ""
+    ) {
+      Alert.alert("fullname or phone_number or email are reuired all");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      Alert.alert("invalid email try again ");
+      return;
+    }
+    if (!validatePhone(phone_num)) {
+      Alert.alert("invalid phone number");
+      return;
+    }
+  };
   return (
     <View style={reg.userregcontainer}>
       <View style={reg.close}>
@@ -62,12 +67,7 @@ const UserReg = ({ close }) => {
         </TouchableOpacity>
       </View>
       <View style={reg.formtitleview}>
-      <Icon
-            name="user"
-            size={34}
-            color="rgb(17, 17, 17)"
-            onPress={close}
-          />
+        <Icon name="user" size={34} color="rgb(17, 17, 17)" onPress={close} />
         <Text style={{ fontSize: 24, color: "grey", fontWeight: "900" }}>
           Register User
         </Text>
@@ -75,7 +75,7 @@ const UserReg = ({ close }) => {
       <View style={reg.formregpart}>
         <TextInput
           value={Formstate.fullname}
-          onChangeText={handleTextchange}
+          onChangeText={(text)=>handleTextchange("fullname", text)}
           placeholder="full name please"
           style={{
             height: 40,
@@ -89,7 +89,7 @@ const UserReg = ({ close }) => {
         />
         <TextInput
           value={Formstate.phone_num}
-          onChangeText={handleTextchange}
+          onChangeText={(text)=>handleTextchange("phone_num", text)}
           placeholder="Phone number eg 07......."
           keyboardType="numeric"
           style={{
@@ -103,8 +103,8 @@ const UserReg = ({ close }) => {
           }}
         />
         <TextInput
-            value={Formstate.email_address}
-          onChangeText={handleTextchange}
+          value={Formstate.email_address}
+          onChangeText={(text)=>handleTextchange("email_address", text)}
           placeholder="email please"
           keyboardType="email-address"
           style={{
@@ -118,8 +118,8 @@ const UserReg = ({ close }) => {
           }}
         />
         <TextInput
-         value={Formstate.home_address}
-          onChangeText={handleTextchange}
+          value={Formstate.home_address}
+          onChangeText={(text)=>handleTextchange("home_address",text)}
           placeholder="home address if you have please"
           style={{
             height: 40,
@@ -184,9 +184,9 @@ const reg = StyleSheet.create({
     alignItems: "center",
     columnGap: 12,
   },
-  formtitleview:{
-    justifyContent:"center",
-    alignItems:"center",
-  }
+  formtitleview: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 export default UserReg;
