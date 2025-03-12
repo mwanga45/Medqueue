@@ -4,8 +4,8 @@ import QuickAction from "../component/QuickAction";
 import MyCalendar from "../component/calender";
 import Navigationbar from "../component/navigation";
 import { useNavigation, useRouter } from "expo-router";
-
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import UserReg from "../component/userReg";
 
 const Homepage = () => {
   const router = useRouter()
@@ -64,6 +64,7 @@ const Homepage = () => {
           </View>
           {showcalender && <MyCalendar />}
         </View>
+        <UserReg/>
       </ScrollView>
 
       {/* Fixed Navigation Bar */}
