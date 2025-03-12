@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "../component/QuickAction";
 import MyCalendar from "../component/calender";
@@ -14,6 +14,14 @@ const Homepage = () => {
     setshowcalender(!showcalender);
   };
 
+  const [showreg, setshowreg] = useState(true);
+  const handleshowreg = () => {
+    setshowreg(!showreg);
+  }
+
+  useEffect(()=>{
+    setshowreg(true)
+  },[])
   return (
     <View style={styles.container}>
       {/* Scrollable content */}
@@ -64,7 +72,8 @@ const Homepage = () => {
           </View>
           {showcalender && <MyCalendar />}
         </View>
-        <UserReg/>
+
+        {showreg && <UserReg close={handleshowreg}/>}
       </ScrollView>
 
       {/* Fixed Navigation Bar */}
