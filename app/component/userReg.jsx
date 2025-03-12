@@ -1,5 +1,5 @@
 import React from "react";
-import  { View ,StyleSheet,Text,TouchableOpacity} from "react-native"
+import  { View ,StyleSheet,Text,TouchableOpacity, TextInput} from "react-native"
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const UserReg = () => {
@@ -13,6 +13,16 @@ const UserReg = () => {
       <View>
         <Text style={{fontSize:24, color:"grey", fontWeight:"900"}}>Register User</Text>
       </View>
+      <View>
+        <TextInput nativeID="name" placeholder="full name please"    style={{
+          height: 40,
+          borderColor: 'gray',
+          borderWidth: 1,
+          paddingHorizontal: 10,
+          width:250,
+          borderRadius:10,
+        }}/>
+      </View>
     </View>
   );
 };
@@ -20,9 +30,9 @@ const UserReg = () => {
 const reg = StyleSheet.create({
   userregcontainer: {
     position: "absolute",
-    height: 450,
+    height: 550,
     backgroundColor: "white",
-    top: 300,
+    top: 200,
     width: "90%",
     right: 17,
     alignItems: "center",
