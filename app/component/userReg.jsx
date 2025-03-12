@@ -5,9 +5,37 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
+// validate email
+const validateEmail =(email)=>{
+    const em = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
+    return em.test(String(email).toLocaleLowerCase())
+}
+const validatePhone = (phone)=>{
+    const phloc = /^07\d{8}$/;
+    const phIn = /^(?:0|\+255)7\d{8}$/;
+    return phloc.test(phone) ||phIn.test(phone);
+}
+const handlesubmit =async()=>{
+    const {fullname, phone_num, email, home_address}= formstate;
+
+    if (fullname.trim()=== ""||phone_num.trim()==="" || email.trim()==="" ){
+        Alert.alert("fullname , phone_number and email are reuired all")
+        return
+    }
+
+    if(!validateEmail(email)){
+        Alert.alert("invalid email try again ")
+        return
+    }
+    if(!validatePhone(phone_num)){
+        Alert.alert("invalid phone number")
+        return
+    }
+}
 
 const UserReg = ({ close }) => {
   const [Formstate, setFormstate] = useState({
@@ -33,7 +61,13 @@ const UserReg = ({ close }) => {
           />
         </TouchableOpacity>
       </View>
-      <View>
+      <View style={reg.formtitleview}>
+      <Icon
+            name="user"
+            size={34}
+            color="rgb(17, 17, 17)"
+            onPress={close}
+          />
         <Text style={{ fontSize: 24, color: "grey", fontWeight: "900" }}>
           Register User
         </Text>
@@ -98,6 +132,7 @@ const UserReg = ({ close }) => {
           }}
         />
         <TouchableOpacity
+          onPress={handlesubmit}
           style={{
             backgroundColor: "rgb(35, 35, 35)",
             marginTop: 32,
@@ -149,5 +184,9 @@ const reg = StyleSheet.create({
     alignItems: "center",
     columnGap: 12,
   },
+  formtitleview:{
+    justifyContent:"center",
+    alignItems:"center",
+  }
 });
 export default UserReg;
