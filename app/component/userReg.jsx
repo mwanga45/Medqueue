@@ -34,19 +34,19 @@ const UserReg = ({ close }) => {
     return phloc.test(phone) || phIn.test(phone);
   };
   const handlesubmit = async() => {
-    const { fullname, phone_num, email } = Formstate;
+    const { fullname, phone_num, email_address } = Formstate;
     try{
 
       if (
         fullname.trim() === "" ||
         phone_num.trim() === "" ||
-        email.trim() === ""
+        email_address.trim() === ""
       ) {
         Alert.alert("fullname or phone_number or email are reuired all");
         return;
       }
   
-      if (!validateEmail(email)) {
+      if (!validateEmail(email_address)) {
         Alert.alert("invalid email try again ");
         return;
       }
@@ -60,6 +60,11 @@ const UserReg = ({ close }) => {
         email_address:Formstate.email_address,
         home_address:Formstate.home_address,
       })
+      if (response.data.success){
+        Alert.alert("successfuly registered")
+      }else{
+        
+      }
   
     }catch (err){
       console.error("something went wrong", err)
