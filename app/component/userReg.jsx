@@ -33,26 +33,38 @@ const UserReg = ({ close }) => {
     const phIn = /^(?:0|\+255)7\d{8}$/;
     return phloc.test(phone) || phIn.test(phone);
   };
-  const handlesubmit = () => {
+  const handlesubmit = async() => {
     const { fullname, phone_num, email } = Formstate;
+    try{
 
-    if (
-      fullname.trim() === "" ||
-      phone_num.trim() === "" ||
-      email.trim() === ""
-    ) {
-      Alert.alert("fullname or phone_number or email are reuired all");
-      return;
+      if (
+        fullname.trim() === "" ||
+        phone_num.trim() === "" ||
+        email.trim() === ""
+      ) {
+        Alert.alert("fullname or phone_number or email are reuired all");
+        return;
+      }
+  
+      if (!validateEmail(email)) {
+        Alert.alert("invalid email try again ");
+        return;
+      }
+      if (!validatePhone(phone_num)) {
+        Alert.alert("invalid phone number");
+        return;
+      }
+      const response = await axios.post("http://localhost:8800/register", {
+        fullname:Formstate.fullname,
+        phone_num:Formstate.phone_num,
+        email_address:Formstate.email_address,
+        home_address:Formstate.home_address,
+      })
+  
+    }catch (err){
+      console.error("something went wrong", err)
     }
-
-    if (!validateEmail(email)) {
-      Alert.alert("invalid email try again ");
-      return;
-    }
-    if (!validatePhone(phone_num)) {
-      Alert.alert("invalid phone number");
-      return;
-    }
+    
   };
   return (
     <View style={reg.userregcontainer}>
