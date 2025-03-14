@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 const Dklistcard = ({time, dkt_Name,Specialist}) => {
   const [showcard, setshowcard] = useState(false)
   const  handleshowcard = ()=>{
-    setshowcard(true)
+    setshowcard(!showcard)
   }
   return (
     <View style={styleslistcard.dklcontainer}>
@@ -59,7 +59,8 @@ shadowOffset: {
 },
 shadowOpacity:  0.19,
 shadowRadius: 5.62,
-elevation: 6
+elevation: 6,
+
   },
   dkAgment: {
     flexDirection: "row",
@@ -79,11 +80,10 @@ elevation: 6
     marginLeft:30
   },
   popup:{
-   position:"absolute",
-   zIndex:100,
+   position:"relative",
    top:12,
-   right:1,
-   left:2
+   left:0,
+   right:12
   },
 });
 
