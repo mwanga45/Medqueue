@@ -26,8 +26,8 @@ const Dktcard = ({ specialist, name }) => {
           <View style={styles.specialistContainer}>
             <Text style={styles.specialistText}>{specialist}</Text>
           </View>
-          <Text style={styles.doctorName} numberOfLines={1} ellipsizeMode="middle">
-            Dr. {name}
+          <Text style={styles.doctorName} numberOfLines={1} ellipsizeMode="tail">
+             {name}
           </Text>
         </View>
         <Image source={require("../../assets/images/adaptive-icon.png")} style={styles.image} />

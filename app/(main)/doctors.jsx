@@ -54,7 +54,6 @@ const DoctorPresence = () => {
           />
         </View>
       </ScrollView>
-      
       <Navigationbar />
     </View>
   );
