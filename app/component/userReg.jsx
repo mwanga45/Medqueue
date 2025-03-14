@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
-const UserReg = ({ close }) => {
+const UserReg = ({close}) => {
   const [Formstate, setFormstate] = useState({
     fullname: "",
     phone_num: "",
