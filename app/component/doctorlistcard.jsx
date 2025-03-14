@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import Dktcard from "./doctorcard";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
+
 const Dklistcard = ({time, dkt_Name,Specialist}) => {
+  const [showcard, setshowcard] = useState(false)
+  const  handleshowcard = ()=>{
+    setshowcard(true)
+  }
   return (
     <View style={styleslistcard.dklcontainer}>
       <View style={styleslistcard.dkAgment}>
@@ -22,11 +28,15 @@ const Dklistcard = ({time, dkt_Name,Specialist}) => {
           </Text>
         </View>
         <View style={styleslistcard.IconArrow}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={(index)=> handleshowcard()}>
             <Icon name="chevron-right" size={20} style={{ color: "grey" }} />
           </TouchableOpacity>
         </View>
-        <View></View>
+        <View style = {styleslistcard.popup} >
+          {
+            showcard &&<Dktcard/>
+          }
+        </View>
       </View>
     </View>
   );
@@ -67,6 +77,13 @@ elevation: 6
     justifyContent: "center",
     alignItems: "center",
     marginLeft:30
+  },
+  popup:{
+   position:"absolute",
+   zIndex:100,
+   top:12,
+   right:1,
+   left:2
   },
 });
 
