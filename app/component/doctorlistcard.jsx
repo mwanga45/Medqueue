@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-const Dklistcard = () => {
+const Dklistcard = ({time, dkt_Name,Specialist}) => {
   return (
     <View style={styleslistcard.dklcontainer}>
       <View style={styleslistcard.dkAgment}>
@@ -14,11 +14,11 @@ const Dklistcard = () => {
         </View>
         <View>
           <Text style={{ fontSize: 18, fontWeight: 600 , marginTop:9 }}>
-            Dr. Jenny Wilson
+            {dkt_Name}
           </Text>
-          <Text>Bone Health</Text>
+          <Text>{Specialist}</Text>
           <Text style={{ fontSize: 12, fontWeight: 400, color: "grey", marginTop:9 }}>
-            10:25 AM - 11:25 AM Scheduled
+            {time} Scheduled
           </Text>
         </View>
         <View style={styleslistcard.IconArrow}>

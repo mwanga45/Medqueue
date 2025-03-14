@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
 import Navigationbar from "../component/navigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -6,19 +7,19 @@ import UserProf from "../component/userprofile";
 import Searchcomp from "../component/searchcomp";
 import Dklistcard from "../component/doctorlistcard";
 
+
 const DoctorPresence = () => {
-  const currentdate = new Date();
-  const year = currentdate.getFullYear();
-  const day = currentdate.toLocaleString("en-us", { weekday: "short" });
-  const monthname = currentdate.toLocaleString("default", { month: "short" });
-  const month = currentdate.getMonth();
-  const formated = `${day}, ${month} ${monthname} ${year}`;
+  const currentdate = new Date()
+  const year = currentdate.getFullYear()
+  const day = currentdate.toLocaleString("en-us", {weekday:"short"})
+  const monthname = currentdate.toLocaleString("default", {month:"short"})
+  const formatted =  `${day}, ${monthname}, ${year}`
   return (
     <View style={doctorsstyles.doctosMaincontainer}>
       <ScrollView style = {doctorsstyles.scrollcontainer}>
       <View style={doctorsstyles.usercontent}>
         <View style={doctorsstyles.datebell}>
-          <Text style={doctorsstyles.datestyle}>{formated}</Text>
+          <Text style={doctorsstyles.datestyle}>{formatted}</Text>
           <Icon name="bell" size={20} />
         </View>
         <View style={doctorsstyles.propfile}>
@@ -30,18 +31,9 @@ const DoctorPresence = () => {
       </View>
       <View style={doctorsstyles.doclist}>
         <View >
-          <Dklistcard />
-          <Dklistcard />
-          <Dklistcard />
-          <Dklistcard />
-          <Dklistcard />
-          <Dklistcard />
-          <Dklistcard />
-          <Dklistcard />
-          <Dklistcard />
-          <Dklistcard />
-          <Dklistcard />
-          <Dklistcard />
+         {Array.from({length:40}).map((_,index)=>(
+          <Dklistcard dkt_Name={"Laura kamagi"} time={"10AM-18PM"} Specialist={"Bone marrows"} key={index}/>
+         ))}
         </View>
       </View>
       </ScrollView>
