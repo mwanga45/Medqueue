@@ -54,20 +54,28 @@ const UserReg = ({ close }) => {
         Alert.alert("invalid phone number");
         return;
       }
-      const response = await axios.post("http://localhost:8800/register", {
+      const response = await axios.post("http://192.168.104.251:8800/register", {
         fullname:Formstate.fullname,
         phone_num:Formstate.phone_num,
         email_address:Formstate.email_address,
         home_address:Formstate.home_address,
       })
-      if (response.data.success){
-        Alert.alert("successfuly registered")
-      }else{
-        
+      if (response.data.success) {
+        Alert.alert("Success", "User registered successfully!");
+        // Optionally, clear the form or close the modal
+        setFormstate({
+          fullname: "",
+          phone_num: "",
+          email_address: "",
+          home_address: "",
+        });
+        if (close) close();
+      } else {
+        Alert.alert("Registration Failed", response.data.message || "Something went wrong");
       }
-  
-    }catch (err){
-      console.error("something went wrong", err)
+    } catch (err) {
+      console.error("Something went wrong", err);
+      Alert.alert("Error", "Something went wrong, please try again.");
     }
     
   };
