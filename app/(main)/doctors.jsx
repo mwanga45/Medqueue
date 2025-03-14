@@ -1,94 +1,118 @@
+// DoctorPresence.js (Parent component)
 import React from "react";
-import axios from "axios";
-import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
+import { View, Text, ScrollView, StyleSheet, Image, FlatList } from "react-native";
 import Navigationbar from "../component/navigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import UserProf from "../component/userprofile";
 import Searchcomp from "../component/searchcomp";
 import Dklistcard from "../component/doctorlistcard";
 
-
 const DoctorPresence = () => {
-  const currentdate = new Date()
-  const year = currentdate.getFullYear()
-  const day = currentdate.toLocaleString("en-us", {weekday:"short"})
-  const monthname = currentdate.toLocaleString("default", {month:"short"})
-  const formatted =  `${day}, ${monthname}, ${year}`
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    year: "numeric",
+  });
+
   return (
     <View style={doctorsstyles.doctosMaincontainer}>
-      <ScrollView style = {doctorsstyles.scrollcontainer}>
-      <View style={doctorsstyles.usercontent}>
-        <View style={doctorsstyles.datebell}>
-          <Text style={doctorsstyles.datestyle}>{formatted}</Text>
-          <Icon name="bell" size={20} />
+      <ScrollView 
+        style={doctorsstyles.scrollcontainer}
+        contentContainerStyle={doctorsstyles.scrollContent}
+      >
+        <View style={doctorsstyles.usercontent}>
+          <View style={doctorsstyles.headerContainer}>
+            <Text style={doctorsstyles.dateText}>{formattedDate}</Text>
+            <Icon name="bell" size={20} color="#666666" />
+          </View>
+          
+          <View style={doctorsstyles.profileContainer}>
+            <UserProf />
+          </View>
+          
+          <View style={doctorsstyles.searchContainer}>
+            <Searchcomp />
+          </View>
         </View>
-        <View style={doctorsstyles.propfile}>
-          <UserProf />
+
+        <View style={doctorsstyles.listContainer}>
+          <FlatList
+            data={Array(40).fill({})}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={({ item }) => (
+              <Dklistcard 
+                dkt_Name="Dr. Laura Kamagi" 
+                time="10AM-6PM" 
+                Specialist="Bone Marrow Specialist"
+              />
+            )}
+            initialNumToRender={10}
+            maxToRenderPerBatch={5}
+            windowSize={7}
+            scrollEnabled={false}
+          />
         </View>
-        <View style={doctorsstyles.searchdoctor}>
-          <Searchcomp />
-        </View>
-      </View>
-      <View style={doctorsstyles.doclist}>
-        <View >
-         {Array.from({length:40}).map((_,index)=>(
-          <Dklistcard dkt_Name={"Laura kamagi"} time={"10AM-18PM"} Specialist={"Bone marrows"} key={index}/>
-         ))}
-        </View>
-      </View>
       </ScrollView>
+      
       <Navigationbar />
     </View>
   );
 };
-const doctorsstyles = StyleSheet.create({
-  scrollcontainer:{
-     flexGrow:1,
 
-  },
- 
-  doclist: {
-    width: "100%",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingTop: 23,
-  },
-  searchdoctor: {
-    width: "98%",
-    marginTop: 12,
-  },
-  propfile: {
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    width: "96%",
-  },
-  datestyle: {
-    fontSize: 18,
-    color: "grey",
-    fontWeight: "800",
-  },
-  datebell: {
-    width: "90%",
-    justifyContent: "space-between",
-    //  backgroundColor:"black"
-    flexDirection: "row",
-  },
+const doctorsstyles = StyleSheet.create({
   doctosMaincontainer: {
     flex: 1,
-    backgroundColor: "#d3d2d2",
-    paddingBottom:80
+    backgroundColor: "#e8e8e8",
+    position: "relative",
+  },
+  scrollcontainer: {
+    flex: 1,
+    zIndex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 100,
   },
   usercontent: {
-    width: "100%",
-    justifyContent: "center",
+    backgroundColor: "#f0f7ed",
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    paddingHorizontal: 16,
+    paddingTop: 34,
+    paddingBottom: 24,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    height: 270,
-    backgroundColor: "#eff5ec",
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    paddingTop:34,
-
+    width: "100%",
+    marginBottom: 20,
+  },
+  dateText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#4a4a4a",
+    letterSpacing: 0.3,
+  },
+  profileContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
+  searchContainer: {
+    width: "100%",
+    marginBottom: 16,
+  },
+  listContainer: {
+    width: "100%",
+    paddingHorizontal: 16,
+    paddingTop: 24,
   },
 });
+
 export default DoctorPresence;
