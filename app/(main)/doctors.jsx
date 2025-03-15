@@ -9,24 +9,21 @@ import Dklistcard from "../component/doctorlistcard";
 
 const DoctorPresence = () => {
   const [doctorinfo, setdoctorinfo]= useState([])
-  const handledoctorsinfo = async()=>{
-    try{
-       axios.get("http://192.168.104.251:8800/doctorinfo")
-       .then((response)=>{
-        const info  = response.data
-        if (info.success){
-          setdoctorinfo(info.data)
-        }
-       }) 
- 
-      
-
-
-    }catch(err){
-      console.error("something went wrong")
-      Alert.alert("Please information isn`t  available")
+  const handledoctorsinfo = async () => {
+    try {
+      const response = await axios.get("http://192.168.104.251:8800/doctorinfo");
+      const info = response.data;
+      if (info.success) {
+        setdoctorinfo(info.data);
+      } else {
+        console.error("Failed to fetch data");
+      }
+    } catch (err) {
+      console.error("Something went wrong", err);
+      Alert.alert("Please information isn’t available");
     }
-  }
+  };
+  
   useEffect(()=>{
   handledoctorsinfo()
   },[])
@@ -65,9 +62,9 @@ const DoctorPresence = () => {
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item }) => (
               <Dklistcard 
-                dkt_Name={doctorinfo.} 
-                time="10AM-6PM" 
-                Specialist="Bone Marrow Specialist"
+                dkt_Name={doctorinfo.full_name} 
+                time={doctorinfo.Availability} 
+                Specialist={doctorinfo.speciality}
               />
             )}
             initialNumToRender={10}
