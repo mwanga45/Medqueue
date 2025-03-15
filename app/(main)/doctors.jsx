@@ -59,12 +59,12 @@ const DoctorPresence = () => {
           <FlatList
             // data={Array(40).fill({})}
             data={doctorinfo}
-            keyExtractor={(_, index) => index.toString()}
+            keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <Dklistcard 
-                dkt_Name={doctorinfo.full_name} 
-                time={doctorinfo.Availability} 
-                Specialist={doctorinfo.speciality}
+                dkt_Name={item.full_name} 
+                time={item.availability} 
+                Specialist={item. specialty}
               />
             )}
             initialNumToRender={10}
