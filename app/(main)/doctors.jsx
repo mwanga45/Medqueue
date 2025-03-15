@@ -1,4 +1,3 @@
-// DoctorPresence.js (Parent component)
 import React from "react";
 import { View, Text, ScrollView, StyleSheet, Image, FlatList } from "react-native";
 import Navigationbar from "../component/navigation";
@@ -64,10 +63,13 @@ const doctorsstyles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#e8e8e8",
     position: "relative",
+  
   },
   scrollcontainer: {
     flex: 1,
     zIndex: 1,
+    marginBottom:82
+
   },
   scrollContent: {
     paddingBottom: 100,
