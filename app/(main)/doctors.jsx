@@ -1,5 +1,6 @@
-import React from "react";
-import { View, Text, ScrollView, StyleSheet, Image, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
+import axios from "axios"
+import { View, Text, ScrollView, StyleSheet, Image, FlatList, Alert } from "react-native";
 import Navigationbar from "../component/navigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import UserProf from "../component/userprofile";
@@ -7,6 +8,28 @@ import Searchcomp from "../component/searchcomp";
 import Dklistcard from "../component/doctorlistcard";
 
 const DoctorPresence = () => {
+  const [doctorinfo, setdoctorinfo]= useState([])
+  const handledoctorsinfo = async()=>{
+    try{
+       axios.get("http://192.168.104.251:8800/doctorinfo")
+       .then((response)=>{
+        const info  = response.data
+        if (info.success){
+          setdoctorinfo(info.data)
+        }
+       }) 
+ 
+      
+
+
+    }catch(err){
+      console.error("something went wrong")
+      Alert.alert("Please information isn`t  available")
+    }
+  }
+  useEffect(()=>{
+  handledoctorsinfo()
+  },[])
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString("en-US", {
     weekday: "short",
@@ -37,11 +60,12 @@ const DoctorPresence = () => {
 
         <View style={doctorsstyles.listContainer}>
           <FlatList
-            data={Array(40).fill({})}
+            // data={Array(40).fill({})}
+            data={doctorinfo}
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item }) => (
               <Dklistcard 
-                dkt_Name="Dr. Laura Kamagi" 
+                dkt_Name={doctorinfo.} 
                 time="10AM-6PM" 
                 Specialist="Bone Marrow Specialist"
               />
