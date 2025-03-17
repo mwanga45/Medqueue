@@ -166,7 +166,7 @@ const UserReg = ({ close }) => {
         />
         <TextInput
           value={FormState.home_address}
-          onChangeText={(text)=>handleTextChange("home_address",text)}
+          onChangeText={(text)=>handleTextchange("home_address",text)}
           placeholder="home address if you have please"
           style={{
             height: 40,
