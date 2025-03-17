@@ -17,6 +17,8 @@ const UserReg = ({close}) => {
     phone_num: "",
     email_address: "",
     home_address: "",
+    age:"",
+    
   });
   const handleTextchange = (fieldname, value) => {
     setFormstate((prevstate) => ({
@@ -36,13 +38,15 @@ const UserReg = ({close}) => {
     return phloc.test(phone) || phIn.test(phone);
   };
   const handlesubmit = async() => {
-    const { fullname, phone_num, email_address } = Formstate;
+    const { fullname, phone_num, email_address,age} = Formstate;
     try{
 
       if (
         fullname.trim() === "" ||
         phone_num.trim() === "" ||
-        email_address.trim() === ""
+        email_address.trim() === ""||
+        age.trim() === ""
+
       ) {
         Alert.alert("fullname or phone_number or email are reuired all");
         return;
@@ -61,7 +65,8 @@ const UserReg = ({close}) => {
         phone_num:Formstate.phone_num,
         email_address:Formstate.email_address,
         home_address:Formstate.home_address,
-        deviceId:deviceId
+        deviceId:deviceId,
+        age:Formstate.age,
       })
       if (response.data.success) {
         Alert.alert("Success", "User registered successfully!");
@@ -71,6 +76,7 @@ const UserReg = ({close}) => {
           phone_num: "",
           email_address: "",
           home_address: "",
+          age:""
         });
         if (close) close();
       } else {
@@ -105,6 +111,21 @@ const UserReg = ({close}) => {
           value={Formstate.fullname}
           onChangeText={(text)=>handleTextchange("fullname", text)}
           placeholder="full name please"
+          style={{
+            height: 40,
+            borderColor: "gray",
+            borderWidth: 1,
+            paddingHorizontal: 10,
+            width: 250,
+            borderRadius: 10,
+            marginTop: 30,
+          }}
+        />
+        <TextInput
+          value={Formstate.age}
+          onChangeText={(text)=>handleTextchange("age", text)}
+          placeholder="please enter your age"
+          keyboardType="numeric"
           style={{
             height: 40,
             borderColor: "gray",

@@ -7,7 +7,11 @@ import Icon from "react-native-vector-icons/FontAwesome5"
 const UserProf = ({Age}) => {
   const [userdetails, setuserdetails]= useState([])
   const handlesendDeviceid =async({deviceId})=>{
-    const sendUUi = await axios.post("http://192.168.104.251:8800/userinfo", deviceId)
+    try{
+      await axios.post("http://192.168.104.251:8800/userinfo", deviceId)
+    }catch(err){
+      console.error("Something went wrong",err)
+    }
   }
 
   const handleuserdetails = async()=>{
