@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import DeviceInfo from 'react-native-device-info';
 import {
   View,
   StyleSheet,
@@ -10,6 +11,7 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 const UserReg = ({close}) => {
+  const deviceId = DeviceInfo.getUniqueId()
   const [Formstate, setFormstate] = useState({
     fullname: "",
     phone_num: "",
@@ -59,6 +61,7 @@ const UserReg = ({close}) => {
         phone_num:Formstate.phone_num,
         email_address:Formstate.email_address,
         home_address:Formstate.home_address,
+        deviceId:deviceId
       })
       if (response.data.success) {
         Alert.alert("Success", "User registered successfully!");
