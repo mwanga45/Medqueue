@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import DeviceInfo from 'react-native-device-info';
 import axios from 'axios'
 import { View, Text, Image, StyleSheet, Alert } from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome5"
 
 const UserProf = ({Age}) => {
   const [userdetails, setuserdetails]= useState([])
+  const handlesendDeviceid =async({deviceId})=>{
+    const sendUUi = await axios.post("http://192.168.104.251:8800/userinfo", deviceId)
+  }
 
   const handleuserdetails = async()=>{
     try{
@@ -23,6 +27,8 @@ const UserProf = ({Age}) => {
 
     }
   useEffect(()=>{
+    const deviceId = DeviceInfo.getDeviceId()
+    handlesendDeviceid(deviceId)
     handleuserdetails()
   },[])
   return (
