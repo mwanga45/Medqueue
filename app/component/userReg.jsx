@@ -107,7 +107,7 @@ const UserReg = ({ close }) => {
       <View style={reg.formregpart}>
         <TextInput
           value={FormState.fullname}
-          onChangeText={(text)=>handleTextchange("fullname", text)}
+          onChangeText={(text)=>handleTextChange("fullname", text)}
           placeholder="full name please"
           style={{
             height: 40,
@@ -121,7 +121,7 @@ const UserReg = ({ close }) => {
         />
         <TextInput
           value={FormState.age}
-          onChangeText={(text)=>handleTextchange("age", text)}
+          onChangeText={(text)=>handleTextChange("age", text)}
           placeholder="please enter your age"
           keyboardType="numeric"
           style={{
@@ -136,7 +136,7 @@ const UserReg = ({ close }) => {
         />
         <TextInput
           value={FormState.phone_num}
-          onChangeText={(text)=>handleTextchange("phone_num", text)}
+          onChangeText={(text)=>handleTextChange("phone_num", text)}
           placeholder="Phone number eg 07......."
           keyboardType="numeric"
           style={{
@@ -151,7 +151,7 @@ const UserReg = ({ close }) => {
         />
         <TextInput
           value={FormState.email_address}
-          onChangeText={(text)=>handleTextchange("email_address", text)}
+          onChangeText={(text)=>handleTextChange("email_address", text)}
           placeholder="email please"
           keyboardType="email-address"
           style={{
@@ -166,7 +166,7 @@ const UserReg = ({ close }) => {
         />
         <TextInput
           value={FormState.home_address}
-          onChangeText={(text)=>handleTextchange("home_address",text)}
+          onChangeText={(text)=>handleTextChange("home_address",text)}
           placeholder="home address if you have please"
           style={{
             height: 40,
