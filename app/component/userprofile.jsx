@@ -1,8 +1,30 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'
+import { View, Text, Image, StyleSheet, Alert } from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome5"
 
 const UserProf = ({Age}) => {
+  const [userdetails, setuserdetails]= useState([])
+
+  const handleuserdetails = async()=>{
+    try{
+
+      const respond = await axios.get("http://192.168.104.251:8800/userinfo")
+      const userdetail = respond.data
+      if (respond.success == true){
+        setuserdetails(userdetail)
+      }else{
+        Alert.alert("Failed to return data")
+      }
+  
+    }catch (err){
+      console.error("Something went wrong",err)
+    }
+
+    }
+  useEffect(()=>{
+    handleuserdetails()
+  },[])
   return (
     <View style={useprop.mainprofContainer}>
       <View style={useprop.profContainer}>
@@ -13,7 +35,7 @@ const UserProf = ({Age}) => {
           />
         </View>
         <View>
-          <Text style = {useprop.usernamestyles}>Hello, Issa Mwanga</Text>
+          <Text style = {useprop.usernamestyles}>Hello, {userdetails.full}</Text>
           <Text>Status:Age{Age}</Text>
         </View>
         <View>
