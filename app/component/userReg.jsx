@@ -1,92 +1,90 @@
-import React, { useEffect, useState } from "react";
-import DeviceInfo from 'react-native-device-info';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  Alert,
-} from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
+import React, { useState } from "react";
+import { Platform, View, Text, TouchableOpacity, TextInput, Alert,StyleSheet} from "react-native";
+import * as Application from "expo-application";
 import axios from "axios";
-const UserReg = ({close}) => {
-  const deviceId = DeviceInfo.getUniqueId()
-  const [Formstate, setFormstate] = useState({
+import Icon from "react-native-vector-icons/FontAwesome5";
+
+const UserReg = ({ close }) => {
+  // Use expo-application to get the device's unique ID
+  const deviceId = Platform.OS === "android" ? Application.androidId : Application.iosIdForVendor;
+
+  const [FormState, setFormState] = useState({
     fullname: "",
     phone_num: "",
     email_address: "",
     home_address: "",
-    age:"",
-    
+    age: "",
   });
-  const handleTextchange = (fieldname, value) => {
-    setFormstate((prevstate) => ({
-      ...prevstate,
+
+  const handleTextChange = (fieldname, value) => {
+    setFormState((prev) => ({
+      ...prev,
       [fieldname]: value,
     }));
   };
-  // validate email
+
+  // Email validation regex
   const validateEmail = (email) => {
-    const em =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
-    return em.test(String(email).toLocaleLowerCase());
+    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
+    return regex.test(String(email).toLowerCase());
   };
+
+  // Phone validation regex
   const validatePhone = (phone) => {
-    const phloc = /^07\d{8}$/;
-    const phIn = /^(?:0|\+255)7\d{8}$/;
-    return phloc.test(phone) || phIn.test(phone);
+    const regex1 = /^07\d{8}$/;
+    const regex2 = /^(?:0|\+255)7\d{8}$/;
+    return regex1.test(phone) || regex2.test(phone);
   };
-  const handlesubmit = async() => {
-    const { fullname, phone_num, email_address,age} = Formstate;
-    try{
 
-      if (
-        fullname.trim() === "" ||
-        phone_num.trim() === "" ||
-        email_address.trim() === ""||
-        age.trim() === ""
+  const handleSubmit = async () => {
+    const { fullname, phone_num, email_address, age } = FormState;
+    if (
+      fullname.trim() === "" ||
+      phone_num.trim() === "" ||
+      email_address.trim() === "" ||
+      age.trim() === ""
+    ) {
+      Alert.alert("Error", "Full name, phone number, email, and age are required.");
+      return;
+    }
 
-      ) {
-        Alert.alert("fullname or phone_number or email are reuired all");
-        return;
-      }
-  
-      if (!validateEmail(email_address)) {
-        Alert.alert("invalid email try again ");
-        return;
-      }
-      if (!validatePhone(phone_num)) {
-        Alert.alert("invalid phone number");
-        return;
-      }
+    if (!validateEmail(email_address)) {
+      Alert.alert("Error", "Invalid email, please try again.");
+      return;
+    }
+
+    if (!validatePhone(phone_num)) {
+      Alert.alert("Error", "Invalid phone number.");
+      return;
+    }
+
+    try {
       const response = await axios.post("http://192.168.104.251:8800/register", {
-        fullname:Formstate.fullname,
-        phone_num:Formstate.phone_num,
-        email_address:Formstate.email_address,
-        home_address:Formstate.home_address,
-        deviceId:deviceId,
-        age:Formstate.age,
-      })
+        fullname: FormState.fullname,
+        phone_num: FormState.phone_num,
+        email_address: FormState.email_address,
+        home_address: FormState.home_address,
+        deviceId: deviceId,
+        age: FormState.age,
+      });
+
       if (response.data.success) {
         Alert.alert("Success", "User registered successfully!");
-        // Optionally, clear the form or close the modal
-        setFormstate({
+        setFormState({
           fullname: "",
           phone_num: "",
           email_address: "",
           home_address: "",
-          age:""
+          age: "",
         });
         if (close) close();
       } else {
         Alert.alert("Registration Failed", response.data.message || "Something went wrong");
       }
     } catch (err) {
-      console.error("Something went wrong", err);
+      console.error("Error:", err);
       Alert.alert("Error", "Something went wrong, please try again.");
     }
-    
   };
   return (
     <View style={reg.userregcontainer}>
@@ -108,7 +106,7 @@ const UserReg = ({close}) => {
       </View>
       <View style={reg.formregpart}>
         <TextInput
-          value={Formstate.fullname}
+          value={FormState.fullname}
           onChangeText={(text)=>handleTextchange("fullname", text)}
           placeholder="full name please"
           style={{
@@ -122,7 +120,7 @@ const UserReg = ({close}) => {
           }}
         />
         <TextInput
-          value={Formstate.age}
+          value={FormState.age}
           onChangeText={(text)=>handleTextchange("age", text)}
           placeholder="please enter your age"
           keyboardType="numeric"
@@ -137,7 +135,7 @@ const UserReg = ({close}) => {
           }}
         />
         <TextInput
-          value={Formstate.phone_num}
+          value={FormState.phone_num}
           onChangeText={(text)=>handleTextchange("phone_num", text)}
           placeholder="Phone number eg 07......."
           keyboardType="numeric"
@@ -152,7 +150,7 @@ const UserReg = ({close}) => {
           }}
         />
         <TextInput
-          value={Formstate.email_address}
+          value={FormState.email_address}
           onChangeText={(text)=>handleTextchange("email_address", text)}
           placeholder="email please"
           keyboardType="email-address"
@@ -167,7 +165,7 @@ const UserReg = ({close}) => {
           }}
         />
         <TextInput
-          value={Formstate.home_address}
+          value={FormState.home_address}
           onChangeText={(text)=>handleTextchange("home_address",text)}
           placeholder="home address if you have please"
           style={{
@@ -181,7 +179,7 @@ const UserReg = ({close}) => {
           }}
         />
         <TouchableOpacity
-          onPress={handlesubmit}
+          onPress={handleSubmit}
           style={{
             backgroundColor: "rgb(35, 35, 35)",
             marginTop: 32,
