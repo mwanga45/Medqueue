@@ -65,9 +65,17 @@ import { usePushNotifications } from "./usePushNotifications";
 import Navigationbar from "../component/navigation"
 import * as Notifications from "expo-notifications";
 // import { GiftedChat } from 'react-native-gifted-chat'
+import Constants from 'expo-constants';
+import * as Application from 'expo-application'
 
 
 const PushNotificationSample = () => {
+  // Get the persistent installation ID (works on all platforms)
+  const installationId = Constants.installationId;
+
+  // Platform-specific identifiers (optional)
+  const androidId = Application.androidId; // Android only
+  const iosId = Application.getIosIdForVendorAsync(); // iOS only
   const { expoPushToken, notification } = usePushNotifications();
 
   // Function to send a local notification.
@@ -94,6 +102,15 @@ const PushNotificationSample = () => {
           Last Notification: {notification.request.content.title}
         </Text>
       )}
+          <View style={styles.container}>
+      <Text style={styles.text}>
+        Installation ID: {installationId}
+      </Text>
+      {androidId && <Text>Android ID: {androidId}</Text>}
+      <Text style={{ fontSize: 18 }}>
+        Device Identifier: {Constants.installationId}
+      </Text>
+    </View>
       <Navigationbar/>
     </View>
   );

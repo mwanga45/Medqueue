@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { Platform, View, Text, TouchableOpacity, TextInput, Alert,StyleSheet} from "react-native";
 import * as Application from "expo-application";
+import Constants from 'expo-constants';
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const UserReg = ({ close }) => {
   // Use expo-application to get the device's unique ID
   const deviceId = Platform.OS === "android" ? Application.androidId : Application.iosIdForVendor;
+    // Get the persistent installation ID (works on all platforms)
+    const installationId = Constants.installationId;
+
+    // Platform-specific identifiers (optional)
+    const androidId = Application.androidId; // Android only
+    const iosId = Application.getIosIdForVendorAsync(); // iOS only
 
   const [FormState, setFormState] = useState({
     fullname: "",
@@ -194,6 +201,9 @@ const UserReg = ({ close }) => {
             Register
           </Text>
         </TouchableOpacity>
+        <Text></Text>
+        <Text>Installation ID: {installationId}</Text>
+        {androidId && <Text>Android ID: {androidId}</Text>}
       </View>
     </View>
   );
