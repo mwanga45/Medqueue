@@ -25,9 +25,9 @@
     },
     "plugins": [
       "expo-router",
-      "react-native-device-info",
       [
         "expo-splash-screen",
+        "react-native-device-info",
         {
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,

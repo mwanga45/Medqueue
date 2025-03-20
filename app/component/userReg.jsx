@@ -59,6 +59,7 @@ const UserReg = ({ close }) => {
     }
 
     try {
+      console.log("Device ID:", deviceId); // Add this line before the axios POST
       const response = await axios.post("http://192.168.104.251:8800/register", {
         fullname: FormState.fullname,
         phone_num: FormState.phone_num,
@@ -82,8 +83,8 @@ const UserReg = ({ close }) => {
         Alert.alert("Registration Failed", response.data.message || "Something went wrong");
       }
     } catch (err) {
-      console.error("Error:", err);
-      Alert.alert("Error", "Something went wrong, please try again.");
+      console.error("Error:", err.response ? err.response.data : err);
+      Alert.alert("Error", err.response?.data?.message || "Something went wrong.");  
     }
   };
   return (
@@ -194,7 +195,7 @@ const UserReg = ({ close }) => {
             Register
           </Text>
         </TouchableOpacity>
-        <Text></Text>
+        {/* <Text>{deviceId}</Text> */}
       </View>
     </View>
   );
