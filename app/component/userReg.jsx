@@ -7,16 +7,7 @@ import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const UserReg = ({ close }) => {
-  // Use expo-application to get the device's unique ID
-  const deviceId = Platform.OS === "android" ? Application.androidId : Application.iosIdForVendor;
-    // Get the persistent installation ID (works on all platforms)
-    const installationId = Constants.installationId;
-
-    // Platform-specific identifiers (optional)
-    const androidId = Application.androidId; // Android only
-    const iosId = Application.getIosIdForVendorAsync(); // iOS only
-    const device_Id = DeviceInfo.getUniqueId();
-
+  const deviceId = DeviceInfo.getUniqueId();
   const [FormState, setFormState] = useState({
     fullname: "",
     phone_num: "",
@@ -73,8 +64,8 @@ const UserReg = ({ close }) => {
         phone_num: FormState.phone_num,
         email_address: FormState.email_address,
         home_address: FormState.home_address,
-        deviceId: deviceId,
         age: FormState.age,
+        deviceId: deviceId,
       });
 
       if (response.data.success) {
@@ -175,7 +166,7 @@ const UserReg = ({ close }) => {
         />
         <TextInput
           value={FormState.home_address}
-          onChangeText={(text)=>handleTextchange("home_address",text)}
+          onChangeText={(text)=>handleTextChange("home_address",text)}
           placeholder="home address if you have please"
           style={{
             height: 40,
@@ -204,8 +195,6 @@ const UserReg = ({ close }) => {
           </Text>
         </TouchableOpacity>
         <Text></Text>
-        <Text>Installation ID: {device_Id}</Text>
-        {androidId && <Text>Android ID: {androidId}</Text>}
       </View>
     </View>
   );

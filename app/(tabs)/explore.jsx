@@ -64,6 +64,7 @@ import { View, Text, Button, StyleSheet } from "react-native";
 import { usePushNotifications } from "./usePushNotifications";
 import Navigationbar from "../component/navigation"
 import * as Notifications from "expo-notifications";
+import DeviceInfo from 'react-native-device-info'
 // import { GiftedChat } from 'react-native-gifted-chat'
 import Constants from 'expo-constants';
 import * as Application from 'expo-application'
@@ -72,7 +73,7 @@ import * as Application from 'expo-application'
 const PushNotificationSample = () => {
   // Get the persistent installation ID (works on all platforms)
   const installationId = Constants.installationId;
-
+  const device_id= DeviceInfo.getUniqueId()
   // Platform-specific identifiers (optional)
   const androidId = Application.androidId; // Android only
   const iosId = Application.getIosIdForVendorAsync(); // iOS only
@@ -108,7 +109,7 @@ const PushNotificationSample = () => {
       </Text>
       {androidId && <Text>Android ID: {androidId}</Text>}
       <Text style={{ fontSize: 18 }}>
-        Device Identifier: {Constants.installationId}
+        Device Identifier: {device_id}
       </Text>
     </View>
       <Navigationbar/>

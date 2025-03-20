@@ -15,7 +15,7 @@ const UserProf = ({Age}) => {
   //     console.error("Something went wrong",err)
   //   }
   // }
-
+  
   const handleuserdetails = async()=>{
     try{
 
