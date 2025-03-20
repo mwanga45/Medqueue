@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-// import DeviceInfo from 'react-native-device-info';
+import DeviceInfo from 'react-native-device-info';
 import axios from 'axios'
 import { View, Text, Image, StyleSheet, Alert } from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome5"
 
 const UserProf = ({Age}) => {
   const [userdetails, setuserdetails]= useState([])
+  // const [deviceID, setdeviceID] = useState("")
   // const handlesendDeviceid =async({deviceId})=>{
   //   try{
-  //     await axios.post("http://192.168.104.251:8800/userinfo", deviceId)
+  //    const respond_id =  await axios.post("http://192.168.104.251:8800/userinfo", deviceId)
+  //     setdeviceID(respond_id)
   //   }catch(err){
   //     console.error("Something went wrong",err)
   //   }
@@ -33,7 +35,7 @@ const UserProf = ({Age}) => {
   useEffect(()=>{
     // const deviceId = DeviceInfo.getDeviceId()
     // handlesendDeviceid(deviceId)
-    handleuserdetails()
+    // handleuserdetails()
   },[])
   return (
     <View style={useprop.mainprofContainer}>

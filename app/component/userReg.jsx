@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DeviceInfo from 'react-native-device-info';
 import { Platform, View, Text, TouchableOpacity, TextInput, Alert,StyleSheet} from "react-native";
 import * as Application from "expo-application";
 import Constants from 'expo-constants';
@@ -14,6 +15,7 @@ const UserReg = ({ close }) => {
     // Platform-specific identifiers (optional)
     const androidId = Application.androidId; // Android only
     const iosId = Application.getIosIdForVendorAsync(); // iOS only
+    const device_Id = DeviceInfo.getUniqueId();
 
   const [FormState, setFormState] = useState({
     fullname: "",
@@ -202,7 +204,7 @@ const UserReg = ({ close }) => {
           </Text>
         </TouchableOpacity>
         <Text></Text>
-        <Text>Installation ID: {installationId}</Text>
+        <Text>Installation ID: {device_Id}</Text>
         {androidId && <Text>Android ID: {androidId}</Text>}
       </View>
     </View>

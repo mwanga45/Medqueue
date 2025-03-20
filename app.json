@@ -25,6 +25,7 @@
     },
     "plugins": [
       "expo-router",
+      "react-native-device-info",
       [
         "expo-splash-screen",
         {
@@ -34,10 +35,17 @@
           "backgroundColor": "#ffffff"
         }
       ]
-      
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c4720d1a-0281-411b-bcfd-4beabc1c9269"
+      }
     }
   }
 }
