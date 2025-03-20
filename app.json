@@ -27,9 +27,8 @@
       "expo-router",
       [
         "expo-splash-screen",
-        "react-native-device-info",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/splash-icon.png", 
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"

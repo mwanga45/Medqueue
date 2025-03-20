@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeviceInfo from 'react-native-device-info';
 import { Platform, View, Text, TouchableOpacity, TextInput, Alert,StyleSheet} from "react-native";
 import * as Application from "expo-application";
@@ -7,7 +7,16 @@ import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const UserReg = ({ close }) => {
-  const deviceId = DeviceInfo.getUniqueId();
+  const [deviceId, setDeviceId ]= useState(null)
+  // this is because the getUniqueId is return promise first  so thus why we need to asnyc it first
+  const handledeviceId = async()=>{
+    const device_Id = await DeviceInfo.getUniqueId();
+    setDeviceId(device_Id)
+
+  }
+  useEffect(()=>{
+  handledeviceId()
+  },[])
   const [FormState, setFormState] = useState({
     fullname: "",
     phone_num: "",
@@ -59,8 +68,8 @@ const UserReg = ({ close }) => {
     }
 
     try {
-      console.log("Device ID:", deviceId); // Add this line before the axios POST
-      const response = await axios.post("http://192.168.104.251:8800/register", {
+      // console.log("Device ID:", deviceId); 
+      const response = await axios.post("http://192.168.139.251:8800/register", {
         fullname: FormState.fullname,
         phone_num: FormState.phone_num,
         email_address: FormState.email_address,
