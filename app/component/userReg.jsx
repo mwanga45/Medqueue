@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import DeviceInfo from 'react-native-device-info';
-import { Platform, View, Text, TouchableOpacity, TextInput, Alert,StyleSheet} from "react-native";
-import * as Application from "expo-application";
-import Constants from 'expo-constants';
+import {  View, Text, TouchableOpacity, TextInput, Alert,StyleSheet} from "react-native";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const UserReg = ({ close }) => {
   const [deviceId, setDeviceId ]= useState(null)
-  // this is because the getUniqueId is return promise first  so thus why we need to asnyc it first
+  // this is because the getUniqueId method is return promise object first  so thus why we need to asnyc it first
   const handledeviceId = async()=>{
     const device_Id = await DeviceInfo.getUniqueId();
     setDeviceId(device_Id)

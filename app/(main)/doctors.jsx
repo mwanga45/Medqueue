@@ -11,7 +11,7 @@ const DoctorPresence = () => {
   const [doctorinfo, setdoctorinfo]= useState([])
   const handledoctorsinfo = async () => {
     try {
-      const response = await axios.get("http://192.168.104.251:8800/doctorinfo");
+      const response = await axios.get("http://192.168.139.251:8800/doctorinfo");
       const info = response.data;
       if (info.success) {
         setdoctorinfo(info.data);
