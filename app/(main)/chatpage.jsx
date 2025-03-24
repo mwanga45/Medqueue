@@ -10,8 +10,13 @@ import {
   KeyboardAvoidingView,
   Platform 
 } from 'react-native';
+import axios from 'axios'
 
 const ChatPage = () => {
+
+  const handleRequestMessage = async()=>{
+
+  }
   const [messages, setMessages] = useState([
     { id: '1', text: 'Hello!', isUser: false, createdAt: new Date() },
     { id: '2', text: 'Hi there!', isUser: true, createdAt: new Date() }
