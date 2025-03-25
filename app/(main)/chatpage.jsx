@@ -1,63 +1,94 @@
-import React, { useState, useRef, useEffect } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  TextInput,
-  Button,
-  StyleSheet,
-  SafeAreaView,
+import React, { useState, useRef, useEffect } from 'react';
+import { 
+  View, 
+  Text, 
+  FlatList, 
+  TextInput, 
+  TouchableOpacity, 
+  StyleSheet, 
+  SafeAreaView, 
   KeyboardAvoidingView,
   Platform,
-} from "react-native";
-import axios from "axios";
+  ActivityIndicator
+} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import axios from 'axios';
 
+const API_URL = 'http://192.168.139.251:8800/chatbot'; 
 const ChatPage = () => {
-  const [messages, setMessages] = useState([
-    {
-      id:"1",
-      isUser:false,
-      text:"Hi my name is doctor Prazoo what can i help",
-      createdAt: new Date()
-    }
-  ]);
-  const [inputText, setInputText] = useState("");
+  const [messages, setMessages] = useState([{
+    id: '1',
+    text: 'Hello! Welcome to Coding Money. My name is Sam. What\'s your name?',
+    isUser: false,
+    createdAt: new Date()
+  }]);
+  const [inputText, setInputText] = useState('');
+  const [loading, setLoading] = useState(false);
   const flatListRef = useRef(null);
 
   const handleSend = async () => {
-    if (inputText.trim()) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          text: inputText,
-          isUser: true,
-          createdAt: new Date(),
-        },
-      ]);
-      const API_Request = "http://192.168.139.251:8081/chatbot";
-      const Request = await axios.post(API_Request, {
-        UserInput:inputText,
+    if (!inputText.trim() || loading) return;
+
+    try {
+      // Add user message
+      const userMessage = {
+        id: Date.now().toString(),
+        text: inputText,
+        isUser: true,
+        createdAt: new Date()
+      };
+      
+      setMessages(prev => [...prev, userMessage]);
+      setInputText('');
+      setLoading(true);
+
+      // Send to backend using Axios
+      const response = await axios.post(API_URL, {
+        userInput: inputText
       });
-      setInputText("");
+
+      // Add bot response
+      const botMessage = {
+        id: Date.now().toString() + '-bot',
+        text: response.data.response,
+        isUser: false,
+        createdAt: new Date()
+      };
+      
+      setMessages(prev => [...prev, botMessage]);
+    } catch (error) {
+      console.error('Error:', error);
+      let errorMessage = 'Sorry, there was an error processing your request';
+      
+      if (error.response) {
+        // Server responded with error status
+        errorMessage = error.response.data.error || errorMessage;
+      } else if (error.request) {
+        // Request was made but no response received
+        errorMessage = 'Network error - please check your connection';
+      }
+
+      setMessages(prev => [...prev, {
+        id: Date.now().toString() + '-error',
+        text: errorMessage,
+        isUser: false,
+        createdAt: new Date()
+      }]);
+    } finally {
+      setLoading(false);
     }
   };
 
   const Message = ({ message }) => (
-    <View
-      style={[
-        styles.messageContainer,
-        message.isUser ? styles.userMessage : styles.otherMessage,
-      ]}
-    >
-      <Text style={message.isUser ? styles.userText : styles.otherText}>
+    <View style={[
+      styles.messageContainer,
+      message.isUser ? styles.userMessage : styles.botMessage
+    ]}>
+      <Text style={message.isUser ? styles.userText : styles.botText}>
         {message.text}
       </Text>
       <Text style={styles.time}>
-        {message.createdAt.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })}
+        {message.createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
       </Text>
     </View>
   );
@@ -65,7 +96,7 @@ const ChatPage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.flex}
         keyboardVerticalOffset={90}
       >
@@ -78,17 +109,29 @@ const ChatPage = () => {
           onContentSizeChange={() => flatListRef.current?.scrollToEnd()}
         />
 
-        <View style={styles.inputWrapper}>
+        <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
             value={inputText}
             onChangeText={setInputText}
-            placeholder="Type a message..."
+            placeholder="Type your message..."
+            placeholderTextColor="#888"
             onSubmitEditing={handleSend}
             multiline
             blurOnSubmit={false}
+            editable={!loading}
           />
-          <Button title="Send" onPress={handleSend} />
+          <TouchableOpacity 
+            style={[styles.sendButton, (!inputText.trim() || loading) && styles.disabledButton]}
+            onPress={handleSend}
+            disabled={!inputText.trim() || loading}
+          >
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Icon name="send" size={24} color="#fff" />
+            )}
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -96,50 +139,82 @@ const ChatPage = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f0f0f0" },
-  flex: { flex: 1 },
-  listContent: { padding: 16 },
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  flex: {
+    flex: 1,
+  },
+  listContent: {
+    padding: 16,
+  },
   messageContainer: {
-    maxWidth: "75%",
+    maxWidth: '80%',
     padding: 12,
-    borderRadius: 16,
+    borderRadius: 12,
     marginBottom: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   userMessage: {
-    alignSelf: "flex-end",
-    backgroundColor: "#007AFF",
-    borderBottomRightRadius: 2,
+    alignSelf: 'flex-end',
+    backgroundColor: '#007bff',
   },
-  otherMessage: {
-    alignSelf: "flex-start",
-    backgroundColor: "#E8E8E8",
-    borderBottomLeftRadius: 2,
+  botMessage: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#ddd',
   },
-  userText: { color: "white", fontSize: 16 },
-  otherText: { color: "black", fontSize: 16 },
+  userText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  botText: {
+    color: '#333',
+    fontSize: 16,
+  },
   time: {
     fontSize: 12,
-    color: "#ffffff99",
+    color: '#666',
     marginTop: 4,
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
   },
-  inputWrapper: {
-    flexDirection: "row",
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: 8,
+    backgroundColor: '#fff',
     borderTopWidth: 1,
-    borderTopColor: "#ccc",
-    backgroundColor: "white",
-    alignItems: "center",
+    borderTopColor: '#ddd',
   },
   input: {
     flex: 1,
     minHeight: 40,
     maxHeight: 100,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 20,
     paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: '#f8f9fa',
+    borderRadius: 20,
     marginRight: 8,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  sendButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#007bff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  disabledButton: {
+    opacity: 0.6,
   },
 });
 
