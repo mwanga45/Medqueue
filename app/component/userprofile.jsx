@@ -6,15 +6,17 @@ import Icon from "react-native-vector-icons/FontAwesome5"
 
 const UserProf = ({Age}) => {
   const [userdetails, setuserdetails]= useState([])
-  // const [deviceID, setdeviceID] = useState("")
-  // const handlesendDeviceid =async({deviceId})=>{
-  //   try{
-  //    const respond_id =  await axios.post("http://192.168.104.251:8800/userinfo", deviceId)
-  //     setdeviceID(respond_id)
-  //   }catch(err){
-  //     console.error("Something went wrong",err)
-  //   }
-  // }
+  const [device_Id, setdevice_Id]= useState("")
+  const handlesendDeviceid = async()=>{
+    const deviceId = await DeviceInfo.getAndroidId()
+    setdevice_Id(deviceId)
+    const request = await axios.post("http://192.168.139.251:8800/userinfo",device_Id);
+    if(request.data.success){
+      setdevice_Id('')
+    }else{
+      Alert.alert("Failed to get deviceId", request.data.message || "something went wrong")
+    }
+  }
   
   const handleuserdetails = async()=>{
     try{
@@ -33,9 +35,8 @@ const UserProf = ({Age}) => {
 
     }
   useEffect(()=>{
-    // const deviceId = DeviceInfo.getDeviceId()
-    // handlesendDeviceid(deviceId)
-    // handleuserdetails()
+    handlesendDeviceid()
+    handleuserdetails()
   },[])
   return (
     <View style={useprop.mainprofContainer}>

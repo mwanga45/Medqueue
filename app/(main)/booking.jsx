@@ -22,8 +22,7 @@ const Booking = () => {
     const startTime = new Date();
     startTime.setHours(6, 30, 0, 0);
     const endTime = new Date();
-    endTime.setHours(8, 30, 0, 0);
-
+    endTime.setHours(20, 30, 0, 0);
     const currentTime = new Date(startTime);
 
     while (currentTime <= endTime) {
