@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/FontAwesome5"
 const UserProf = () => {
   const [userdetails, setuserdetails]= useState([])
   const handlesendDeviceid = async()=>{
-    const deviceId = await DeviceInfo.getAndroidId()
+    const deviceId = await DeviceInfo.getUniqueId()
     const response = await axios.post("http://192.168.139.251:8800/userinfo",{deviceId});
     if(response.data.success){
       const details = response.data
@@ -32,7 +32,7 @@ const UserProf = () => {
         </View>
         <View>
           <Text style = {useprop.usernamestyles}>Hello, {userdetails.name}</Text>
-          <Text>Status:Age{userdetails.age}</Text>
+          <Text style={{fontWeight:"700",fontSize:14}}>Status:Age  {userdetails.age}</Text>
         </View>
         <View>
         <Icon name="chevron-right" size={20} style={{ color: "grey" }} />

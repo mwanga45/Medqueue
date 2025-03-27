@@ -3,9 +3,10 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "../component/QuickAction";
 import MyCalendar from "../component/calender";
 import Navigationbar from "../component/navigation";
-import { useNavigation, useRouter } from "expo-router";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import {  useRouter } from "expo-router";
+import { View, Text, StyleSheet, ScrollView, } from "react-native";
 import UserReg from "../component/userReg";
+import DeviceInfo from 'react-native-device-info';
 
 const Homepage = () => {
   const router = useRouter()
@@ -13,7 +14,9 @@ const Homepage = () => {
   const handleshowcalender = () => {
     setshowcalender(!showcalender);
   };
-
+  const handleverfiyuser = async()=>{
+    const deviceId = await DeviceInfo.getUniqueId()
+  }
   const [showreg, setshowreg] = useState(true);
   const handleshowreg = () => {
     setshowreg(!showreg);
