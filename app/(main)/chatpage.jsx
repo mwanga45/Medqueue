@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
+import Navigationbar from '../component/navigation';
 
 const API_URL = 'http://192.168.139.251:8800/chatbot'; 
 const ChatPage = () => {
@@ -94,6 +95,7 @@ const ChatPage = () => {
   );
 
   return (
+    
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -134,6 +136,7 @@ const ChatPage = () => {
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
+      <Navigationbar/>
     </SafeAreaView>
   );
 };

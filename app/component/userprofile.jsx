@@ -4,39 +4,22 @@ import axios from 'axios'
 import { View, Text, Image, StyleSheet, Alert } from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome5"
 
-const UserProf = ({Age}) => {
+const UserProf = () => {
   const [userdetails, setuserdetails]= useState([])
-  const [device_Id, setdevice_Id]= useState("")
   const handlesendDeviceid = async()=>{
     const deviceId = await DeviceInfo.getAndroidId()
-    setdevice_Id(deviceId)
-    const request = await axios.post("http://192.168.139.251:8800/userinfo",device_Id);
-    if(request.data.success){
-      setdevice_Id('')
+    const response = await axios.post("http://192.168.139.251:8800/userinfo",{deviceId});
+    if(response.data.success){
+      const details = response.data
+      setuserdetails(details.data)
+      
     }else{
-      Alert.alert("Failed to get deviceId", request.data.message || "something went wrong")
+      Alert.alert("Failed to get deviceId", request.data.message || "something went wrongs")
     }
   }
   
-  const handleuserdetails = async()=>{
-    try{
-
-      const respond = await axios.get("http://192.168.104.251:8800/userinfo")
-      const userdetail = respond.data
-      if (respond.success == true){
-        setuserdetails(userdetail)
-      }else{
-        Alert.alert("Failed to return data")
-      }
-  
-    }catch (err){
-      console.error("Something went wrong",err)
-    }
-
-    }
   useEffect(()=>{
     handlesendDeviceid()
-    handleuserdetails()
   },[])
   return (
     <View style={useprop.mainprofContainer}>
@@ -48,8 +31,8 @@ const UserProf = ({Age}) => {
           />
         </View>
         <View>
-          <Text style = {useprop.usernamestyles}>Hello, {userdetails.full}</Text>
-          <Text>Status:Age{Age}</Text>
+          <Text style = {useprop.usernamestyles}>Hello, {userdetails.name}</Text>
+          <Text>Status:Age{userdetails.age}</Text>
         </View>
         <View>
         <Icon name="chevron-right" size={20} style={{ color: "grey" }} />
