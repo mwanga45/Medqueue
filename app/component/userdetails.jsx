@@ -8,60 +8,77 @@ import {
   Dimensions,
   Alert,
 } from "react-native";
-import axios  from "axios"
-import DeviceInfo from 'react-native-device-info';
+import axios from "axios";
+import DeviceInfo from "react-native-device-info";
 import Icon from "react-native-vector-icons/FontAwesome5";
 const { width } = Dimensions.get("window");
-const UserDetails = ({onClose}) => {
-    const [userProfile, setuserProfile] = useState([])
-    const handleprofile = async()=>{
-        try{
-
-            const deviceId = await DeviceInfo.getUniqueId()
-            const response = await axios.post("http://192.168.139.251:8800/userinfo",{deviceId})
-            if(response.data.success){
-               setuserProfile(response.data.data)
-               
-            }else{
-                Alert.alert("Something went wrong", response.data.message || "failed to Fetch data")
-            }
-        }catch (err){
-            console.error("InternaserverError",err)
-        }
+const UserDetails = ({ onClose }) => {
+  const [userProfile, setuserProfile] = useState([]);
+  const handleprofile = async () => {
+    try {
+      const deviceId = await DeviceInfo.getUniqueId();
+      const response = await axios.post(
+        "http://192.168.139.251:8800/userinfo",
+        { deviceId }
+      );
+      if (response.data.success) {
+        setuserProfile(response.data.data);
+      } else {
+        Alert.alert(
+          "Something went wrong",
+          response.data.message || "failed to Fetch data"
+        );
+      }
+    } catch (err) {
+      console.error("InternaserverError", err);
     }
-    useEffect(()=>{
-        handleprofile()
-    },[])
+  };
+  useEffect(() => {
+    handleprofile();
+  }, []);
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.closeButton} onPress={onClose}>
         <Icon name="times" size={20} color="#000" />
       </TouchableOpacity>
-
+  
       <View style={styles.userProfile}>
         <Image
           source={require("../../assets/images/favicon.png")}
           style={styles.avatar}
           resizeMode="contain"
         />
-        <Text style={styles.username}>{userProfile ?.deviceId ? userProfile.deviceId :"Your-name" }</Text>
+        <Text style={styles.username}>
+          {userProfile?.deviceId ? userProfile.deviceId : "Your-name"}
+        </Text>
+
       </View>
+     <View style={styles.line}>
+     </View>
       <View>
-        <View style={styles.optionaldetails}>
-          <Icon name="user" size={18} color="white" />
-          <Text style={{color:"white"}}>Your Profile</Text>
+        <View>
+          <TouchableOpacity  style={styles.optionaldetails}>
+            <Icon name="user" size={18} color="white" />
+            <Text style={{ color: "white" }}>Your Profile</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.optionaldetails}>
-          <Icon name="stethoscope" size={18} color="white" />
-          <Text style={{color:"white"}}>Medical detail</Text>
+        <View>
+          <TouchableOpacity style={styles.optionaldetails}>
+            <Icon name="stethoscope" size={18} color="white" />
+            <Text style={{ color: "white" }}>Medical detail</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.optionaldetails}>
-          <Icon name="calendar-check" size={18} color="white" />
-          <Text style={{color:"white"}}>Booking Recode</Text>
+        <View>
+          <TouchableOpacity  style={styles.optionaldetails}>
+            <Icon name="calendar-check" size={18} color="white" />
+            <Text style={{ color: "white" }}>Booking Recode</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.optionaldetails}>
-          <Icon name="sign-out-alt" size={18} color="white" />
-          <Text style={{color:"white"}}>Sign-Out</Text>
+        <View>
+          <TouchableOpacity  style={styles.optionaldetails} >
+            <Icon name="sign-out-alt" size={18} color="white" />
+            <Text style={{ color: "white" }}>Sign-Out</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -87,14 +104,15 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     padding: 8,
     marginBottom: 16,
-    backgroundColor:"white",
-    borderRadius:"45%"
+    backgroundColor: "white",
+    borderRadius: "45%",
   },
   userProfile: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 12,
     marginBottom: 20,
+    bottom:20
   },
   avatar: {
     width: 50,
@@ -112,8 +130,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 12,
     marginBottom: 20,
-    columnGap:32
+    columnGap: 32,
+    
   },
+  line:{
+    borderBottomColor:"white",
+    borderWidth:1,
+  }
 });
-
 export default UserDetails;
