@@ -68,6 +68,7 @@ import DeviceInfo from 'react-native-device-info'
 // import { GiftedChat } from 'react-native-gifted-chat'
 import Constants from 'expo-constants';
 import * as Application from 'expo-application'
+import Userdetails from '../component/userdetails'
 
 
 const PushNotificationSample = () => {
@@ -111,6 +112,7 @@ const PushNotificationSample = () => {
       <Text style={{ fontSize: 18 }}>
         Device Identifier: {device_id}
       </Text>
+      <Userdetails/>
     </View>
       <Navigationbar/>
     </View>

@@ -4,10 +4,12 @@ import QuickAction from "../component/QuickAction";
 import MyCalendar from "../component/calender";
 import Navigationbar from "../component/navigation";
 import { useRouter } from "expo-router";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView,TouchableOpacity } from "react-native";
 import UserReg from "../component/userReg";
 import DeviceInfo from "react-native-device-info";
 import axios from "axios";
+import Userdetails from "../component/userdetails";
+
 
 const Homepage = () => {
   const router = useRouter();
@@ -15,15 +17,15 @@ const Homepage = () => {
   const handleshowcalender = () => {
     setshowcalender(!showcalender);
   };
-  const handleshowreg = ()=>{
-    setshowreg(false)
-  }
+  const handleshowreg = () => {
+    setshowreg(false);
+  };
   const handleverfiyuser = async () => {
     try {
       const deviceId = await DeviceInfo.getUniqueId();
       const response = await axios.post(
         "http://192.168.139.251:8800/verifyuser",
-        {deviceId}
+        { deviceId }
       );
       const endpoint = response.data;
       if (response.data.success) {
@@ -43,7 +45,6 @@ const Homepage = () => {
   }, []);
   return (
     <View style={styles.container}>
-      {/* Scrollable content */}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.HomepageContainer}>
           <View style={styles.Homepagecover1}>
@@ -53,9 +54,22 @@ const Homepage = () => {
               style={{ color: "silver" }}
             />
           </View>
-          <View style= {styles.settingcontainer}>
-          <Text style={styles.TextQuick}>Quick Action</Text>
-          <Icon name="cog" size={30} style={{backgroundColor:"grey",width:"10%",justifyContent:"center",alignItems:"center",borderRadius:12}} />
+          <View style={styles.settingcontainer}>
+            <Text style={styles.TextQuick}>Quick Action</Text>
+            <TouchableOpacity onPress>
+              <Icon
+                name="cog"
+                size={30}
+                style={{
+                  backgroundColor: "white",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: 12,
+                  marginLeft:12,
+                  color:"rgba(0,0,0,0.2)"
+                }}
+              />
+            </TouchableOpacity>
           </View>
           <View style={styles.Homepagecover2}>
             <View style={{ flex: 1, padding: 10 }}>
@@ -87,7 +101,7 @@ const Homepage = () => {
                 onclick={handleshowcalender}
               />
             </View>
-            <View style={{ flex:1,padding: 10 }}>
+            <View style={{ flex: 1, padding: 10 }}>
               <QuickAction
                 name={"user-check"}
                 size={30}
@@ -101,6 +115,7 @@ const Homepage = () => {
         {showreg && <UserReg close={handleshowreg} />}
       </ScrollView>
       {/* Fixed Navigation Bar */}
+      <Userdetails/>
       <Navigationbar />
     </View>
   );
@@ -153,11 +168,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
   },
-  settingcontainer:{
-    marginTop:10,
-    width:"90%", 
-    flexDirection:'row',
-    justifyContent:"space-between",
-    alignItems:"center"
+  settingcontainer: {
+    marginTop: 10,
+    width: "90%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
