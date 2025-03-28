@@ -69,7 +69,7 @@ const UserDetails = ({ onClose }) => {
         <View>
           <TouchableOpacity style={styles.optionaldetails}>
             <Icon name="calendar-check" size={18} color="white" />
-            <Text style={{ color: "white" }}>Booking Recode</Text>
+            <Text style={{ color: "white" }}>Booking Recode && Tracking</Text>
           </TouchableOpacity>
         </View>
         <View>
@@ -81,8 +81,7 @@ const UserDetails = ({ onClose }) => {
       </View>
     </View>
   );
-};
-
+}
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
