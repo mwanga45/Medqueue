@@ -41,7 +41,7 @@ const UserDetails = ({ onClose }) => {
       <TouchableOpacity style={styles.closeButton} onPress={onClose}>
         <Icon name="times" size={20} color="#000" />
       </TouchableOpacity>
-  
+
       <View style={styles.userProfile}>
         <Image
           source={require("../../assets/images/favicon.png")}
@@ -51,13 +51,11 @@ const UserDetails = ({ onClose }) => {
         <Text style={styles.username}>
           {userProfile?.deviceId ? userProfile.deviceId : "Your-name"}
         </Text>
-
       </View>
-     <View style={styles.line}>
-     </View>
+      <View style={styles.line}></View>
       <View>
         <View>
-          <TouchableOpacity  style={styles.optionaldetails}>
+          <TouchableOpacity style={styles.optionaldetails}>
             <Icon name="user" size={18} color="white" />
             <Text style={{ color: "white" }}>Your Profile</Text>
           </TouchableOpacity>
@@ -69,13 +67,13 @@ const UserDetails = ({ onClose }) => {
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity  style={styles.optionaldetails}>
+          <TouchableOpacity style={styles.optionaldetails}>
             <Icon name="calendar-check" size={18} color="white" />
             <Text style={{ color: "white" }}>Booking Recode</Text>
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity  style={styles.optionaldetails} >
+          <TouchableOpacity style={styles.optionaldetails}>
             <Icon name="sign-out-alt" size={18} color="white" />
             <Text style={{ color: "white" }}>Sign-Out</Text>
           </TouchableOpacity>
@@ -111,8 +109,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 12,
-    marginBottom: 20,
-    bottom:20
+    marginBottom: 10,
+    bottom: 20,
   },
   avatar: {
     width: 50,
@@ -131,11 +129,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     marginBottom: 20,
     columnGap: 32,
-    
   },
-  line:{
-    borderBottomColor:"white",
-    borderWidth:1,
-  }
+  line: {
+    borderBottomColor: "grey",
+    borderWidth: 1,
+    bottom: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  },
 });
 export default UserDetails;
