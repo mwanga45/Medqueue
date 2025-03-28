@@ -114,7 +114,6 @@ const Homepage = () => {
         </View>
         {showreg && <UserReg close={handleshowreg} />}
       </ScrollView>
-      {/* Fixed Navigation Bar */}
       <Userdetails/>
       <Navigationbar />
     </View>

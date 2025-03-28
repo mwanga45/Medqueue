@@ -1,12 +1,11 @@
-// doctorlistcard.js (Dklistcard component)
 import React, { useState } from "react";
 import Dktcard from "./doctorcard";
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
+
 const Dklistcard = ({ time, dkt_Name, Specialist }) => {
   const [showcard, setshowcard] = useState(false);
-
   return (
     <View style={styleslistcard.dklcontainer}>
       <View style={styleslistcard.dkAgment}>
