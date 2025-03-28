@@ -3,37 +3,60 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "../component/QuickAction";
 import MyCalendar from "../component/calender";
 import Navigationbar from "../component/navigation";
-import {  useRouter } from "expo-router";
-import { View, Text, StyleSheet, ScrollView, } from "react-native";
+import { useRouter } from "expo-router";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import UserReg from "../component/userReg";
-import DeviceInfo from 'react-native-device-info';
+import DeviceInfo from "react-native-device-info";
+import axios from "axios";
 
 const Homepage = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [showcalender, setshowcalender] = useState(false);
   const handleshowcalender = () => {
     setshowcalender(!showcalender);
   };
-  const handleverfiyuser = async()=>{
-    const deviceId = await DeviceInfo.getUniqueId()
+  const handleshowreg = ()=>{
+    setshowreg(false)
   }
+  const handleverfiyuser = async () => {
+    try {
+      const deviceId = await DeviceInfo.getUniqueId();
+      const response = await axios.post(
+        "http://192.168.139.251:8800/verifyuser",
+        {deviceId}
+      );
+      const endpoint = response.data;
+      if (response.data.success) {
+        if (endpoint.data && endpoint.data.user_exist === true) {
+          setshowreg(false);
+        }
+      } else {
+        setshowreg(true);
+      }
+    } catch (err) {
+      console.error("Something went wrong", err);
+    }
+  };
   const [showreg, setshowreg] = useState(true);
-  const handleshowreg = () => {
-    setshowreg(!showreg);
-  }
-
-  useEffect(()=>{
-    setshowreg(true)
-  },[])
+  useEffect(() => {
+    handleverfiyuser();
+  }, []);
   return (
     <View style={styles.container}>
       {/* Scrollable content */}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.HomepageContainer}>
           <View style={styles.Homepagecover1}>
-            <Icon name="hospital-symbol" size={100} style={{ color: "silver" }} />
+            <Icon
+              name="hospital-symbol"
+              size={100}
+              style={{ color: "silver" }}
+            />
           </View>
+          <View style= {styles.settingcontainer}>
           <Text style={styles.TextQuick}>Quick Action</Text>
+          <Icon name="cog" size={30} style={{backgroundColor:"grey",width:"10%",justifyContent:"center",alignItems:"center",borderRadius:12}} />
+          </View>
           <View style={styles.Homepagecover2}>
             <View style={{ flex: 1, padding: 10 }}>
               <QuickAction
@@ -41,7 +64,7 @@ const Homepage = () => {
                 size={30}
                 text={"Emergence"}
                 backgroundColor={"#274b5f"}
-                onclick={()=>router.push("emergence")}
+                onclick={() => router.push("emergence")}
               />
             </View>
             <View style={{ flex: 1, padding: 10 }}>
@@ -50,7 +73,7 @@ const Homepage = () => {
                 size={30}
                 text={"Booking"}
                 backgroundColor={"#00d4ff"}
-                onclick={()=>router.push("booking")}
+                onclick={() => router.push("booking")}
               />
             </View>
           </View>
@@ -64,7 +87,7 @@ const Homepage = () => {
                 onclick={handleshowcalender}
               />
             </View>
-            <View style={{ flex: 1, padding: 10 }}>
+            <View style={{ flex:1,padding: 10 }}>
               <QuickAction
                 name={"user-check"}
                 size={30}
@@ -75,10 +98,8 @@ const Homepage = () => {
           </View>
           {showcalender && <MyCalendar />}
         </View>
-
-        {showreg && <UserReg close={handleshowreg}/>}
+        {showreg && <UserReg close={handleshowreg} />}
       </ScrollView>
-
       {/* Fixed Navigation Bar */}
       <Navigationbar />
     </View>
@@ -93,8 +114,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7F7F7",
   },
   scrollContainer: {
-    flexGrow: 1, //this allow the scrollview content to expand to fill the content 
-    paddingBottom: 80, 
+    flexGrow: 1, //this allow the scrollview content to expand to fill the content
+    paddingBottom: 80,
   },
   HomepageContainer: {
     flex: 1,
@@ -108,8 +129,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderBottomLeftRadius: 45,
     borderBottomRightRadius: 45,
-    borderRadius:45,
-    marginTop:1,
+    borderRadius: 45,
+    marginTop: 1,
     height: 300,
     width: "100%",
     alignItems: "center",
@@ -131,5 +152,12 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignContent: "center",
+  },
+  settingcontainer:{
+    marginTop:10,
+    width:"90%", 
+    flexDirection:'row',
+    justifyContent:"space-between",
+    alignItems:"center"
   },
 });
