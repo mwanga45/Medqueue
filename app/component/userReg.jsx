@@ -10,7 +10,6 @@ const UserReg = ({ close }) => {
   const handledeviceId = async()=>{
     const device_Id = await DeviceInfo.getUniqueId();
     setDeviceId(device_Id)
-
   }
   useEffect(()=>{
   handledeviceId()
