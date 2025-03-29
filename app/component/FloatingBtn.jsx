@@ -46,7 +46,7 @@ const FloatingButton = () => {
     >
       <Animated.View style={[styles.subButton, { transform: [{ translateY: icon1Anim }] }]}>
         <TouchableOpacity>
-          <Icon name="cloud-upload" size={25} color="#fff" />
+          <Icon name="user" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>
 
@@ -55,13 +55,13 @@ const FloatingButton = () => {
         { transform: [{ translateY: icon2Anim }, { translateX: icon2Anim }] }
       ]}>
         <TouchableOpacity>
-          <Icon name="print" size={25} color="#fff" />
+          <Icon name="stethoscope" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>
 
       <Animated.View style={[styles.subButton, { transform: [{ translateX: icon3Anim }] }]}>
         <TouchableOpacity>
-          <Icon name="share-alt" size={25} color="#fff" />
+          <Icon name="sign-out" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>
 
