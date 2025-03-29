@@ -35,10 +35,10 @@ const navstyles = StyleSheet.create({
      flex:1,
      width: "100%",
      position: "absolute",  // Fix the position
-     bottom: 0,             // Stick it to the bottom
+     bottom: 0,             
      left: 0,
      right: 0,
-     justifyContent: "center",
+     justifyContent: "center"
   },
   mainnavcontainer: {
      alignItems: "center",
