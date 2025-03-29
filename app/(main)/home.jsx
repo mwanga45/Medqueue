@@ -9,7 +9,7 @@ import UserReg from "../component/userReg";
 import DeviceInfo from "react-native-device-info";
 import axios from "axios";
 import Userdetails from "../component/userdetails";
-import MovableBtn from "../component/movable";
+import DraggableBox from "../component/movable";
 
 
 const Homepage = () => {
@@ -71,7 +71,7 @@ const Homepage = () => {
                 }}
               />
             </TouchableOpacity> */}
-            <MovableBtn/>
+            <DraggableBox/>
           </View>
           <View style={styles.Homepagecover2}>
             <View style={{ flex: 1, padding: 10 }}>
@@ -117,7 +117,6 @@ const Homepage = () => {
         {showreg && <UserReg close={handleshowreg} />}
       </ScrollView>
       {/* <Userdetails/> */}
-      <MovableBtn/>
       <Navigationbar />
     </View>
   );

@@ -1,3 +1,4 @@
+// DraggableBox.js
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, {
@@ -14,7 +15,7 @@ import {
 const SIZE = 120;
 const BOUNDARY_OFFSET = 50;
 
-export default function MovableBtn() {
+const DraggableBox = ({ style, onAnimationEnd }) => {
   const offset = useSharedValue(0);
   const width = useSharedValue(0);
 
@@ -24,11 +25,9 @@ export default function MovableBtn() {
 
   const pan = Gesture.Pan()
     .onChange((event) => {
-      // highlight-next-line
       offset.value += event.changeX;
     })
     .onFinalize((event) => {
-      // highlight-start
       offset.value = withDecay({
         velocity: event.velocityX,
         rubberBandEffect: true,
@@ -37,7 +36,8 @@ export default function MovableBtn() {
           width.value / 2 - SIZE / 2 - BOUNDARY_OFFSET,
         ],
       });
-      // highlight-end
+      // Optionally notify parent when animation finishes.
+      if (onAnimationEnd) onAnimationEnd();
     });
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -45,7 +45,7 @@ export default function MovableBtn() {
   }));
 
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <GestureHandlerRootView style={[styles.container, style]}>
       <View onLayout={onLayout} style={styles.wrapper}>
         <GestureDetector gesture={pan}>
           <Animated.View style={[styles.box, animatedStyles]} />
@@ -53,14 +53,13 @@ export default function MovableBtn() {
       </View>
     </GestureHandlerRootView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100%',
   },
   wrapper: {
     flex: 1,
@@ -78,3 +77,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default DraggableBox;
