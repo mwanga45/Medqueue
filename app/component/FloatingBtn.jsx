@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import { View, Text,  TouchableOpacity, StyleSheet } from 'react-native';
-import Animated from 'react-native-reanimated/lib/typescript';
+import { View, Text,  TouchableOpacity, StyleSheet,Animated } from 'react-native';
 import Icon  from  "react-native-vector-icons/FontAwesome5"
 
 const FloatingBtn = () => {
