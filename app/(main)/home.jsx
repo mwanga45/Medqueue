@@ -9,6 +9,7 @@ import UserReg from "../component/userReg";
 import DeviceInfo from "react-native-device-info";
 import axios from "axios";
 import Userdetails from "../component/userdetails";
+import MovableBtn from "../component/movable";
 
 
 const Homepage = () => {
@@ -56,7 +57,7 @@ const Homepage = () => {
           </View>
           <View style={styles.settingcontainer}>
             <Text style={styles.TextQuick}>Quick Action</Text>
-            <TouchableOpacity onPress>
+            {/* <TouchableOpacity onPress>
               <Icon
                 name="cog"
                 size={30}
@@ -69,7 +70,8 @@ const Homepage = () => {
                   color:"rgba(0,0,0,0.2)"
                 }}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <MovableBtn/>
           </View>
           <View style={styles.Homepagecover2}>
             <View style={{ flex: 1, padding: 10 }}>
@@ -114,7 +116,8 @@ const Homepage = () => {
         </View>
         {showreg && <UserReg close={handleshowreg} />}
       </ScrollView>
-      <Userdetails/>
+      {/* <Userdetails/> */}
+      <MovableBtn/>
       <Navigationbar />
     </View>
   );

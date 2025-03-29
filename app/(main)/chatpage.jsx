@@ -136,7 +136,7 @@ const ChatPage = () => {
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
-      <Navigationbar/>
+      {/* <Navigationbar/> */}
     </SafeAreaView>
   );
 };

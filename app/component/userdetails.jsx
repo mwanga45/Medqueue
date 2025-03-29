@@ -50,7 +50,7 @@ const UserDetails = ({ onClose }) => {
           resizeMode="contain"
         />
         <Text style={styles.username}>
-        {userProfile.name !== "" ?"Hi!"+" "+ userProfile.name: "Your name"}
+        {userProfile.name !== "" ?"Hi!"+" "+ userProfile.name:"Your name"}
         </Text>
       </View>
       <View style={styles.line}></View>
