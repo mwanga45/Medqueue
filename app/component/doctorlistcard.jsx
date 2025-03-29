@@ -40,7 +40,7 @@ const Dklistcard = ({ time, dkt_Name, Specialist }) => {
           onPress={() => setshowcard(false)}
         >
           <View style={styleslistcard.modalContent}>
-            <Dktcard name={dkt_Name} specialist={Specialist} />
+            <Dktcard name={dkt_Name} specialist={Specialist}/>
           </View>
         </TouchableOpacity>
       </Modal>

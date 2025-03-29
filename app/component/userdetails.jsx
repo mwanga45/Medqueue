@@ -14,7 +14,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 const { width } = Dimensions.get("window");
 const UserDetails = ({ onClose }) => {
   const [userProfile, setuserProfile] = useState([]);
-  const handleprofile = async () => {
+  const handleprofile = async() => {
     try {
       const deviceId = await DeviceInfo.getUniqueId();
       const response = await axios.post(
@@ -22,7 +22,8 @@ const UserDetails = ({ onClose }) => {
         { deviceId }
       );
       if (response.data.success) {
-        setuserProfile(response.data.data);
+        const endpoint = response.data
+        setuserProfile(endpoint.data);
       } else {
         Alert.alert(
           "Something went wrong",
@@ -49,7 +50,7 @@ const UserDetails = ({ onClose }) => {
           resizeMode="contain"
         />
         <Text style={styles.username}>
-          {userProfile?.deviceId ? userProfile.deviceId : "Your-name"}
+        {userProfile.name !== "" ?"Hi!"+" "+ userProfile.name: "Your name"}
         </Text>
       </View>
       <View style={styles.line}></View>
