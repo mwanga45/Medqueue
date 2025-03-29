@@ -10,6 +10,7 @@ import DeviceInfo from "react-native-device-info";
 import axios from "axios";
 import Userdetails from "../component/userdetails";
 import DraggableBox from "../component/movable";
+import FloatingBtn from "../component/FloatingBtn";
 
 
 const Homepage = () => {
@@ -71,7 +72,6 @@ const Homepage = () => {
                 }}
               />
             </TouchableOpacity> */}
-            <DraggableBox/>
           </View>
           <View style={styles.Homepagecover2}>
             <View style={{ flex: 1, padding: 10 }}>
@@ -116,7 +116,7 @@ const Homepage = () => {
         </View>
         {showreg && <UserReg close={handleshowreg} />}
       </ScrollView>
-      {/* <Userdetails/> */}
+      <FloatingBtn/>
       <Navigationbar />
     </View>
   );
