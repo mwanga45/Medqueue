@@ -1,200 +1,105 @@
-// import React, { useState } from 'react';
-
-// import { View, Text,  TouchableOpacity, StyleSheet,Animated } from 'react-native';
-// import Icon  from  "react-native-vector-icons/FontAwesome5"
-
-// const FloatingBtn = () => {
-//     const [icon_1] = useState(new Animated.Value(40));
-//     const [icon_2] = useState(new Animated.Value(40));
-//     const [icon_3] = useState(new Animated.Value(40));
-//     const [icon_4] = useState(new Animated.Value(40));
-
-//     const [Pop,setPop] = useState(false)
-
-//     const PopIn = ()=>{
-//         setPop(true);
-//         Animated.timing(icon_1,{
-//           toValue:40,
-//           duration:900,
-//           useNativeDriver:false
-//         }
-
-//         )
-//         Animated.timing(icon_2,{
-//           toValue:40,
-//           duration:900,
-//           useNativeDriver:false
-//         }
-
-//         )
-//         Animated.timing(icon_3,{
-//           toValue:40,
-//           duration:900,
-//           useNativeDriver:false
-//         }
-
-//         )
-//         Animated.timing(icon_4,{
-//           toValue:40,
-//           duration:900,
-//           useNativeDriver:false
-//         }
-
-//         )
-//     }
-//     const PopOut = ()=>{
-//       setPop(false);
-//       Animated.timing(icon_1,{
-//         toValue:40,
-//         duration:900,
-//         useNativeDriver:false
-//       })
-//       Animated.timing(icon_2,{
-//         toValue:40,
-//         duration:900,
-//         useNativeDriver:false
-//       })
-//       Animated.timing(icon_3,{
-//         toValue:40,
-//         duration:900,
-//         useNativeDriver:false
-//       })
-//       Animated.timing(icon_4,{
-//         toValue:40,
-//         duration:900,
-//         useNativeDriver:false
-//       })
-//     }
-//     return (
-//     <View>
-//         <Animated.View style = {[btnstyles.circle, {bottom:icon_1}]}>
-//           <Icon name='user'size={25} color= "white"/>
-//         </Animated.View>
-//         <Animated.View style = {[btnstyles.circle, {bottom:icon_2, right:icon_2}]}>
-//           <Icon name='stethoscope'size={25} color= "white"/>
-//         </Animated.View>
-//         <Animated.View style = {[btnstyles.circle, {right:icon_3}]}>
-//           <Icon name='calender-check'size={25} color= "white"/>
-//         </Animated.View>
-//         <Animated.View style = {[btnstyles.circle, {bottom:icon_4, top:icon_4}]}>
-//           <Icon name='sign-out-alt'size={25}color= "white"/>
-//         </Animated.View>
-//       <TouchableOpacity style= {btnstyles.circle} onPress={()=>{
-//         {Pop === false? PopIn() : PopOut()} 
-//       }}>
-//       <Icon name='plus' size={25} color = "white"/>
-//       </TouchableOpacity>
-//     </View>
-//   );
-// }
-// const btnstyles = StyleSheet.create({
-//     circle:{
-//       backgroundColor: '#f52d56',
-//       width: 60,
-//       height: 60,
-//       position: 'absolute',
-//       bottom: 80,
-//       right: 80,
-//       borderRadius: 50,
-//       justifyContent: 'center',
-//       alignItems: 'center',
-//     }
-// })
-// export default FloatingBtn;
-import React, { useState} from "react";
-import { View, TouchableOpacity, StyleSheet, Animated } from "react-native";
+import React, { useState } from "react";
+import { View, TouchableOpacity, StyleSheet, Animated, PanResponder } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const FloatingButton = () => {
-
-  const [icon_1] = useState(new Animated.Value(540));
-  const [icon_2] = useState(new Animated.Value(540));
-  const [icon_3] = useState(new Animated.Value(540));
-
+  const [icon1Anim] = useState(new Animated.Value(0));
+  const [icon2Anim] = useState(new Animated.Value(0));
+  const [icon3Anim] = useState(new Animated.Value(0));
   const [pop, setPop] = useState(false);
+  const pan = useState(new Animated.ValueXY())[0];
 
-  const popIn = () => {
-    setPop(true);
-    Animated.timing(icon_1, {
-      toValue: 130,
-      duration: 500,
-      useNativeDriver: false,
-    }).start();
-    Animated.timing(icon_2, {
-      toValue: 110,
-      duration: 500,
-      useNativeDriver: false,
-    }).start();
-    Animated.timing(icon_3, {
-      toValue: 130,
-      duration: 500,
-      useNativeDriver: false,
-    }).start();
-  }
+  const panResponder = useState(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        return Math.abs(gestureState.dx) > 5 || Math.abs(gestureState.dy) > 5;
+      },
+      onPanResponderMove: Animated.event(
+        [null, { dx: pan.x, dy: pan.y }],
+        { useNativeDriver: false }
+      ),
+      onPanResponderRelease: () => {
+        pan.extractOffset();
+      },
+    })
+  )[0];
 
-  const popOut = () => {
-    setPop(false);
-    Animated.timing(icon_1, {
-      toValue: 40,
-      duration: 500,
-      useNativeDriver: false,
-    }).start();
-    Animated.timing(icon_2, {
-      toValue: 40,
-      duration: 500,
-      useNativeDriver: false,
-    }).start();
-    Animated.timing(icon_3, {
-      toValue: 40,
-      duration: 500,
-      useNativeDriver: false,
-    }).start();
-  }
+  const toggleMenu = () => {
+    const toValue = pop ? 0 : 1;
+    const animations = [
+      Animated.spring(icon1Anim, { toValue: pop ? 0 : -80, useNativeDriver: false }),
+      Animated.spring(icon2Anim, { toValue: pop ? 0 : -60, useNativeDriver: false }),
+      Animated.spring(icon3Anim, { toValue: pop ? 0 : -80, useNativeDriver: false }),
+    ];
 
-  return(
-    <View style={{
-      flex: 1
-    }}>
-      <Animated.View style={[styles.circle, { bottom: icon_1}]}>
+    Animated.parallel(animations).start();
+    setPop(!pop);
+  };
+
+  return (
+    <Animated.View
+      style={[
+        styles.container,
+        { transform: pan.getTranslateTransform() }
+      ]}
+    >
+      <Animated.View style={[styles.subButton, { transform: [{ translateY: icon1Anim }] }]}>
         <TouchableOpacity>
-          <Icon name="cloud-upload" size={25} color="#FFFF" />
+          <Icon name="cloud-upload" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>
-      <Animated.View style={[styles.circle, { bottom: icon_2, right: icon_2}]}>
+
+      <Animated.View style={[
+        styles.subButton,
+        { transform: [{ translateY: icon2Anim }, { translateX: icon2Anim }] }
+      ]}>
         <TouchableOpacity>
-          <Icon name="print" size={25} color="#FFFF" />
+          <Icon name="print" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>
-      <Animated.View style={[styles.circle, { right: icon_3}]}>
+
+      <Animated.View style={[styles.subButton, { transform: [{ translateX: icon3Anim }] }]}>
         <TouchableOpacity>
-          <Icon name="share-alt" size={25} color="#FFFF" />
+          <Icon name="share-alt" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>
-      <TouchableOpacity
-        style={styles.circle}
-        onPress={() => {
-          pop === false ? popIn() : popOut();
-        }}
-      >
-        <Icon name="plus" size={25} color="#FFFF" />
-      </TouchableOpacity>
-    </View>
-  )
 
-}
-
-export default FloatingButton;
+      <View {...panResponder.panHandlers}>
+        <TouchableOpacity style={styles.mainButton} onPress={toggleMenu}>
+          <Icon name="plus" size={25} color="#fff" />
+        </TouchableOpacity>
+      </View>
+    </Animated.View>
+  );
+};
 
 const styles = StyleSheet.create({
-  circle: {
-     backgroundColor: '#f52d56',
-     width: 60,
-     height: 60,
-     position: 'absolute',
-     bottom: 540,
-     right: 40,
-     borderRadius: 50,
-     justifyContent: 'center',
-     alignItems: 'center',
-  }
-})
+  container: {
+    position: "absolute",
+    bottom: 40,
+    right: 40,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  mainButton: {
+    backgroundColor: "#f52d56",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1,
+  },
+  subButton: {
+    backgroundColor: "#f52d56",
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+  },
+});
+
+export default FloatingButton;
