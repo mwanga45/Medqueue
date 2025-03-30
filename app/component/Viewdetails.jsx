@@ -22,7 +22,7 @@ const Viewdetails = () => {
           name: endpoint.data.name,
           deviceId: endpoint.data.deviceId,
           Phone: endpoint.data.phone_numb,
-          Home_Address: endpoint.data?.phone_numb || "None",
+          Home_Address: endpoint.data?.home_Address || "None",
         });
       } else {
         Alert.alert(
@@ -33,10 +33,10 @@ const Viewdetails = () => {
     } catch (err) {
       console.error("something went wrong", err);
     }
-    useEffect(()=>{
-      handleUserdetails()
-    },[])
-  };
+};
+useEffect(()=>{
+  handleUserdetails()
+},[])
   return (
   
       <View style={stylesModal.container}>
@@ -44,12 +44,12 @@ const Viewdetails = () => {
             <View style = {stylesModal.imageBackground}>
           <Image
             source={require("../../assets/images/favicon.png")}
-            resizeMethod="resize"
+            resizeMethod="resize"  style ={{height:100, width:100}}
           ></Image>
             </View>
         </View>
         <View style={stylesModal.detailssummary}>
-          <Text style = {stylesModal.textstyle}>My details here</Text>
+          <Text style = {{fontSize:28, fontWeight:"800"}}>My Details</Text>
           <Text style = {stylesModal.textstyle}>Username:{userdetails.name} </Text>
           <Text style = {stylesModal.textstyle}>Phone_Number:{userdetails.Phone} </Text>
           <Text style = {stylesModal.textstyle}>Home Address:{userdetails.Home_Address} </Text>
@@ -68,14 +68,13 @@ const stylesModal = StyleSheet.create({
     marginBottom:42,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:"black",
     height:100,
 
   },
   imageBackground:{
-    backgroundColor:"blue",
+    backgroundColor:"rgba(207, 206, 206, 0.3)",
     width:"50%",
-    height:100,
+    height:120,
     justifyContent:"center",
     alignItems:"center",
     borderRadius:14
@@ -87,8 +86,9 @@ const stylesModal = StyleSheet.create({
     rowGap: 10,
   },
   textstyle:{
-    color:"rgba(0,0,0,0.1)",
+    color:"rgba(0,0,0,0.9)",
     fontSize:20,
+    fontWeight:"500"
   }
 
 });
