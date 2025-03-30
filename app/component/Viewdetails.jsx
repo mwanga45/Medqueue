@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Modal, Image, StyleSheet } from "react-native";
+import { View, Text, Modal, Image, StyleSheet, Alert } from "react-native";
 import DeviceInfo  from "react-native-device-info"
 import axios from "axios"
 const Viewdetails = ({ isvisible, setisvisible }) => {
@@ -22,6 +22,8 @@ const Viewdetails = ({ isvisible, setisvisible }) => {
                     Phone:endpoint.data.phone_numb,
                     Home_Address:endpoint.data?.phone_numb ||"None"
                 })
+            }else{
+                Alert.alert("Something went Wrong", response.data.message|| "failed to fetch data")
             }
         }catch(err){
            console.error("something went wrong", err)
