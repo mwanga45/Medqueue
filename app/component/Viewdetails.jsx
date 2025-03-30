@@ -74,9 +74,8 @@ const stylesModal = StyleSheet.create({
     rowGap: 10,
   },
   textstyle:{
-    color:"rgba(0,0,0,0.2)",
+    color:"rgba(0,0,0,0.1)",
     fontSize:20,
-    
   }
 
 });
