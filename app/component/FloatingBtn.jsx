@@ -77,8 +77,8 @@ const FloatingButton = () => {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 40,
-    right: 40,
+    bottom: 530,
+    right: 10,
     alignItems: "center",
     justifyContent: "center",
   },
