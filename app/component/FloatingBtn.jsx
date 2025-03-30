@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, TouchableOpacity, StyleSheet, Animated, PanResponder } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const FloatingButton = () => {
+const FloatingButton = ({isBoolean}) => {
   const [icon1Anim] = useState(new Animated.Value(0));
   const [icon2Anim] = useState(new Animated.Value(0));
   const [icon3Anim] = useState(new Animated.Value(0));
@@ -36,6 +36,8 @@ const FloatingButton = () => {
     Animated.parallel(animations).start();
     setPop(!pop);
   };
+  // const [userdetails , setuserdetails] = useState(false)
+
 
   return (
     <Animated.View
@@ -45,7 +47,7 @@ const FloatingButton = () => {
       ]}
     >
       <Animated.View style={[styles.subButton, { transform: [{ translateY: icon1Anim }] }]}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={isBoolean}>
           <Icon name="user" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>

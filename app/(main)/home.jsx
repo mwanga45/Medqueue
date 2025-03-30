@@ -4,14 +4,12 @@ import QuickAction from "../component/QuickAction";
 import MyCalendar from "../component/calender";
 import Navigationbar from "../component/navigation";
 import { useRouter } from "expo-router";
-import { View, Text, StyleSheet, ScrollView,TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ScrollView,TouchableOpacity, Modal } from "react-native";
 import UserReg from "../component/userReg";
 import DeviceInfo from "react-native-device-info";
 import axios from "axios";
-import Userdetails from "../component/userdetails";
-import DraggableBox from "../component/movable";
 import FloatingBtn from "../component/FloatingBtn";
-
+import Viewdetails from "../component/Viewdetails";
 
 const Homepage = () => {
   const router = useRouter();
@@ -45,6 +43,11 @@ const Homepage = () => {
   useEffect(() => {
     handleverfiyuser();
   }, []);
+
+  const [isVisible , setisVisible] = useState(false) 
+  const handleModal = ()=>{
+    setisVisible(!isVisible)
+  }
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -116,7 +119,10 @@ const Homepage = () => {
         </View>
         {showreg && <UserReg close={handleshowreg} />}
       </ScrollView>
-      <FloatingBtn/>
+      <FloatingBtn isBoolean={()=>setisVisible(true)}/>
+      <Modal visible={isVisible} onRequestClose={()=> setisVisible(false)}>
+      <Viewdetails/>
+      </Modal>
       <Navigationbar />
     </View>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Modal, Image, StyleSheet, Alert } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import axios from "axios";
-const Viewdetails = ({ isvisible, setisvisible }) => {
+const Viewdetails = () => {
   const [userdetails, setuserdetails] = useState({
     name: "",
     deviceId: "",
@@ -38,11 +38,7 @@ const Viewdetails = ({ isvisible, setisvisible }) => {
     },[])
   };
   return (
-    <Modal
-      visible={isvisible}
-      onRequestClose={() => setisvisible()}
-      animationType="pageSheet"
-    >
+  
       <View style={stylesModal.container}>
         <View style={stylesModal.imageprofile}>
           <Image
@@ -57,7 +53,6 @@ const Viewdetails = ({ isvisible, setisvisible }) => {
           <Text style = {stylesModal.textstyle}>Home Address:{userdetails.Home_Address} </Text>
         </View>
       </View>
-    </Modal>
   );
 };
 
