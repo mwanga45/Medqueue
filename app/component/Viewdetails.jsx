@@ -41,10 +41,12 @@ const Viewdetails = () => {
   
       <View style={stylesModal.container}>
         <View style={stylesModal.imageprofile}>
+            <View style = {stylesModal.imageBackground}>
           <Image
             source={require("../../assets/images/favicon.png")}
             resizeMethod="resize"
           ></Image>
+            </View>
         </View>
         <View style={stylesModal.detailssummary}>
           <Text style = {stylesModal.textstyle}>My details here</Text>
@@ -60,14 +62,25 @@ const stylesModal = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+    paddingVertical:100
   },
   imageprofile: {
-    marginTop: 12,
+    marginBottom:42,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor:"black",
+    height:100,
+
+  },
+  imageBackground:{
+    backgroundColor:"blue",
+    width:"50%",
+    height:100,
+    justifyContent:"center",
+    alignItems:"center",
+    borderRadius:14
   },
   detailssummary: {
-    width:"100",
     justifyContent: "center",
     flexDirection: "column",
     alignItems:"center",
