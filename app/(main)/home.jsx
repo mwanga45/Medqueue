@@ -144,11 +144,11 @@ export default Homepage;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Ensures the container takes the full screen height
+    flex: 1, 
     backgroundColor: "#F7F7F7",
   },
   scrollContainer: {
-    flexGrow: 1, //this allow the scrollview content to expand to fill the content
+    flexGrow: 1, 
     paddingBottom: 80,
   },
   HomepageContainer: {

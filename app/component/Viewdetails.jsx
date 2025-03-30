@@ -33,28 +33,36 @@ const Viewdetails = () => {
     } catch (err) {
       console.error("something went wrong", err);
     }
-};
-useEffect(()=>{
-  handleUserdetails()
-},[])
+  };
+  useEffect(() => {
+    handleUserdetails();
+  }, []);
   return (
-  
-      <View style={stylesModal.container}>
-        <View style={stylesModal.imageprofile}>
-            <View style = {stylesModal.imageBackground}>
+    <View style={stylesModal.container}>
+      <View style={stylesModal.imageprofile}>
+        <View style={stylesModal.imageBackground}>
           <Image
             source={require("../../assets/images/favicon.png")}
-            resizeMethod="resize"  style ={{height:100, width:100}}
+            resizeMethod="resize"
+            style={{ height: 100, width: 100 }}
           ></Image>
-            </View>
-        </View>
-        <View style={stylesModal.detailssummary}>
-          <Text style = {{fontSize:28, fontWeight:"800"}}>My Details</Text>
-          <Text style = {stylesModal.textstyle}>Username:{userdetails.name} </Text>
-          <Text style = {stylesModal.textstyle}>Phone_Number:{userdetails.Phone} </Text>
-          <Text style = {stylesModal.textstyle}>Home Address:{userdetails.Home_Address} </Text>
         </View>
       </View>
+      <View style={stylesModal.detailssummary}>
+          <Text style={{ fontSize: 28, fontWeight: "800" }}>My Details</Text>
+        <View>
+          <Text style={stylesModal.textstyle}>
+            Username:{userdetails.name}
+          </Text>
+          <Text style={stylesModal.textstyle}>
+            Phone_Number:{userdetails.Phone}
+          </Text>
+          <Text style={stylesModal.textstyle}>
+            Home Address:{userdetails.Home_Address}
+          </Text>
+        </View>
+      </View>
+    </View>
   );
 };
 
@@ -62,35 +70,34 @@ const stylesModal = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    paddingVertical:100
+    paddingVertical: 100,
   },
   imageprofile: {
-    marginBottom:42,
+    marginBottom: 42,
     justifyContent: "center",
     alignItems: "center",
-    height:100,
-
+    height: 100,
   },
-  imageBackground:{
-    backgroundColor:"rgba(207, 206, 206, 0.3)",
-    width:"50%",
-    height:120,
-    justifyContent:"center",
-    alignItems:"center",
-    borderRadius:14
+  imageBackground: {
+    backgroundColor: "rgba(207, 206, 206, 0.3)",
+    width: "50%",
+    height: 120,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 14,
   },
   detailssummary: {
     justifyContent: "center",
     flexDirection: "column",
-    alignItems:"center",
+    alignItems: "center",
     rowGap: 10,
   },
-  textstyle:{
-    color:"rgba(0,0,0,0.9)",
-    fontSize:20,
-    fontWeight:"500"
-  }
-
+  textstyle: {
+    color: "rgba(0,0,0,0.9)",
+    fontSize: 20,
+    fontWeight: 500,
+    marginTop:12
+  },
 });
 
 export default Viewdetails;
