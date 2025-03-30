@@ -67,8 +67,10 @@ const stylesModal = StyleSheet.create({
     alignItems: "center",
   },
   detailssummary: {
+    width:"100",
     justifyContent: "center",
     flexDirection: "column",
+    alignItems:"center",
     rowGap: 10,
   },
   textstyle:{
