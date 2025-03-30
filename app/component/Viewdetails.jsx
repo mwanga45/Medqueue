@@ -15,7 +15,13 @@ const Viewdetails = ({ isvisible, setisvisible }) => {
             const deviceId = await DeviceInfo.getUniqueId()
             const response = await axios.post("http://192.168.139.251:8800/userinfo",{deviceId})
             if (response.data.success){
-                
+                const endpoint = response.data
+                setuserdetails({
+                    name:endpoint.data.name,
+                    deviceId:endpoint.data.deviceId,
+                    Phone:endpoint.data.phone_numb,
+                    Home_Address:endpoint.data?.phone_numb ||"None"
+                })
             }
         }catch(err){
            console.error("something went wrong", err)
@@ -27,24 +33,39 @@ const Viewdetails = ({ isvisible, setisvisible }) => {
       onRequestClose={() => setisvisible()}
       animationType="pageSheet"
     >
-      <View>
-        <View>
+      <View style = {stylesModal.container}>
+        <View style = {stylesModal.imageprofile}>
           <Image
             source={require("../../assets/images/favicon.png")}
             resizeMethod="resize"
           ></Image>
         </View>
-        <View>
+        <View style = {stylesModal.detailssummary}>
           <Text>My details here</Text>
-          <Text>Username: </Text>
-          <Text>Phone_Number: </Text>
-          <Text>Home Address: </Text>
+          <Text>Username:{userdetails.name} </Text>
+          <Text>Phone_Number:{userdetails.Phone} </Text>
+          <Text>Home Address:{userdetails.Home_Address} </Text>
         </View>
       </View>
     </Modal>
   );
 };
 
-const stylesModal = StyleSheet.create({});
+const stylesModal = StyleSheet.create({
+   container:{
+    flex:1,
+    backgroundColor:"white"
+   },
+   imageprofile:{
+    marginTop:12,
+    justifyContent:"center",
+    alignItems:"center",
+   },
+   detailssummary:{
+    justifyContent:"center",
+    flexDirection:"column",
+    rowGap:10
+   },
+});
 
 export default Viewdetails;
