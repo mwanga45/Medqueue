@@ -49,7 +49,7 @@ const Viewdetails = () => {
         </View>
       </View>
       <View style={stylesModal.detailssummary}>
-          <Text style={{ fontSize: 28, fontWeight: "800" }}>My Details</Text>
+          <Text style={{ fontSize: 28, fontWeight: "800" ,color: "rgba(0,0,0,0.7)", }}>My Details</Text>
         <View>
           <Text style={stylesModal.textstyle}>
             Username:{userdetails.name}
@@ -66,6 +66,7 @@ const Viewdetails = () => {
   );
 };
 
+
 const stylesModal = StyleSheet.create({
   container: {
     flex: 1,
@@ -77,14 +78,21 @@ const stylesModal = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: 100,
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.19,
+    shadowRadius: 5.62,
+    elevation: 6,
   },
   imageBackground: {
-    backgroundColor: "rgba(207, 206, 206, 0.3)",
+    backgroundColor: "rgba(217, 217, 217, 0.3)",
     width: "50%",
     height: 120,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 14,
+    
+    
   },
   detailssummary: {
     justifyContent: "center",
@@ -93,7 +101,7 @@ const stylesModal = StyleSheet.create({
     rowGap: 10,
   },
   textstyle: {
-    color: "rgba(0,0,0,0.9)",
+    color: "rgba(0,0,0,0.7)",
     fontSize: 20,
     fontWeight: 500,
     marginTop:12
