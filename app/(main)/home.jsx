@@ -4,7 +4,14 @@ import QuickAction from "../component/QuickAction";
 import MyCalendar from "../component/calender";
 import Navigationbar from "../component/navigation";
 import { useRouter } from "expo-router";
-import { View, Text, StyleSheet, ScrollView,TouchableOpacity, Modal } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
 import UserReg from "../component/userReg";
 import DeviceInfo from "react-native-device-info";
 import axios from "axios";
@@ -44,10 +51,10 @@ const Homepage = () => {
     handleverfiyuser();
   }, []);
 
-  const [isVisible , setisVisible] = useState(false) 
-  const handleModal = ()=>{
-    setisVisible(!isVisible)
-  }
+  const [isVisible, setisVisible] = useState(false);
+  const handleModal = () => {
+    setisVisible(!isVisible);
+  };
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -119,9 +126,14 @@ const Homepage = () => {
         </View>
         {showreg && <UserReg close={handleshowreg} />}
       </ScrollView>
-      <FloatingBtn isBoolean={()=>setisVisible(true)}/>
-      <Modal visible={isVisible} onRequestClose={()=> setisVisible(false)}>
-      <Viewdetails/>
+      <FloatingBtn isBoolean={() => setisVisible(true)} />
+      <Modal
+        visible={isVisible}
+        onRequestClose={() => setisVisible(false)}
+        animationType="slide"
+        presentationStyle="pageSheet"
+      >
+        <Viewdetails />
       </Modal>
       <Navigationbar />
     </View>
