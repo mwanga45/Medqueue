@@ -8,7 +8,7 @@ const UserProf = () => {
   const [userdetails, setuserdetails]= useState([])
   const handlesendDeviceid = async()=>{
     const deviceId = await DeviceInfo.getUniqueId()
-    const response = await axios.post("http://192.168.139.251:8800/userinfo",{deviceId});
+    const response = await axios.post("http://192.168.17.251:8800/userinfo",{deviceId});
     if(response.data.success){
       const details = response.data
       setuserdetails(details.data)

@@ -31,7 +31,7 @@ const Homepage = () => {
     try {
       const deviceId = await DeviceInfo.getUniqueId();
       const response = await axios.post(
-        "http://192.168.139.251:8800/verifyuser",
+        "http://192.168.17.251:8800/verifyuser",
         { deviceId }
       );
       const endpoint = response.data;

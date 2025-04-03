@@ -44,6 +44,7 @@
     "react-native": "0.76.7",
     "react-native-calendars": "^1.1309.1",
     "react-native-device-info": "^10.3.0",
+    "react-native-dotenv": "^3.4.11",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-gifted-chat": "^2.8.0",
     "react-native-maps": "1.18.0",

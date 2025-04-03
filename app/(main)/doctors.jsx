@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import {HANDLER_IP} from '@env'
+// import { IP_ADDR } from "../IPconstant.TS";
 import axios from "axios"
 import { View, Text, ScrollView, StyleSheet, Image, FlatList, Alert } from "react-native";
 import Navigationbar from "../component/navigation";
@@ -11,7 +13,7 @@ const DoctorPresence = () => {
   const [doctorinfo, setdoctorinfo]= useState([])
   const handledoctorsinfo = async () => {
     try {
-      const response = await axios.get("http://192.168.139.251:8800/doctorinfo");
+      const response = await axios.get(`${HANDLER_IP}/doctorinfo`);
       const info = response.data;
       if (info.success) {
         setdoctorinfo(info.data);
