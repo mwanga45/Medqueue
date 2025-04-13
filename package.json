@@ -1,6 +1,6 @@
 {
   "name": "testapp",
-  "main": "expo-router/entry",
+  "main": "node_modules/expo-router/entry.js",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
@@ -32,7 +32,7 @@
     "expo-linking": "~7.0.5",
     "expo-local-authentication": "~15.0.2",
     "expo-notifications": "~0.29.14",
-    "expo-router": "~4.0.19",
+    "expo-router": "~4.0.20",
     "expo-speech": "~13.0.1",
     "expo-splash-screen": "~0.29.22",
     "expo-status-bar": "~2.0.1",
