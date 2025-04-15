@@ -1,51 +1,27 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
-import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
-import "react-native-reanimated";
+import React from "react";
+import { Colors } from '../constants/Colors';
 
-import { useColorScheme } from "@/hooks/useColorScheme";
-import { Platform } from "react-native";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+export default function Layout(){
+  <>
+  <StatusBar style="light"/>
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack
-        screenOptions={{
-          animation:Platform.OS ==="ios" ? "ios_from_left":"slide_from_right",
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="(main)" />
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+  <Stack screenOptions={{
+    headerBackTitle:"",
+    title:"",
+    contentStyle:{
+      backgroundColor:Colors.light.background,
+    },
+    animation: "slide_from_right",
+    headerShown: false,
+  }}>
+    <Stack.Screen name="index" options={{
+      headerShown:false,
+      title:"",
+      headerTitle:""
+    }}/>
+  </Stack>
+  </>
 }

@@ -1,54 +1,52 @@
-import { useRouter } from 'expo-router';
-import React, { useEffect, useRef } from 'react';
-import { View, Text, Animated, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { useEffect, useRef } from "react";
 
-const Entrypage = () => {
-  const route = useRouter()
-  const fadeAnim =  useRef(new Animated.Value(0)).current;
-  const bounceAnim = useRef(new Animated.Value(0.5)).current;
-// having the animation once the page is mount and remove it after the page is unmount
-useEffect(()=>{
-  Animated.parallel([
-    Animated.timing(fadeAnim,{
-      toValue:1,
-      duration:1000,
-      useNativeDriver:true
-    }),
-    Animated.spring(bounceAnim, {
-      toValue:1,
-      tension:10,
-      friction:2,
-      useNativeDriver:true
-    })
-  ]).start()
+export default function SplashScreen() {
+  const router = useRouter();
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const scaleAnim = useRef(new Animated.Value(0.5)).current;
 
-  const Timer = setInterval(()=>{
-    route.replace("/authentic")
-  },2000)
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      }),
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        tension: 10,
+        friction: 2,
+        useNativeDriver: true,
+      }),
+    ]).start();
 
-  return  ()=> clearInterval(Timer)
+    const timer = setTimeout(() => {
+      router.replace("./(tabs)/authentic");
+    }, 2000);
 
-},[])
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-     <View style={styles.container}>
+    <View style={styles.container}>
       <Animated.View
         style={[
           styles.iconContainer,
           {
             opacity: fadeAnim,
-            transform: [{ scale: bounceAnim }],
+            transform: [{ scale: scaleAnim }],
           },
         ]}
       >
         <Ionicons name="medical" size={100} color="white" />
-        <Text style={styles.appName}>Medqueue</Text>
+        <Text style={styles.appName}>MedRemind</Text>
       </Animated.View>
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -68,4 +66,3 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
 });
-export default Entrypage;

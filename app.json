@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Testapp",
-    "slug": "Testapp",
+    "name": "MedqueV3",
+    "slug": "MedqueV3",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -15,8 +15,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.anonymous.Testapp"
+      }
     },
     "web": {
       "bundler": "metro",
@@ -28,7 +27,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png", 
+          "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
@@ -37,14 +36,6 @@
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "c4720d1a-0281-411b-bcfd-4beabc1c9269"
-      }
     }
   }
 }
