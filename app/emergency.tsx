@@ -94,7 +94,6 @@ export default function Emergency() {
       return;
     }
     alert(`Emergency booking submitted for ${selectedEmergency.title}`);
-    // Navigate back to home or to a confirmation page
     router.back();
   };
   const renderEmergencyItem = ({ item }: { item: typeof emergencyTypes[0] }) => (

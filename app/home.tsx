@@ -42,9 +42,9 @@ export default function Home() {
           </View>
           <View>
             <QuickAction
-              name="calendar-day"
+              name="history"
               size={30}
-              text="Calender"
+              text="Booking-history"
               backgroundColor="#4b5f"
               onclick={() => {}}
             />
@@ -55,7 +55,7 @@ export default function Home() {
             <QuickAction
               name="user-md"
               size={30}
-              text="doctor-available"
+              text="Doctor-available"
               backgroundColor="#d51341"
               onclick={() => router.push("/doctor-availability")}
             />
