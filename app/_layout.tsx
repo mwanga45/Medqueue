@@ -21,11 +21,21 @@ export default function Layout() {
           title: "",
           headerTitle: ""
         }} />
-        {/* <Stack.Screen name="/home" options={{
-          headerShown:false,
-          title:"",
-          headerBackTitle:""
-        }}/> */}
+        <Stack.Screen name="home" options={{
+          headerShown: false,
+          title: "",
+          headerBackTitle: ""
+        }}/>
+        <Stack.Screen name="doctor-availability" options={{
+          headerShown: false,
+          title: "",
+          headerBackTitle: ""
+        }}/>
+        <Stack.Screen name="emergency" options={{
+          headerShown: false,
+          title: "",
+          headerBackTitle: ""
+        }}/>
       </Stack>
     </>
   );

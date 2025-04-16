@@ -40,17 +40,6 @@ export default function Home() {
               onclick={() => {}}
             />
           </View>
-          <View >
-            <QuickAction
-              name="book"
-              size={30}
-              text="Booking"
-              backgroundColor="#00d4ff"
-              onclick={() => {}}
-            />
-          </View>
-        </View>
-        <View style={styles.Homepagecover2}>
           <View>
             <QuickAction
               name="calendar-day"
@@ -60,15 +49,29 @@ export default function Home() {
               onclick={() => {}}
             />
           </View>
-          <View >
+        </View>
+        <View style={styles.Homepagecover2}>
+          <View>
             <QuickAction
-              name="user-check"
+              name="user-md"
               size={30}
               text="doctor-available"
               backgroundColor="#d51341"
-              onclick={() => {}}
+              onclick={() => router.push("/doctor-availability")}
             />
           </View>
+          <View>
+            <QuickAction
+              name="ambulance"
+              size={30}
+              text="emergency"
+              backgroundColor="#f52d56"
+              onclick={() => router.push("/emergency")}
+            />
+          </View>
+        </View>
+        <View style={styles.usernameaccount}>
+          <Text style={{color:"grey", fontSize:18 ,fontWeight:800}}>Hi Issa Mwanga</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -127,4 +130,21 @@ const styles = StyleSheet.create({
     margin: 12,
     color: "silver",
   },
+  usernameaccount: {
+    width: "100%",
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    padding: 10,
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  }
 });
