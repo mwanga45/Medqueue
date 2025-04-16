@@ -128,78 +128,101 @@ export default function Emergency() {
         <View style={styles.placeholder} />
       </View>
       
-      {/* Emergency Type Selection */}
-      <View style={styles.emergencyTypeContainer}>
-        <Text style={styles.sectionTitle}>Select Emergency Type</Text>
-        <FlatList
-          ref={flatListRef}
-          data={emergencyTypes}
-          renderItem={renderEmergencyItem}
-          keyExtractor={item => item.id}
-          horizontal={false}
-          showsVerticalScrollIndicator={false}
-          style={styles.emergencyList}
-        />
-      </View>
-      
-      {/* Quick Booking Form */}
-      <View style={styles.bookingForm}>
-        <Text style={styles.sectionTitle}>Quick Booking</Text>
-        
-        <View style={styles.inputContainer}>
-          <Icon name="user" size={20} color="#757575" style={styles.inputIcon} />
-          <TextInput
-            style={styles.input}
-            placeholder="Your Name"
-            value={name}
-            onChangeText={setName}
-          />
+      <ScrollView 
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollViewContent}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      >
+        {/* Emergency Type Selection */}
+        <View style={styles.emergencyTypeContainer}>
+          <Text style={styles.sectionTitle}>Select Emergency Type</Text>
+          <View style={styles.emergencyListContainer}>
+            <FlatList
+              ref={flatListRef}
+              data={emergencyTypes}
+              renderItem={renderEmergencyItem}
+              keyExtractor={item => item.id}
+              horizontal={false}
+              showsVerticalScrollIndicator={true}
+              style={styles.emergencyList}
+              scrollEnabled={true}
+              nestedScrollEnabled={true}
+            />
+          </View>
         </View>
         
-        <View style={styles.inputContainer}>
-          <Icon name="phone" size={20} color="#757575" style={styles.inputIcon} />
-          <TextInput
-            style={styles.input}
-            placeholder="Phone Number"
-            value={phone}
-            onChangeText={setPhone}
-            keyboardType="phone-pad"
-          />
+        {/* Quick Booking Form */}
+        <View style={styles.bookingForm}>
+          <Text style={styles.sectionTitle}>Quick Booking</Text>
+          
+          <View style={styles.inputContainer}>
+            <Icon name="user" size={20} color="#757575" style={styles.inputIcon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Your Name"
+              value={name}
+              onChangeText={setName}
+              placeholderTextColor="#999"
+              selectionColor="#f44336"
+              autoCapitalize="words"
+            />
+          </View>
+          
+          <View style={styles.inputContainer}>
+            <Icon name="phone" size={20} color="#757575" style={styles.inputIcon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Phone Number"
+              value={phone}
+              onChangeText={setPhone}
+              keyboardType="phone-pad"
+              placeholderTextColor="#999"
+              selectionColor="#f44336"
+              maxLength={15}
+            />
+          </View>
+          
+          <View style={styles.inputContainer}>
+            <Icon name="map-marker-alt" size={20} color="#757575" style={styles.inputIcon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Location"
+              value={location}
+              onChangeText={setLocation}
+              placeholderTextColor="#999"
+              selectionColor="#f44336"
+              autoCapitalize="words"
+            />
+          </View>
+          
+          <View style={styles.inputContainer}>
+            <Icon name="info-circle" size={20} color="#757575" style={styles.inputIcon} />
+            <TextInput
+              style={[styles.input, styles.textArea]}
+              placeholder="Description"
+              value={description}
+              onChangeText={setDescription}
+              multiline
+              numberOfLines={3}
+              placeholderTextColor="#999"
+              selectionColor="#f44336"
+              textAlignVertical="top"
+            />
+          </View>
+          
+          <TouchableOpacity 
+            style={[
+              styles.submitButton,
+              !selectedEmergency && styles.disabledButton
+            ]}
+            onPress={handleQuickBooking}
+            disabled={!selectedEmergency}
+          >
+            <Text style={styles.submitButtonText}>Submit Emergency Booking</Text>
+          </TouchableOpacity>
         </View>
-        
-        <View style={styles.inputContainer}>
-          <Icon name="map-marker-alt" size={20} color="#757575" style={styles.inputIcon} />
-          <TextInput
-            style={styles.input}
-            placeholder="Location"
-            value={location}
-            onChangeText={setLocation}
-          />
-        </View>
-        
-        <View style={styles.inputContainer}>
-          <Icon name="info-circle" size={20} color="#757575" style={styles.inputIcon} />
-          <TextInput
-            style={[styles.input, styles.textArea]}
-            placeholder="Description"
-            value={description}
-            onChangeText={setDescription}
-            multiline
-            numberOfLines={3}
-          />
-        </View>
-        
-        <TouchableOpacity 
-          style={[
-            styles.submitButton,
-            !selectedEmergency && styles.disabledButton
-          ]}
-          onPress={handleQuickBooking}
-          disabled={!selectedEmergency}
-        >
-          <Text style={styles.submitButtonText}>Submit Emergency Booking</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -249,6 +272,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 16,
     color: '#333',
+  },
+  emergencyListContainer: {
+    maxHeight: 200,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    borderRadius: 8,
+    backgroundColor: '#f9f9f9',
   },
   emergencyList: {
     maxHeight: 200,
@@ -310,6 +340,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 16,
     paddingHorizontal: 12,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   inputIcon: {
     marginRight: 10,
@@ -318,10 +357,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
     fontSize: 16,
+    color: '#333',
+    fontWeight: '500',
   },
   textArea: {
-    height: 80,
+    height: 100,
     textAlignVertical: 'top',
+    paddingTop: 12,
   },
   submitButton: {
     backgroundColor: '#f44336',
@@ -337,5 +379,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollViewContent: {
+    paddingBottom: 30,
   },
 }); 
