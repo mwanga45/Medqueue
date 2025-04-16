@@ -47,7 +47,7 @@ const FloatingButton = ({isBoolean}) => {
       ]}
     >
       <Animated.View style={[styles.subButton, { transform: [{ translateY: icon1Anim }] }]}>
-        <TouchableOpacity onPress={isBoolean}>
+        <TouchableOpacity onPress={() => isBoolean && isBoolean()}>
           <Icon name="user" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>
@@ -92,6 +92,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     zIndex: 1,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
   },
   subButton: {
     backgroundColor: "#f52d56",
@@ -101,6 +109,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
   },
 });
 export default FloatingButton;
