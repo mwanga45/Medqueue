@@ -36,8 +36,17 @@ const FloatingButton = ({isBoolean}) => {
     Animated.parallel(animations).start();
     setPop(!pop);
   };
-  // const [userdetails , setuserdetails] = useState(false)
 
+  const handleUserPress = () => {
+    // Close the menu first
+    if (pop) {
+      toggleMenu();
+    }
+    // Then call the isBoolean function if it exists
+    if (isBoolean && typeof isBoolean === 'function') {
+      isBoolean();
+    }
+  };
 
   return (
     <Animated.View
@@ -47,7 +56,7 @@ const FloatingButton = ({isBoolean}) => {
       ]}
     >
       <Animated.View style={[styles.subButton, { transform: [{ translateY: icon1Anim }] }]}>
-        <TouchableOpacity onPress={() => isBoolean && isBoolean()}>
+        <TouchableOpacity onPress={handleUserPress}>
           <Icon name="user" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>

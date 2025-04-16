@@ -6,11 +6,13 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
+  Module
 } from "react-native";
 import FloatingBtn from "./component/FloatingBtn";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "./component/QuickAction";
 import { useRouter } from "expo-router";
+import UserReg from "./component/userReg"
 
 
 export default function Home() {
