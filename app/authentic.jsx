@@ -38,8 +38,12 @@ const Authentication = () => {
             disableDeviceFallback:false
         });
         if(Auth.success){
-            router.replace("/homepage/home")
-
+            try {
+                await router.replace("home");
+            } catch (error) {
+                console.error("Navigation error:", error);
+                setError("Failed to navigate to home screen");
+            }
         }else{
             setError("failed to verify try again ")
         }
