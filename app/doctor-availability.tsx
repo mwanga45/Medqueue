@@ -11,8 +11,9 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import axios from "axios";
 
-// Mock data for doctors
+
 const doctors = [
   {
     id: 1,
