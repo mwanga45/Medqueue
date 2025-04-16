@@ -12,6 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "./component/QuickAction";
 import { useRouter } from "expo-router";
 
+
 export default function Home() {
   const router = useRouter();
 
@@ -20,13 +21,15 @@ export default function Home() {
       <StatusBar barStyle="light-content" />
       <View style={styles.headerContainer}>
         <View>
-          <Text style={styles.headerText}>MedQueue</Text>
+          <Text style={styles.headerText}>MedQueu</Text>
           <Icon name="hospital-symbol" size={100} style={{ color: "silver" }} />
         </View>
       </View>
+      <View>
+        <Text style={styles.TextQuick}>QuickAction</Text>
+      </View>
       <View style={styles.content}>
         <FloatingBtn isBoolean={false} />
-        <Text style={styles.welcomeText}>Hello world</Text>
         <View style={styles.Homepagecover2}>
           <View>
             <QuickAction
@@ -43,6 +46,26 @@ export default function Home() {
               size={30}
               text="Booking"
               backgroundColor="#00d4ff"
+              onclick={() => {}}
+            />
+          </View>
+        </View>
+        <View style={styles.Homepagecover2}>
+          <View>
+            <QuickAction
+              name="calendar-day"
+              size={30}
+              text="Calender"
+              backgroundColor="#4b5f"
+              onclick={() => {}}
+            />
+          </View>
+          <View >
+            <QuickAction
+              name="user-check"
+              size={30}
+              text="doctor-available"
+              backgroundColor="#d51341"
               onclick={() => {}}
             />
           </View>
@@ -86,18 +109,22 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    paddingTop: 10,
   },
-  welcomeText: {
-    fontSize: 18,
-    color: "#333",
-    marginBottom: 20,
-  },
+
   Homepagecover2: {
     flexDirection: "row",
     width: "100%",
     justifyContent: "center",
     alignContent: "center",
-    columnGap:10
+    columnGap: 10,
+    marginTop: 10,
+  },
+  TextQuick: {
+    fontSize: 25,
+    fontWeight: "900",
+    margin: 12,
+    color: "silver",
   },
 });
