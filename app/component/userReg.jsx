@@ -21,7 +21,6 @@ const { width, height } = Dimensions.get('window');
 const UserReg = ({ close }) => {
   const [deviceId, setDeviceId] = useState(null);
   
-  // this is because the getUniqueId method is return promise object first so thus why we need to asnyc it first
   const handledeviceId = async () => {
     const device_Id = await DeviceInfo.getUniqueId();
     setDeviceId(device_Id);
