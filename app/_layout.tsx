@@ -21,6 +21,11 @@ export default function Layout() {
           title: "",
           headerTitle: ""
         }} />
+        <Stack.Screen name="home/homepage" options={{
+          headerShown:false,
+          title:"",
+          headerBackTitle:""
+        }}/>
       </Stack>
     </>
   );
