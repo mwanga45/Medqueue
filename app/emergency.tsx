@@ -15,13 +15,12 @@ import {
 import { useRouter } from 'expo-router';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-// Mock data for emergency types
 const emergencyTypes = [
   { 
     id: '1', 
     title: 'Snake Bite', 
     description: 'Immediate medical attention required for snake bites',
-    icon: 'snake',
+    icon: 'dragon',
     color: '#4CAF50',
     image: 'https://images.unsplash.com/photo-1581093458791-9f3c3250a8b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
   },
@@ -88,7 +87,6 @@ export default function Emergency() {
     setDescription(emergency.description);
   };
   const handleQuickBooking = () => {
-    // Here you would typically send the booking data to your backend
     if (!selectedEmergency) {
       alert('Please select an emergency type');
       return;

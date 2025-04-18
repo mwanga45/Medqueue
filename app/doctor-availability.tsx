@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,11 +8,11 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
+  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
-
 
 const doctors = [
   {
@@ -60,18 +60,47 @@ const doctors = [
 ];
 
 export default function DoctorAvailability() {
+  const [filterstatus, setfilterstatus] = useState<
+    "unavailable" | "available" | "all"
+  >("all");
+  const [selectedList, setSelectedList] = useState<any>([]);
+  const handledoctorlist = async () => {
+    try {
+      const response = await axios.get("http://localhost:8800/doctorinfo");
+      const info = response.data;
+      if (!response.data.success) {
+        Alert.alert("Something went wrong failed to fetch data");
+        return;
+      }
+      const filterdList = info.data.filter((doctor: any) => {
+        if (doctor.available === "available") return doctor.available;
+        if (doctor.available === "unavailable") return !doctor.avalable;
+        return true;
+      });
+      const avalableCount = info.data.filter((doctor :any)=> doctor.available).length
+      const unavailableCount = info.data.filter((doctor :any) => doctor.available).length
+      setSelectedList(filterdList);
+    } catch (err) {
+      console.error("Something went wrong here", err);
+    }
+  };
+
+  useEffect(()=>{
+   handledoctorlist()
+  },[])
+
   const router = useRouter();
-  const [filter, setFilter] = useState("all"); 
+  // const [filter, setFilter] = useState("all");
 
-  const filteredDoctors =
-    filter === "all"
-      ? doctors
-      : filter === "available"
-      ? doctors.filter((doctor) => doctor.available)
-      : doctors.filter((doctor) => !doctor.available);
+  // const filteredDoctors =
+  //   filter === "all"
+  //     ? doctors
+  //     : filter === "available"
+  //     ? doctors.filter((doctor) => doctor.available)
+  //     : doctors.filter((doctor) => !doctor.available);
 
-  const availableCount = doctors.filter((doctor) => doctor.available).length;
-  const unavailableCount = doctors.filter((doctor) => !doctor.available).length;
+  // const availableCount = doctors.filter((doctor) => doctor.available).length;
+  // const unavailableCount = doctors.filter((doctor) => !doctor.available).length;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -96,7 +125,7 @@ export default function DoctorAvailability() {
           <Text style={styles.statLabel}>Total Doctors</Text>
         </View>
         <View style={[styles.statCard, { backgroundColor: "#4CAF50" }]}>
-          <Text style={styles.statNumber}>{availableCount}</Text>
+          <Text style={styles.statNumber}>{avalableCount}</Text>
           <Text style={styles.statLabel}>Available</Text>
         </View>
         <View style={[styles.statCard, { backgroundColor: "#f44336" }]}>
