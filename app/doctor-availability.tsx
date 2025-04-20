@@ -14,7 +14,7 @@ import { useRouter } from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 
-type Datatype ={
+type Doctors={
   fullname: string;
   specialty: string;
   timeinterval: string;
@@ -26,23 +26,30 @@ export default function DoctorAvailability() {
   const [filterstatus, setfilterstatus] = useState<
     "unavailable" | "available" | "all"
   >("all");
-  const [selectedList, setSelectedList] = useState<any>([]);
+  const [doctors, setdoctors] = useState<any>([]);
   const handledoctorlist = async () => {
     try{
       const response = await axios.get("http://localhost:8800/doctorinfo")
       if (!response.data.success){
         Alert.alert("Something went wrong failed to fetch data")
         console.error("something went wrong",response.data.message)
+        return
       }
+      const docs : Doctors[]= response.data.data
+     setdoctors(docs)
     }
   catch (err){
     console.error("something went wrong here ",err)
+    Alert.alert("Network error", "Unable to reach server");
   }
   };
+  const totalCount = doctors.length;
+  const Available = doctors.filter((a: Doctors) => a.isAvailable).length;
+  const countNotAvailable = totalCount - Available
 
-  useEffect(()=>{
-   handledoctorlist()
-  },[])
+  useEffect(() => {
+    handledoctorlist();
+  }, []);
 
   const router = useRouter();
   return (
@@ -64,15 +71,15 @@ export default function DoctorAvailability() {
       {/* Stats */}
       <View style={styles.statsContainer}>
         <View style={styles.statCard}>
-          <Text style={styles.statNumber}>{doctors.length}</Text>
+          <Text style={styles.statNumber}>{totalCount}</Text>
           <Text style={styles.statLabel}>Total Doctors</Text>
         </View>
         <View style={[styles.statCard, { backgroundColor: "#4CAF50" }]}>
-          <Text style={styles.statNumber}>{}</Text>
+          <Text style={styles.statNumber}>{Available}</Text>
           <Text style={styles.statLabel}>Available</Text>
         </View>
         <View style={[styles.statCard, { backgroundColor: "#f44336" }]}>
-          <Text style={styles.statNumber}>{}</Text>
+          <Text style={styles.statNumber}>{countNotAvailable}</Text>
           <Text style={styles.statLabel}>Unavailable</Text>
         </View>
       </View>
@@ -127,7 +134,7 @@ export default function DoctorAvailability() {
       </View>
 
       <ScrollView style={styles.doctorList}>
-        {handledoctorlist.map((doctor) => (
+        {doctors.map((doctor:any) => (
           <View key={doctor.id} style={styles.doctorCard}>
             <View style={styles.doctorInfo}>
               <Text style={styles.doctorName}>{doctor.name}</Text>
