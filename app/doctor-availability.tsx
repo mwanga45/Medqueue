@@ -14,50 +14,13 @@ import { useRouter } from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 
-const doctors = [
-  {
-    id: 1,
-    name: "Dr. Sarah Johnson",
-    specialty: "Cardiologist",
-    available: true,
-    rating: 4.8,
-  },
-  {
-    id: 2,
-    name: "Dr. Michael Chen",
-    specialty: "Neurologist",
-    available: false,
-    rating: 4.6,
-  },
-  {
-    id: 3,
-    name: "Dr. Emily Rodriguez",
-    specialty: "Pediatrician",
-    available: true,
-    rating: 4.9,
-  },
-  {
-    id: 4,
-    name: "Dr. James Wilson",
-    specialty: "Dermatologist",
-    available: true,
-    rating: 4.7,
-  },
-  {
-    id: 5,
-    name: "Dr. Lisa Patel",
-    specialty: "Oncologist",
-    available: false,
-    rating: 4.5,
-  },
-  {
-    id: 6,
-    name: "Dr. Robert Taylor",
-    specialty: "Orthopedist",
-    available: true,
-    rating: 4.4,
-  },
-];
+type Datatype ={
+  fullname: string;
+  specialty: string;
+  timeinterval: string;
+  rating: string;
+  isAvailable: boolean;  
+}
 
 export default function DoctorAvailability() {
   const [filterstatus, setfilterstatus] = useState<
@@ -65,24 +28,16 @@ export default function DoctorAvailability() {
   >("all");
   const [selectedList, setSelectedList] = useState<any>([]);
   const handledoctorlist = async () => {
-    try {
-      const response = await axios.get("http://localhost:8800/doctorinfo");
-      const info = response.data;
-      if (!response.data.success) {
-        Alert.alert("Something went wrong failed to fetch data");
-        return;
+    try{
+      const response = await axios.get("http://localhost:8800/doctorinfo")
+      if (!response.data.success){
+        Alert.alert("Something went wrong failed to fetch data")
+        console.error("something went wrong",response.data.message)
       }
-      const filterdList = info.data.filter((doctor: any) => {
-        if (doctor.available === "available") return doctor.available;
-        if (doctor.available === "unavailable") return !doctor.avalable;
-        return true;
-      });
-      const avalableCount = info.data.filter((doctor :any)=> doctor.available).length
-      const unavailableCount = info.data.filter((doctor :any) => doctor.available).length
-      setSelectedList(filterdList);
-    } catch (err) {
-      console.error("Something went wrong here", err);
     }
+  catch (err){
+    console.error("something went wrong here ",err)
+  }
   };
 
   useEffect(()=>{
@@ -90,18 +45,6 @@ export default function DoctorAvailability() {
   },[])
 
   const router = useRouter();
-  // const [filter, setFilter] = useState("all");
-
-  // const filteredDoctors =
-  //   filter === "all"
-  //     ? doctors
-  //     : filter === "available"
-  //     ? doctors.filter((doctor) => doctor.available)
-  //     : doctors.filter((doctor) => !doctor.available);
-
-  // const availableCount = doctors.filter((doctor) => doctor.available).length;
-  // const unavailableCount = doctors.filter((doctor) => !doctor.available).length;
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -125,11 +68,11 @@ export default function DoctorAvailability() {
           <Text style={styles.statLabel}>Total Doctors</Text>
         </View>
         <View style={[styles.statCard, { backgroundColor: "#4CAF50" }]}>
-          <Text style={styles.statNumber}>{avalableCount}</Text>
+          <Text style={styles.statNumber}>{}</Text>
           <Text style={styles.statLabel}>Available</Text>
         </View>
         <View style={[styles.statCard, { backgroundColor: "#f44336" }]}>
-          <Text style={styles.statNumber}>{unavailableCount}</Text>
+          <Text style={styles.statNumber}>{}</Text>
           <Text style={styles.statLabel}>Unavailable</Text>
         </View>
       </View>
@@ -137,13 +80,13 @@ export default function DoctorAvailability() {
       {/* Filter Buttons */}
       <View style={styles.filterContainer}>
         <TouchableOpacity
-          style={[styles.filterButton, filter === "all" && styles.activeFilter]}
-          onPress={() => setFilter("all")}
+          style={[styles.filterButton, filterstatus === "all" && styles.activeFilter]}
+          onPress={() => setfilterstatus("all")}
         >
           <Text
             style={[
               styles.filterText,
-              filter === "all" && styles.activeFilterText,
+              filterstatus === "all" && styles.activeFilterText,
             ]}
           >
             All
@@ -152,14 +95,14 @@ export default function DoctorAvailability() {
         <TouchableOpacity
           style={[
             styles.filterButton,
-            filter === "available" && styles.activeFilter,
+            filterstatus === "available" && styles.activeFilter,
           ]}
-          onPress={() => setFilter("available")}
+          onPress={() => setfilterstatus("available")}
         >
           <Text
             style={[
               styles.filterText,
-              filter === "available" && styles.activeFilterText,
+              filterstatus === "available" && styles.activeFilterText,
             ]}
           >
             Available
@@ -168,14 +111,14 @@ export default function DoctorAvailability() {
         <TouchableOpacity
           style={[
             styles.filterButton,
-            filter === "unavailable" && styles.activeFilter,
+            filterstatus === "unavailable" && styles.activeFilter,
           ]}
-          onPress={() => setFilter("unavailable")}
+          onPress={() => setfilterstatus("unavailable")}
         >
           <Text
             style={[
               styles.filterText,
-              filter === "unavailable" && styles.activeFilterText,
+              filterstatus === "unavailable" && styles.activeFilterText,
             ]}
           >
             Unavailable
@@ -183,9 +126,8 @@ export default function DoctorAvailability() {
         </TouchableOpacity>
       </View>
 
-      {/* Doctor List */}
       <ScrollView style={styles.doctorList}>
-        {filteredDoctors.map((doctor) => (
+        {handledoctorlist.map((doctor) => (
           <View key={doctor.id} style={styles.doctorCard}>
             <View style={styles.doctorInfo}>
               <Text style={styles.doctorName}>{doctor.name}</Text>
