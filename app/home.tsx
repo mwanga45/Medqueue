@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -6,17 +6,17 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
-  Module
+  Modal,
 } from "react-native";
 import FloatingBtn from "./component/FloatingBtn";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "./component/QuickAction";
 import { useRouter } from "expo-router";
-import UserReg from "./component/userReg"
-
+import UserRegistration from "./component/userRegistration"
 
 export default function Home() {
   const router = useRouter();
+  const [isClosed, setClosed] = useState<any>(true);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -73,9 +73,16 @@ export default function Home() {
           </View>
         </View>
         <View style={styles.usernameaccount}>
-          <Text style={{color:"grey", fontSize:18 ,fontWeight:800}}>Hi Issa Mwanga</Text>
+          <Text style={{ color: "grey", fontSize: 18, fontWeight: 800 }}>
+            Hi Issa Mwanga
+          </Text>
         </View>
       </View>
+      <Modal visible={isClosed} onRequestClose={()=> setClosed(false)} animationType="slide">
+        <View style={{backgroundColor:"whitesmoke" ,flex:1, justifyContent:"flex-end", alignItems:"center"}}>
+          <UserRegistration/>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -148,5 +155,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  }
+  },
 });

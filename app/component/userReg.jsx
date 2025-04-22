@@ -19,7 +19,6 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 const { width, height } = Dimensions.get('window');
 
 const UserReg = ({ close }) => {
-  const [deviceId, setDeviceId] = useState(null);
   
   const handledeviceId = async () => {
     const device_Id = await DeviceInfo.getUniqueId();
