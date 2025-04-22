@@ -66,42 +66,47 @@ const UserRegistration = () => {
       confirmkey.trim()
     ) {
       Alert.alert("Please fill alrequired field");
-      return
+      return;
     }
     if (!validateEmail(email)) {
       Alert.alert("Please Enter correct format of email");
-      return
+      return;
     }
     if (!validatePhone(dial)) {
       Alert.alert(
         "Please make sure is correct phone number use either 07 or 255"
       );
-      return
+      return;
     }
-    if (confirmkey !== secretekey){
-      Alert.alert("Please make sure Secrete key and confim secrete key they match")
-      return
+    if (confirmkey !== secretekey) {
+      Alert.alert(
+        "Please make sure Secrete key and confim secrete key they match"
+      );
+      return;
     }
-    const respond =  await axios.post("http://192.168.236.251:8800/register",{
+    const respond = await axios.post("http://192.168.236.251:8800/register", {
       firstname: FormField.firstname,
-      secondname:FormField.secondname,
-      secretekey:FormField.secretekey,
+      secondname: FormField.secondname,
+      secretekey: FormField.secretekey,
       dial: FormField.dial,
-      email:FormField.email,
-      birthdate:FormField.birthdate,
-      homeaddress:FormField.homeaddress,
-      deviceId:deviceId
+      email: FormField.email,
+      birthdate: FormField.birthdate,
+      homeaddress: FormField.homeaddress,
+      deviceId: deviceId,
     });
-    setFormField({
-      firstname:"",
-      secondname:"",
-      secretekey:"",
-      confirmkey:"",
-      email:"",
-      dial:"",
-      homeaddress:""
-    })
-    
+
+    if (respond.data.success) {
+      Alert.alert("Successfully registed ", `${firstname},${secondname}`);
+      setFormField({
+        firstname: "",
+        secondname: "",
+        secretekey: "",
+        confirmkey: "",
+        email: "",
+        dial: "",
+        homeaddress: "",
+      });
+    }
   };
   useEffect(() => {
     async () => {
