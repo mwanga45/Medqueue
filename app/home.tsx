@@ -13,10 +13,25 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "./component/QuickAction";
 import { useRouter } from "expo-router";
 import UserRegistration from "./component/userRegistration"
+import { Ionicons } from "@expo/vector-icons";
+import DeviceInfo from 'react-native-device-info';
+import axios from "axios";
 
 export default function Home() {
+  const [deviceId , setdeviceId] = useState<any>(null)
   const router = useRouter();
   const [isClosed, setClosed] = useState<any>(true);
+  const handledeviceId = async()=>{
+    const deviceid = await DeviceInfo.getUniqueId()
+    setdeviceId(deviceid)
+  }
+  useEffect(()=>{
+      handledeviceId()
+  }, [])
+  const handlecheckUserRegistration= async()=>{
+    const res = await axios.post("http:/192.168.236.251:8800/userinfo")
+    
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -79,7 +94,8 @@ export default function Home() {
         </View>
       </View>
       <Modal visible={isClosed} onRequestClose={()=> setClosed(false)} animationType="slide">
-        <View style={{backgroundColor:"whitesmoke" ,flex:1, justifyContent:"flex-end", alignItems:"center"}}>
+        <View style={{backgroundColor:"#05992C" ,flex:1, justifyContent:"flex-end", alignItems:"center",paddingHorizontal:5}}>
+        <Ionicons name="medical" size={100} color="white" />
           <UserRegistration/>
         </View>
       </Modal>

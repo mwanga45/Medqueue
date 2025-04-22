@@ -1,8 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput ,Dimensions, TouchableOpacity} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons"
 const {height} = Dimensions.get('window')
 const UserRegistration = () => {
+    // const deviceId = 
   return (
     <SafeAreaView style={stylesform.container}>
       <View style={stylesform.descriptionform}>
@@ -22,6 +24,9 @@ const UserRegistration = () => {
             <TextInput style={stylesform.inputfield} placeholder="Secrete Key.."/>
         </View>
         <View style={stylesform.container_inputField}>
+            <TextInput style={stylesform.inputfield} placeholder="Confirm-Secrete Key.."/>
+        </View>
+        <View style={stylesform.container_inputField}>
             <TextInput style={stylesform.inputfield} placeholder="Dial +255..."/>
         </View>
         <View style={stylesform.container_inputField}>
@@ -33,8 +38,8 @@ const UserRegistration = () => {
         <View style={stylesform.container_inputField}>
             <TextInput style={stylesform.inputfield} placeholder="Home address.."/>
         </View>
-         <TouchableOpacity>
-            
+         <TouchableOpacity style={stylesform.btn} >
+            <Text style={{color:"white", fontSize:20, fontWeight:"700"}}>Sign Up</Text>
          </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -43,10 +48,9 @@ const UserRegistration = () => {
 const stylesform = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
-    borderColor: "#DBFFDD",
-    borderWidth: 5,
     width: "100%",
-    backgroundColor:"#DEDEDE"
+    backgroundColor:"#F5F5F5",
+    borderRadius:15
   },
   descriptionform: {
     justifyContent: "center",
@@ -76,6 +80,15 @@ const stylesform = StyleSheet.create({
      borderRadius:23,
      paddingHorizontal:12, 
      borderColor:"grey"
+  },
+  btn:{
+    marginTop:12,
+    backgroundColor:"black",
+    height:height * 0.06,
+    borderRadius:25,
+    justifyContent:"center",
+    alignItems:"center"
   }
+
 });
 export default UserRegistration;
