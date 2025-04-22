@@ -91,7 +91,17 @@ const UserRegistration = () => {
       birthdate:FormField.birthdate,
       homeaddress:FormField.homeaddress,
       deviceId:deviceId
+    });
+    setFormField({
+      firstname:"",
+      secondname:"",
+      secretekey:"",
+      confirmkey:"",
+      email:"",
+      dial:"",
+      homeaddress:""
     })
+    
   };
   useEffect(() => {
     async () => {
