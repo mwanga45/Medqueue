@@ -7,6 +7,19 @@ const {height} = Dimensions.get('window')
 
 const UserRegistration = () => {
   const [deviceId , setdeviceId] = useState<any>(null)
+  const [FormField, setFormField] = useState<any>({
+    firstname:"",
+    secondname:"",
+    secretekey:"",
+    confirmkey:"",
+    dial:"",
+    email:"",
+    birthdate:"",
+    homeaddress:""
+  })
+  const handleInputOnchange =()=>{
+    
+  }
     useEffect(()=>{
       (async() =>{
         const id = await getDeviceId()
