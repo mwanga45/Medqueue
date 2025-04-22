@@ -84,6 +84,10 @@ const UserRegistration = () => {
       );
       return;
     }
+    if (deviceId === ""){
+      Alert.alert("Please sytem failed to getdevice Id")
+      return
+    }
     const respond = await axios.post("http://192.168.236.251:8800/register", {
       firstname: FormField.firstname,
       secondname: FormField.secondname,
