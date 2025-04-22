@@ -118,7 +118,7 @@ const UserRegistration = () => {
     <SafeAreaView style={stylesform.container}>
       <View style={stylesform.descriptionform}>
         <Text style={{ fontSize: 29, color: "#454345", fontWeight: 800 }}>
-          Get Started Now{" "}
+          Get Started Now
         </Text>
         <Text style={{ fontSize: 16, color: "grey", fontWeight: "400" }}>
           Create an Account to get Full access of our service
@@ -137,6 +137,7 @@ const UserRegistration = () => {
             }}
             placeholder="firstname"
             value={FormField.firstname}
+            onChangeText={(text)=> handleInputOnchange("firstname",text)}
           ></TextInput>
           <TextInput
             style={{
@@ -149,6 +150,7 @@ const UserRegistration = () => {
             }}
             placeholder="secondname"
             value={FormField.secondname}
+            onChangeText={(text)=> handleInputOnchange("secondname",text)}
           ></TextInput>
         </View>
         <View style={stylesform.container_inputField}>
@@ -156,6 +158,7 @@ const UserRegistration = () => {
             style={stylesform.inputfield}
             placeholder="Secrete Key.."
             value={FormField.secretekey}
+            onChangeText={(text)=> handleInputOnchange("secretekey", text)}
           />
         </View>
         <View style={stylesform.container_inputField}>
@@ -163,6 +166,7 @@ const UserRegistration = () => {
             style={stylesform.inputfield}
             placeholder="Confirm-Secrete Key.. "
             value={FormField.confirmkey}
+            onChangeText={(text)=> handleInputOnchange("confkey",text)}
           />
         </View>
         <View style={stylesform.container_inputField}>
@@ -170,6 +174,7 @@ const UserRegistration = () => {
             style={stylesform.inputfield}
             placeholder="Dial +255..."
             value={FormField.dial}
+            onChangeText={(text)=> handleInputOnchange("dial",text)}
           />
         </View>
         <View style={stylesform.container_inputField}>
@@ -177,6 +182,7 @@ const UserRegistration = () => {
             style={stylesform.inputfield}
             placeholder="Birthdate.."
             value={FormField.birthdate}
+            onChangeText={(text)=> handleInputOnchange("birthdate",text)}
           />
         </View>
         <View style={stylesform.container_inputField}>
@@ -184,6 +190,7 @@ const UserRegistration = () => {
             style={stylesform.inputfield}
             placeholder="Email.."
             value={FormField.email}
+            onChangeText={(text)=> handleInputOnchange("email",text)}
           />
         </View>
         <View style={stylesform.container_inputField}>
@@ -191,6 +198,7 @@ const UserRegistration = () => {
             style={stylesform.inputfield}
             placeholder="Home address.."
             value={FormField.homeaddress}
+            onChangeText={(text)=> handleInputOnchange("homeaddress", text)}
           />
         </View>
         <TouchableOpacity style={stylesform.btn}>
