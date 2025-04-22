@@ -42,7 +42,7 @@ export default function SplashScreen() {
         ]}
       >
         <Ionicons name="medical" size={100} color="white" />
-        <Text style={styles.appName}>MedQue</Text>
+        <Text style={styles.appName}>MedQueV3</Text>
       </Animated.View>
     </View>
   );

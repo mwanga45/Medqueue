@@ -7,6 +7,7 @@ import {
   StatusBar,
   Dimensions,
   Modal,
+  Alert,
 } from "react-native";
 import FloatingBtn from "./component/FloatingBtn";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -27,9 +28,15 @@ export default function Home() {
   }
   useEffect(()=>{
       handledeviceId()
+      handlecheckUserRegistration()
   }, [])
   const handlecheckUserRegistration= async()=>{
-    const res = await axios.post("http:/192.168.236.251:8800/userinfo")
+    try{
+      const res = await axios.post("http:/192.168.236.251:8800/verifyuser", deviceId)
+    }catch (err){
+      Alert.alert("something went wrong here")
+      console.error("Something went wrong here")
+    }
     
   }
 
