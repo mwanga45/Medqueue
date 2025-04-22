@@ -4,10 +4,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { getDeviceId } from "../utils/deviceId";
 const {height} = Dimensions.get('window')
 
-
 const UserRegistration = () => {
-  const [deviceId , setdeviceId] = useState<any>(null)
-  const [FormField, setFormField] = useState<any>({
+  const [deviceId , setdeviceId] = useState(null)
+  const [FormField, setFormField] = useState({
     firstname:"",
     secondname:"",
     secretekey:"",
@@ -17,7 +16,13 @@ const UserRegistration = () => {
     birthdate:"",
     homeaddress:""
   })
-  const handleInputOnchange =()=>{
+  const handleInputOnchange =(fieldname,value)=>{
+    setFormField(prev =>({
+      ...prev, [fieldname]:value
+    }))
+   
+  }
+  const handleSubmit =async()=>{
     
   }
     useEffect(()=>{
@@ -38,26 +43,26 @@ const UserRegistration = () => {
       </View>
       <View style={stylesform.formcontainer}>
         <View style={stylesform.NamesUser}>
-          <TextInput style={{width:"50%" ,borderWidth:2, height:height*0.05,borderRadius:23,paddingHorizontal:12, borderColor:"grey"}} placeholder="firstname"></TextInput>
-          <TextInput style={{width:"50%",borderWidth:2,height:height*0.05, paddingHorizontal:12, borderRadius:23, borderColor:"grey"}} placeholder="secondname"></TextInput>
+          <TextInput style={{width:"50%" ,borderWidth:2, height:height*0.05,borderRadius:23,paddingHorizontal:12, borderColor:"grey"}} placeholder="firstname" value={FormField.firstname} ></TextInput>
+          <TextInput style={{width:"50%",borderWidth:2,height:height*0.05, paddingHorizontal:12, borderRadius:23, borderColor:"grey"}} placeholder="secondname" value={FormField.secondname}></TextInput>
         </View>
         <View style={stylesform.container_inputField}>
-            <TextInput style={stylesform.inputfield} placeholder="Secrete Key.."/>
+            <TextInput style={stylesform.inputfield} placeholder="Secrete Key.." value={FormField.secretekey}/>
         </View>
         <View style={stylesform.container_inputField}>
-            <TextInput style={stylesform.inputfield} placeholder="Confirm-Secrete Key.."/>
+            <TextInput style={stylesform.inputfield} placeholder="Confirm-Secrete Key.. " value={FormField.confirmkey} />
         </View>
         <View style={stylesform.container_inputField}>
-            <TextInput style={stylesform.inputfield} placeholder="Dial +255..."/>
+            <TextInput style={stylesform.inputfield} placeholder="Dial +255..." value={FormField.dial}/>
         </View>
         <View style={stylesform.container_inputField}>
-            <TextInput style={stylesform.inputfield} placeholder="Birthdate.."/>
+            <TextInput style={stylesform.inputfield} placeholder="Birthdate.." value={FormField.birthdate}/>
         </View>
         <View style={stylesform.container_inputField}>
-            <TextInput style={stylesform.inputfield} placeholder="Email.."/>
+            <TextInput style={stylesform.inputfield} placeholder="Email.." value={FormField.email} />
         </View>
         <View style={stylesform.container_inputField}>
-            <TextInput style={stylesform.inputfield} placeholder="Home address.."/>
+            <TextInput style={stylesform.inputfield} placeholder="Home address.." value={FormField.homeaddress}/>
         </View>
          <TouchableOpacity style={stylesform.btn} >
             <Text style={{color:"white", fontSize:20, fontWeight:"700"}}>Sign Up</Text>
