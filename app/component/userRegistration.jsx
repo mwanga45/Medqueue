@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput ,Dimensions} from "react-native";
+import { View, Text, StyleSheet, TextInput ,Dimensions, TouchableOpacity} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+const {height} = Dimensions.get('window')
 const UserRegistration = () => {
   return (
     <SafeAreaView style={stylesform.container}>
@@ -15,9 +15,27 @@ const UserRegistration = () => {
       </View>
       <View style={stylesform.formcontainer}>
         <View style={stylesform.NamesUser}>
-          <TextInput style={{width:"50%" ,borderWidth:1}}>home</TextInput>
-          <TextInput style={{width:"50%",borderWidth:1}}>school</TextInput>
+          <TextInput style={{width:"50%" ,borderWidth:2, height:height*0.05,borderRadius:23,paddingHorizontal:12, borderColor:"grey"}} placeholder="firstname"></TextInput>
+          <TextInput style={{width:"50%",borderWidth:2,height:height*0.05, paddingHorizontal:12, borderRadius:23, borderColor:"grey"}} placeholder="secondname"></TextInput>
         </View>
+        <View style={stylesform.container_inputField}>
+            <TextInput style={stylesform.inputfield} placeholder="Secrete Key.."/>
+        </View>
+        <View style={stylesform.container_inputField}>
+            <TextInput style={stylesform.inputfield} placeholder="Dial +255..."/>
+        </View>
+        <View style={stylesform.container_inputField}>
+            <TextInput style={stylesform.inputfield} placeholder="Birthdate.."/>
+        </View>
+        <View style={stylesform.container_inputField}>
+            <TextInput style={stylesform.inputfield} placeholder="Email.."/>
+        </View>
+        <View style={stylesform.container_inputField}>
+            <TextInput style={stylesform.inputfield} placeholder="Home address.."/>
+        </View>
+         <TouchableOpacity>
+            
+         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -25,9 +43,10 @@ const UserRegistration = () => {
 const stylesform = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
-    borderColor: "grey",
+    borderColor: "#DBFFDD",
     borderWidth: 5,
     width: "100%",
+    backgroundColor:"#DEDEDE"
   },
   descriptionform: {
     justifyContent: "center",
@@ -44,5 +63,19 @@ const stylesform = StyleSheet.create({
     flexDirection: "row",
     columnGap:10
   },
+  container_inputField:{
+    width:"100%",
+    height:height* 0.05,
+    marginVertical:height *0.01
+
+  },
+  inputfield:{
+     width:"100%" ,
+     borderWidth:2,
+     height:height*0.05,
+     borderRadius:23,
+     paddingHorizontal:12, 
+     borderColor:"grey"
+  }
 });
 export default UserRegistration;
