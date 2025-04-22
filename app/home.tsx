@@ -34,7 +34,7 @@ export default function Home() {
   const handlecheckUserRegistration = async () => {
     try {
       const res = await axios.post(
-        "http:/192.168.236.251:8800/verifyuser",
+        "http://192.168.236.251:8800/verifyuser",
         deviceId
       );
       const Info = res.data;
