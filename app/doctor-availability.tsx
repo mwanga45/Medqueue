@@ -14,13 +14,14 @@ import { useRouter } from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 
-type Doctors={
-  fullname: string;
-  specialty: string;
-  timeinterval: string;
+type Doctor = {
+  fullname: string;       
+  specialty: string;     
+  timeinterval: string;   
   rating: string;
-  isAvailable: boolean;  
-}
+  isAvailable: boolean;   
+};
+
 
 export default function DoctorAvailability() {
   const [filterstatus, setfilterstatus] = useState<
@@ -29,13 +30,13 @@ export default function DoctorAvailability() {
   const [doctors, setdoctors] = useState<any>([]);
   const handledoctorlist = async () => {
     try{
-      const response = await axios.get("http://localhost:8800/doctorinfo")
+      const response = await axios.get("http://192.168.236.251:8800/doctorinfo")
       if (!response.data.success){
         Alert.alert("Something went wrong failed to fetch data")
         console.error("something went wrong",response.data.message)
         return
       }
-      const docs : Doctors[]= response.data.data
+      const docs : Doctor[]= response.data.data
      setdoctors(docs)
     }
   catch (err){
@@ -44,8 +45,14 @@ export default function DoctorAvailability() {
   }
   };
   const totalCount = doctors.length;
-  const Available = doctors.filter((a: Doctors) => a.isAvailable).length;
+  const Available = doctors.filter((a: Doctor) => a.isAvailable).length;
   const countNotAvailable = totalCount - Available
+
+  const dispaly  = doctors.filter((d:Doctor)=> {
+    if (filterstatus === 'available') return d.isAvailable
+    if (filterstatus === 'unavailable') return !d.isAvailable
+    return true
+  })
 
   useEffect(() => {
     handledoctorlist();
@@ -134,11 +141,11 @@ export default function DoctorAvailability() {
       </View>
 
       <ScrollView style={styles.doctorList}>
-        {doctors.map((doctor:any) => (
-          <View key={doctor.id} style={styles.doctorCard}>
+        {dispaly.map((doctor:any, idx:number) => (
+          <View key={idx} style={styles.doctorCard}>
             <View style={styles.doctorInfo}>
-              <Text style={styles.doctorName}>{doctor.name}</Text>
-              <Text style={styles.doctorSpecialty}>{doctor.specialty}</Text>
+              <Text style={styles.doctorName}>{doctor.fullname}</Text>
+              <Text style={styles.doctorSpecialty}>{doctor.speciality}</Text>
               <View style={styles.ratingContainer}>
                 <Icon name="star" size={16} color="#FFC107" />
                 <Text style={styles.ratingText}>{doctor.rating}</Text>
@@ -148,7 +155,7 @@ export default function DoctorAvailability() {
               <View
                 style={[
                   styles.availabilityIndicator,
-                  { backgroundColor: doctor.available ? "#4CAF50" : "#f44336" },
+                  { backgroundColor: doctor.isAvailable ? "#4CAF50" : "#f44336" },
                 ]}
               >
                 <Text style={styles.availabilityText}>
