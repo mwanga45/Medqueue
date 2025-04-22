@@ -13,32 +13,41 @@ import FloatingBtn from "./component/FloatingBtn";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import QuickAction from "./component/QuickAction";
 import { useRouter } from "expo-router";
-import UserRegistration from "./component/userRegistration"
+import UserRegistration from "./component/userRegistration";
 import { Ionicons } from "@expo/vector-icons";
-import DeviceInfo from 'react-native-device-info';
+import DeviceInfo from "react-native-device-info";
 import axios from "axios";
 
 export default function Home() {
-  const [deviceId , setdeviceId] = useState<any>(null)
+  const [deviceId, setdeviceId] = useState<any>(null);
+  const [isVerfy, setisVerfy] = useState<any>(null);
   const router = useRouter();
   const [isClosed, setClosed] = useState<any>(true);
-  const handledeviceId = async()=>{
-    const deviceid = await DeviceInfo.getUniqueId()
-    setdeviceId(deviceid)
-  }
-  useEffect(()=>{
-      handledeviceId()
-      handlecheckUserRegistration()
-  }, [])
-  const handlecheckUserRegistration= async()=>{
-    try{
-      const res = await axios.post("http:/192.168.236.251:8800/verifyuser", deviceId)
-    }catch (err){
-      Alert.alert("something went wrong here")
-      console.error("Something went wrong here")
+  const handledeviceId = async () => {
+    const deviceid = await DeviceInfo.getUniqueId();
+    setdeviceId(deviceid);
+  };
+  useEffect(() => {
+    handledeviceId();
+    handlecheckUserRegistration();
+  }, []);
+  const handlecheckUserRegistration = async () => {
+    try {
+      const res = await axios.post(
+        "http:/192.168.236.251:8800/verifyuser",
+        deviceId
+      );
+      const Info = res.data;
+      if (!res.data.success) {
+        Alert.alert(res.data.message || "something went wrong here");
+        return;
+      }
+      setisVerfy(Info.data);
+    } catch (err) {
+      Alert.alert("something went wrong here");
+      console.error("Something went wrong here");
     }
-    
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -100,10 +109,22 @@ export default function Home() {
           </Text>
         </View>
       </View>
-      <Modal visible={isClosed} onRequestClose={()=> setClosed(false)} animationType="slide">
-        <View style={{backgroundColor:"#05992C" ,flex:1, justifyContent:"flex-end", alignItems:"center",paddingHorizontal:5}}>
-        <Ionicons name="medical" size={100} color="white" />
-          <UserRegistration/>
+      <Modal
+        visible={isVerfy}
+        onRequestClose={() => setClosed(false)}
+        animationType="slide"
+      >
+        <View
+          style={{
+            backgroundColor: "#05992C",
+            flex: 1,
+            justifyContent: "flex-end",
+            alignItems: "center",
+            paddingHorizontal: 5,
+          }}
+        >
+          <Ionicons name="medical" size={100} color="white" />
+          <UserRegistration />
         </View>
       </Modal>
     </SafeAreaView>

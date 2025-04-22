@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TextInput ,Dimensions, TouchableOpacity} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons"
+import { getDeviceId } from "../utils/deviceId";
 const {height} = Dimensions.get('window')
+
+
 const UserRegistration = () => {
-    // const deviceId = 
+  const [deviceId , setdeviceId] = useState<any>(null)
+    useEffect(()=>{
+      (async() =>{
+        const id = await getDeviceId()
+        setdeviceId(id)
+      })
+    })
   return (
     <SafeAreaView style={stylesform.container}>
       <View style={stylesform.descriptionform}>
