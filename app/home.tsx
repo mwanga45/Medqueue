@@ -34,7 +34,7 @@ export default function Home() {
   const handlecheckUserRegistration = async () => {
     try {
       const res = await axios.post(
-        "http://192.168.236.251:8800/verifyuser",
+        "http://192.168.110.251:8800/verifyuser",
         deviceId
       );
       const Info = res.data;
@@ -45,7 +45,7 @@ export default function Home() {
       setisVerfy(Info.data);
     } catch (err) {
       Alert.alert("something went wrong here");
-      console.error("Something went wrong here");
+      console.error("Something went wrong here", err);
     }
   };
 

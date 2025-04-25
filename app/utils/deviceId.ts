@@ -1,7 +1,7 @@
 import React from "react"
 import DeviceInfo from "react-native-device-info"
 
-export  async function getDeviceId():Promise<string>{
+export default async function getDeviceId():Promise<string>{
     try{
         const uniqId = await DeviceInfo.getUniqueId()
         return uniqId

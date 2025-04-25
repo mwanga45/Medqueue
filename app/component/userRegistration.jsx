@@ -9,7 +9,7 @@ import {
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getDeviceId } from "../utils/deviceId";
+import  getDeviceId  from "../utils/deviceId";
 import axios from "axios";
 const { height } = Dimensions.get("window");
 
