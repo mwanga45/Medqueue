@@ -9,11 +9,13 @@ import {
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import  getDeviceId  from "../utils/deviceId";
+// import  getDeviceId  from "../utils/deviceId";
 import axios from "axios";
+import DeviceInfo from "react-native-device-info";
 const { height } = Dimensions.get("window");
 
 const UserRegistration = () => {
+  
   const [deviceId, setdeviceId] = useState(null);
   const [FormField, setFormField] = useState({
     firstname: "",
@@ -31,7 +33,10 @@ const UserRegistration = () => {
       [fieldname]: value,
     }));
   };
-
+  const handledeviceId = async()=>{
+    const deviceId = await DeviceInfo.getUniqueId()
+    setdeviceId(deviceId)
+  }
   const validateEmail = (email) => {
     const regex =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
@@ -44,85 +49,92 @@ const UserRegistration = () => {
     return regex1.test(phone) || regex2.test(phone);
   };
   const handleSubmit = async () => {
-    const {
-      firstname,
-      secondname,
-      secretekey,
-      confirmkey,
-      dial,
-      email,
-      birthdate,
-      homeaddress,
-    } = FormField;
-
-    if (
-      firstname.trim() === "" ||
-      secondname.trim() ||
-      secretekey.trim() === "" ||
-      dial.trim() ||
-      email.trim() ||
-      birthdate.trim() ||
-      homeaddress.trim() ||
-      confirmkey.trim()
-    ) {
-      Alert.alert("Please fill alrequired field");
-      return;
-    }
-    if (!validateEmail(email)) {
-      Alert.alert("Please Enter correct format of email");
-      return;
-    }
-    if (!validatePhone(dial)) {
-      Alert.alert(
-        "Please make sure is correct phone number use either 07 or 255"
-      );
-      return;
-    }
-    if (confirmkey !== secretekey) {
-      Alert.alert(
-        "Please make sure Secrete key and confim secrete key they match"
-      );
-      return;
-    }
-    if (deviceId === ""){
-      Alert.alert("Please sytem failed to getdevice Id")
-      return
-    }
-    const respond = await axios.post("http://192.168.236.251:8800/register", {
-      firstname: FormField.firstname,
-      secondname: FormField.secondname,
-      secretekey: FormField.secretekey,
-      dial: FormField.dial,
-      email: FormField.email,
-      birthdate: FormField.birthdate,
-      homeaddress: FormField.homeaddress,
-      deviceId: deviceId,
-    });
-
-    if (respond.data.success) {
-      Alert.alert("Successfully registed ", `${firstname},${secondname}`);
-      setFormField({
-        firstname: "",
-        secondname: "",
-        secretekey: "",
-        confirmkey: "",
-        email: "",
-        dial: "",
-        homeaddress: "",
+    try {
+      const {
+        firstname,
+        secondname,
+        secretekey,
+        confirmkey,
+        dial,
+        email,
+        birthdate,
+        homeaddress,
+      } = FormField;
+  
+      if (
+        !firstname?.trim() ||
+        !secondname?.trim() ||
+        !secretekey?.trim() ||
+        !dial?.trim() ||
+        !email?.trim() ||
+        !birthdate?.trim() ||
+        !homeaddress?.trim() ||
+        !confirmkey?.trim()
+      ) {
+        Alert.alert("Please fill all required fields");
+        return;
+      }
+  
+      if (!validateEmail(email)) {
+        Alert.alert("Please enter a valid email format");
+        return;
+      }
+  
+      if (!validatePhone(dial)) {
+        Alert.alert("Invalid phone number - use either 07 or 255 prefix");
+        return;
+      }
+  
+      if (confirmkey !== secretekey) {
+        Alert.alert("Secret key and confirmation key do not match");
+        return;
+      }
+  
+      if (!deviceId) {
+        Alert.alert("System error: Failed to retrieve device ID");
+        return;
+      }
+  
+      const response = await axios.post("http://192.168.110.251:8800/register", {
+        firstname,
+        secondname,
+        secretekey,
+        dial,
+        email,
+        birthdate,
+        homeaddress,
+        deviceId
       });
+  
+      if (response.data.success) {
+        Alert.alert("Registration Successful", `${firstname} ${secondname}`);
+        setFormField({
+          firstname: "",
+          secondname: "",
+          secretekey: "",
+          confirmkey: "",
+          email: "",
+          dial: "",
+          birthdate: "",
+          homeaddress: "",
+        });
+      }
+  
+    } catch (error) {
+      Alert.alert(
+        "Registration Failed",
+        error.response?.data?.message || error.message || "Unknown error occurred"
+      );
     }
   };
   useEffect(() => {
-    async () => {
-      const id = await getDeviceId();
-      setdeviceId(id);
-    };
-  });
+   handledeviceId()
+  },[]);
   return (
     <SafeAreaView style={stylesform.container}>
       <View style={stylesform.descriptionform}>
         <Text style={{ fontSize: 29, color: "#454345", fontWeight: 800 }}>
-          Get Started Now
+          Get Started Now 
         </Text>
         <Text style={{ fontSize: 16, color: "grey", fontWeight: "400" }}>
           Create an Account to get Full access of our service
@@ -170,7 +182,7 @@ const UserRegistration = () => {
             style={stylesform.inputfield}
             placeholder="Confirm-Secrete Key.. "
             value={FormField.confirmkey}
-            onChangeText={(text)=> handleInputOnchange("confkey",text)}
+            onChangeText={(text)=> handleInputOnchange("confirmkey",text)}
           />
         </View>
         <View style={stylesform.container_inputField}>
@@ -205,7 +217,7 @@ const UserRegistration = () => {
             onChangeText={(text)=> handleInputOnchange("homeaddress", text)}
           />
         </View>
-        <TouchableOpacity style={stylesform.btn}>
+        <TouchableOpacity style={stylesform.btn} onPress={handleSubmit}>
           <Text style={{ color: "white", fontSize: 20, fontWeight: "700" }}>
             Sign Up
           </Text>

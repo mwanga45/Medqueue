@@ -19,35 +19,44 @@ import DeviceInfo from "react-native-device-info";
 import axios from "axios";
 
 export default function Home() {
-  const [deviceId, setdeviceId] = useState<any>(null);
-  const [isVerfy, setisVerfy] = useState<any>(null);
+  const [isVerfy, setisVerfy] = useState<boolean|null>(null);
+  const [deviceId , setdeviceId] = useState<string>("")
   const router = useRouter();
-  const [isClosed, setClosed] = useState<any>(true);
-  const handledeviceId = async () => {
-    const deviceid = await DeviceInfo.getUniqueId();
-    setdeviceId(deviceid);
-  };
-  useEffect(() => {
-    handledeviceId();
-    handlecheckUserRegistration();
-  }, []);
-  const handlecheckUserRegistration = async () => {
+  const [isClosed, setClosed] = useState(true);
+
+  const handlecheckUserRegistration = async (deviceId :string) => {
     try {
       const res = await axios.post(
         "http://192.168.110.251:8800/verifyuser",
-        deviceId
+        {deviceId}
       );
       const Info = res.data;
       if (!res.data.success) {
-        Alert.alert(res.data.message || "something went wrong here");
+        Alert.alert(res.data.message || "something went wrong ");
+        console.error(res.data.message)
         return;
       }
-      setisVerfy(Info.data);
+      setisVerfy(res.data.data.user_exist);
     } catch (err) {
       Alert.alert("something went wrong here");
       console.error("Something went wrong here", err);
     }
   };
+    useEffect(() => {
+      const initializer =async()=>{
+        try{
+          const deviceId = await DeviceInfo.getUniqueId()
+          setdeviceId(deviceId)
+          await handlecheckUserRegistration(deviceId)
+
+        }catch(err){
+          Alert.alert("Failed to get Unique Id for device")
+          console.error(err)
+        }
+      }
+      initializer();
+  }, []);
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,6 +68,7 @@ export default function Home() {
         </View>
       </View>
       <View>
+        {/* <Text style={styles.TextQuick}>{deviceId}</Text> */}
         <Text style={styles.TextQuick}>QuickAction</Text>
       </View>
       <View style={styles.content}>
@@ -110,7 +120,7 @@ export default function Home() {
         </View>
       </View>
       <Modal
-        visible={isVerfy}
+        visible={isVerfy === false}
         onRequestClose={() => setClosed(false)}
         animationType="slide"
       >
