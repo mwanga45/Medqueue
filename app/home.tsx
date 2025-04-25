@@ -80,7 +80,7 @@ export default function Home() {
               size={30}
               text="Emergence"
               backgroundColor="#274b5f"
-              onclick={() => {}}
+              onclick={() => router.push("/booking")}
             />
           </View>
           <View>

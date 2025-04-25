@@ -36,6 +36,11 @@ export default function Layout() {
           title: "",
           headerBackTitle: ""
         }}/>
+        <Stack.Screen name="booking" options={{
+          headerShown:false,
+          title:"",
+          headerBackTitle:""
+        }}/>
       </Stack>
     </>
   );
