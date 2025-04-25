@@ -76,9 +76,9 @@ export default function Home() {
         <View style={styles.Homepagecover2}>
           <View>
             <QuickAction
-              name="medkit"
+              name="book"
               size={30}
-              text="Emergence"
+              text="Booking"
               backgroundColor="#274b5f"
               onclick={() => router.push("/booking")}
             />

@@ -39,7 +39,11 @@ export default function Layout() {
         <Stack.Screen name="booking" options={{
           headerShown:false,
           title:"",
-          headerBackTitle:""
+          headerBackTitle:"",
+          contentStyle:{
+           backgroundColor:"rgb(64, 205, 51)"
+          }
+          
         }}/>
       </Stack>
     </>
