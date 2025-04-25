@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import {
   ScrollView,
   GestureHandlerRootView,
@@ -23,6 +24,7 @@ const Booking = () => {
           <View style={stylesbooking.bookingforcontainer}></View>
           <View style={stylesbooking.bookingpage}>
             <View style={stylesbooking.bookingpagedate}>
+            <Icon name="calendar" size={20} style={{ color: "#f0f0f0" }} />
               <Text style={stylesbooking.textdiscription}>
                 Select Date for the booking
               </Text>
@@ -180,6 +182,16 @@ const stylesbooking = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  
   },
   dateslotecontainer: {
     flexDirection: "row",
@@ -213,6 +225,16 @@ const stylesbooking = StyleSheet.create({
     alignItems: "center",
     borderRadius: 23,
     backgroundColor: "rgba(0,0,0,0.8)",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  
   },
 });
 
