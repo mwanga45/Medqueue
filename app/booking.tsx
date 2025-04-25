@@ -2,10 +2,12 @@ import React from "react";
 import { View, Text, Dimensions, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
+import { ScrollView , GestureHandlerRootView} from "react-native-gesture-handler";
 
 const { height, width } = Dimensions.get("window");
 const Booking = () => {
   return (
+    <GestureHandlerRootView style ={{flex:1}}>
     <SafeAreaView style={stylesbooking.container}>
       <View style={stylesbooking.userprofile}></View>
       <View style={stylesbooking.bookingcontainer}>
@@ -21,24 +23,30 @@ const Booking = () => {
                 <Text style={stylesbooking.dateslotecontent}>Day</Text>
               </View>
               <View style={stylesbooking.dateslote}>
-                <Text style={stylesbooking.dateslotecontent}>2</Text>
+                <Text style={stylesbooking.dateslotecontent}>3</Text>
                 <Text style={stylesbooking.dateslotecontent}>Day</Text>
               </View>
               <View style={stylesbooking.dateslote}>
-                <Text style={stylesbooking.dateslotecontent}>2</Text>
+                <Text style={stylesbooking.dateslotecontent}>4</Text>
                 <Text style={stylesbooking.dateslotecontent}>Day</Text>
               </View>
               <View style={stylesbooking.dateslote}>
-                <Text style={stylesbooking.dateslotecontent}>2</Text>
+                <Text style={stylesbooking.dateslotecontent}>5</Text>
                 <Text style={stylesbooking.dateslotecontent}>Day</Text>
               </View>
             </View>
           </View>
-          <View style={stylesbooking.bookingpagetime}></View>
+          <View style={stylesbooking.bookingpagetime}>
+            <Text style={stylesbooking.textdiscription}> Select a time slot</Text>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator= {true} persistentScrollbar={true}>
+
+            </ScrollView>
+          </View>
           <View style={stylesbooking.bookingpageprice}></View>
         </View>
       </View>
     </SafeAreaView>
+    </GestureHandlerRootView>
   );
 };
 const stylesbooking = StyleSheet.create({
@@ -70,17 +78,21 @@ const stylesbooking = StyleSheet.create({
     height: "10%",
   },
   bookingpage: {
-    backgroundColor: "#d4f3e3",
+    backgroundColor: "#f4f4f4",
     height: "84%",
     borderRadius: 40,
     paddingVertical: 40,
     paddingHorizontal: 10,
+    rowGap:40,
   },
   bookingpagedate: {
     width: "100%",
     flexDirection: "column",
+    rowGap:10,
   },
-  bookingpagetime: {},
+  bookingpagetime: {
+
+  },
   bookingpageprice: {},
   textdiscription: {
     color: "grey",
