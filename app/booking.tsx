@@ -17,31 +17,30 @@ import {
 import axios from "axios";
 const { height, width } = Dimensions.get("window");
 const Booking = () => {
-  const [TsSlot, setTsSlot] = useState<[] | any>([])
-  const [DsSlot, setDsSlot] = useState<[] | any>([])
-  const [respond, setRespond] = useState<any>([])
-  const handleRespond = async()=>{
-    try{
-      const res =  await axios.get("http://192.168.110.251:8800/bookinglogic")
-      if (!res.data.success){
-        Alert.alert(res.data.message || "Something went wrong")
+  const [TsSlot, setTsSlot] = useState<[] | any>([]);
+  const [DsSlot, setDsSlot] = useState<[] | any>([]);
+  const [respond, setRespond] = useState<any>([]);
+  const handleRespond = async () => {
+    try {
+      const res = await axios.get("http://192.168.110.251:8800/bookinglogic");
+      if (!res.data.success) {
+        Alert.alert(res.data.message || "Something went wrong");
       }
-        setDsSlot(res.data.dslot)
-        setTsSlot(res.data.tslot)
-    }catch (err: any){
-      Alert.alert("Something went wrong")
-      console.error(err)
+      setDsSlot(res.data.dslot);
+      setTsSlot(res.data.tslot);
+    } catch (err: any) {
+      Alert.alert("Something went wrong");
+      console.error(err);
     }
-
-  }
-  useEffect(()=>{
-    handleRespond()
-  },[])
+  };
+  useEffect(() => {
+    handleRespond();
+  }, []);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={stylesbooking.container}>
         <View style={stylesbooking.userprofile}>
-          <Text style={{color:"white"}}></Text>
+          <Text style={{ color: "white" }}></Text>
         </View>
         <View style={stylesbooking.bookingcontainer}>
           <View style={stylesbooking.bookingforcontainer}></View>
@@ -52,27 +51,18 @@ const Booking = () => {
                 Select Date for the booking
               </Text>
               <View style={stylesbooking.dateslotecontainer}>
-                <View style={stylesbooking.dateslote}>
-                  <Text style={stylesbooking.dateslotecontent}>2</Text>
-                  <Text style={stylesbooking.dateslotecontent}>Day</Text>
-                </View>
-                <View style={stylesbooking.dateslote}>
-                  <Text style={stylesbooking.dateslotecontent}>3</Text>
-                  <Text style={stylesbooking.dateslotecontent}>Day</Text>
-                </View>
-                <View style={stylesbooking.dateslote}>
-                  <Text style={stylesbooking.dateslotecontent}>4</Text>
-                  <Text style={stylesbooking.dateslotecontent}>Day</Text>
-                </View>
-                <View style={stylesbooking.dateslote}>
-                  <Text style={stylesbooking.dateslotecontent}>5</Text>
-                  <Text style={stylesbooking.dateslotecontent}>Day</Text>
-                </View>
+                {DsSlot.map((day: any, index: number) => (
+                  <TouchableOpacity key={index} style={stylesbooking.dateslote}>
+                    <Text style={stylesbooking.dateslotecontent}>
+                      {day.From}
+                    </Text>
+                    <Text style={stylesbooking.dateslotecontent}>{day.To}</Text>
+                  </TouchableOpacity>
+                ))}
               </View>
             </View>
             <View style={stylesbooking.bookingpagetime}>
               <Text style={stylesbooking.textdiscription}>
-                {" "}
                 Select a time slot
               </Text>
               <ScrollView
@@ -81,7 +71,26 @@ const Booking = () => {
                 persistentScrollbar={true}
                 style={stylesbooking.scrollcontainer}
               >
-                <TouchableOpacity>
+                {TsSlot.map((timeArr: string[], index: number)=>{
+                  const [timeslote] =  timeArr
+                  return(
+                    <TouchableOpacity key={index}>
+                    <View style={[stylesbooking.slot]}>
+                      <Text
+                        style={{
+                          color: "grey",
+                          fontSize: 18,
+                          fontWeight: 600,
+                        }}
+                      >
+                        {timeslote}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                  )
+                })}
+
+                {/* <TouchableOpacity>
                   <View style={[stylesbooking.slot]}>
                     <Text
                       style={{
@@ -106,20 +115,7 @@ const Booking = () => {
                       12:30-12:40
                     </Text>
                   </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <View style={[stylesbooking.slot]}>
-                    <Text
-                      style={{
-                        color: "grey",
-                        fontSize: 18,
-                        fontWeight: 600,
-                      }}
-                    >
-                      12:30-12:40
-                    </Text>
-                  </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </ScrollView>
             </View>
             <View style={stylesbooking.bookingpageprice}>
@@ -179,7 +175,7 @@ const stylesbooking = StyleSheet.create({
     borderRadius: 40,
     paddingVertical: 20,
     paddingHorizontal: 10,
-    top:35,
+    top: 35,
     rowGap: 40,
   },
   bookingpagedate: {
@@ -211,9 +207,10 @@ const stylesbooking = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
   },
   dateslotecontainer: {
     flexDirection: "row",
@@ -266,5 +263,4 @@ const stylesbooking = StyleSheet.create({
     elevation: 5,
   },
 });
-
 export default Booking;
