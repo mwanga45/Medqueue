@@ -71,8 +71,8 @@ const Booking = () => {
                 persistentScrollbar={true}
                 style={stylesbooking.scrollcontainer}
               >
-                {TsSlot.map((timeArr: string[], index: number)=>{
-                  const [timeslote] =  timeArr
+                {TsSlot.map((slot: any, index: number)=>{
+                  // const [timeslote] =  timeArr;
                   return(
                     <TouchableOpacity key={index}>
                     <View style={[stylesbooking.slot]}>
@@ -83,7 +83,7 @@ const Booking = () => {
                           fontWeight: 600,
                         }}
                       >
-                        {timeslote}
+                        {slot.time}
                       </Text>
                     </View>
                   </TouchableOpacity>
