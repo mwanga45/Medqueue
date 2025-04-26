@@ -51,14 +51,21 @@ const Booking = () => {
                 Select Date for the booking
               </Text>
               <View style={stylesbooking.dateslotecontainer}>
-                {DsSlot.map((day: any, index: number) => (
-                  <TouchableOpacity key={index} style={stylesbooking.dateslote}>
-                    <Text style={stylesbooking.dateslotecontent}>
-                      {day.From}
-                    </Text>
-                    <Text style={stylesbooking.dateslotecontent}>{day.To}</Text>
-                  </TouchableOpacity>
-                ))}
+                {DsSlot.map((day: any, index: number) => {
+                  const [dayform] = day.From.split("/");
+                  const [dayto] = day.To.split("/");
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      style={stylesbooking.dateslote}
+                    >
+                      <Text style={stylesbooking.dateslotecontent}>
+                        {dayform} → {dayto}
+                      </Text>
+                      <Text  style={stylesbooking.dateslotecontent}>Date</Text>
+                    </TouchableOpacity>
+                  );
+                })}
               </View>
             </View>
             <View style={stylesbooking.bookingpagetime}>
@@ -71,51 +78,24 @@ const Booking = () => {
                 persistentScrollbar={true}
                 style={stylesbooking.scrollcontainer}
               >
-                {TsSlot.map((slot: any, index: number)=>{
+                {TsSlot.map((slot: any, index: number) => {
                   // const [timeslote] =  timeArr;
-                  return(
+                  return (
                     <TouchableOpacity key={index}>
-                    <View style={[stylesbooking.slot]}>
-                      <Text
-                        style={{
-                          color: "grey",
-                          fontSize: 18,
-                          fontWeight: 600,
-                        }}
-                      >
-                        {slot.time}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                  )
+                      <View style={[stylesbooking.slot]}>
+                        <Text
+                          style={{
+                            color: "grey",
+                            fontSize: 18,
+                            fontWeight: 600,
+                          }}
+                        >
+                          {slot.time}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  );
                 })}
-
-                {/* <TouchableOpacity>
-                  <View style={[stylesbooking.slot]}>
-                    <Text
-                      style={{
-                        color: "grey",
-                        fontSize: 18,
-                        fontWeight: 600,
-                      }}
-                    >
-                      12:30-12:40
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <View style={[stylesbooking.slot]}>
-                    <Text
-                      style={{
-                        color: "grey",
-                        fontSize: 18,
-                        fontWeight: 600,
-                      }}
-                    >
-                      12:30-12:40
-                    </Text>
-                  </View>
-                </TouchableOpacity> */}
               </ScrollView>
             </View>
             <View style={stylesbooking.bookingpageprice}>
@@ -198,7 +178,7 @@ const stylesbooking = StyleSheet.create({
   dateslote: {
     width: 80,
     height: 100,
-    backgroundColor: "grey",
+    backgroundColor: "#383838",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -236,11 +216,11 @@ const stylesbooking = StyleSheet.create({
     elevation: 3,
   },
   scrollcontainer: {
-    backgroundColor: "#F2F2F2",
+    backgroundColor: "#D4D4D4",
     height: 80,
   },
   dateslotecontent: {
-    color: "white",
+    color: "#f0f0f0",
     fontSize: 20,
     fontWeight: "800",
     borderRadius: 500,
