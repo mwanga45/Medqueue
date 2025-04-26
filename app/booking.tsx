@@ -24,7 +24,7 @@ const Booking = () => {
           <View style={stylesbooking.bookingforcontainer}></View>
           <View style={stylesbooking.bookingpage}>
             <View style={stylesbooking.bookingpagedate}>
-            <Icon name="calendar" size={20} style={{ color: "#f0f0f0" }} />
+              <Icon name="calendar" size={20} style={{ color: "#f0f0f0" }} />
               <Text style={stylesbooking.textdiscription}>
                 Select Date for the booking
               </Text>
@@ -88,7 +88,7 @@ const Booking = () => {
                   <View style={[stylesbooking.slot]}>
                     <Text
                       style={{
-                        color: "white",
+                        color: "grey",
                         fontSize: 18,
                         fontWeight: 600,
                       }}
@@ -107,13 +107,13 @@ const Booking = () => {
                 </Text>
               </View>
               <View>
-              <TouchableOpacity style={stylesbooking.bookngbtn}>
-                <Text
-                  style={{ color: "#f0f0f0", fontSize: 18, fontWeight: 600 }}
-                >
-                  Book Now
-                </Text>
-              </TouchableOpacity>
+                <TouchableOpacity style={stylesbooking.bookngbtn}>
+                  <Text
+                    style={{ color: "#f0f0f0", fontSize: 18, fontWeight: 600 }}
+                  >
+                    Book Now
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -165,10 +165,10 @@ const stylesbooking = StyleSheet.create({
   },
   bookingpagetime: {},
   bookingpageprice: {
-    maxWidth:300,
+    maxWidth: 300,
     flexDirection: "row",
     width: "100%",
-    columnGap:width * 0.17
+    columnGap: width * 0.17,
   },
   textdiscription: {
     color: "grey",
@@ -189,9 +189,7 @@ const stylesbooking = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
-  
   },
   dateslotecontainer: {
     flexDirection: "row",
@@ -200,16 +198,24 @@ const stylesbooking = StyleSheet.create({
   slot: {
     width: 150,
     height: 50,
-    backgroundColor: "grey",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 13,
     color: "white",
     marginTop: 10,
     marginHorizontal: 23,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   scrollcontainer: {
-    backgroundColor: "#d3f4fe",
+    backgroundColor: "#F2F2F2",
     height: 80,
   },
   dateslotecontent: {
@@ -234,7 +240,6 @@ const stylesbooking = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
-  
   },
 });
 
