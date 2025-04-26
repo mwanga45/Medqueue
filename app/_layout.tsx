@@ -41,7 +41,7 @@ export default function Layout() {
           title:"",
           headerBackTitle:"",
           contentStyle:{
-           backgroundColor:"rgb(64, 205, 51)"
+           backgroundColor:"rgb(237, 5, 13)"
           }
           
         }}/>

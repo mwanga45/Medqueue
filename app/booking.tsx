@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   Dimensions,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,13 +14,35 @@ import {
   ScrollView,
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
-
+import axios from "axios";
 const { height, width } = Dimensions.get("window");
 const Booking = () => {
+  const [TsSlot, setTsSlot] = useState<[] | any>([])
+  const [DsSlot, setDsSlot] = useState<[] | any>([])
+  const [respond, setRespond] = useState<any>([])
+  const handleRespond = async()=>{
+    try{
+      const res =  await axios.get("http://192.168.110.251:8800/bookinglogic")
+      if (!res.data.success){
+        Alert.alert(res.data.message || "Something went wrong")
+      }
+        setDsSlot(res.data.dslot)
+        setTsSlot(res.data.tslot)
+    }catch (err: any){
+      Alert.alert("Something went wrong")
+      console.error(err)
+    }
+
+  }
+  useEffect(()=>{
+    handleRespond()
+  },[])
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={stylesbooking.container}>
-        <View style={stylesbooking.userprofile}></View>
+        <View style={stylesbooking.userprofile}>
+          <Text style={{color:"white"}}></Text>
+        </View>
         <View style={stylesbooking.bookingcontainer}>
           <View style={stylesbooking.bookingforcontainer}></View>
           <View style={stylesbooking.bookingpage}>
@@ -62,7 +85,7 @@ const Booking = () => {
                   <View style={[stylesbooking.slot]}>
                     <Text
                       style={{
-                        color: "white",
+                        color: "grey",
                         fontSize: 18,
                         fontWeight: 600,
                       }}
@@ -75,7 +98,7 @@ const Booking = () => {
                   <View style={[stylesbooking.slot]}>
                     <Text
                       style={{
-                        color: "white",
+                        color: "grey",
                         fontSize: 18,
                         fontWeight: 600,
                       }}
@@ -152,10 +175,11 @@ const stylesbooking = StyleSheet.create({
   },
   bookingpage: {
     backgroundColor: "#f4f4f4",
-    height: "84%",
+    height: "75%",
     borderRadius: 40,
-    paddingVertical: 40,
+    paddingVertical: 20,
     paddingHorizontal: 10,
+    top:35,
     rowGap: 40,
   },
   bookingpagedate: {
