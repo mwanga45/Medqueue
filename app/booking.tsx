@@ -15,11 +15,14 @@ import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
 import axios from "axios";
+import { useRouter } from "expo-router";
+import { Colors } from "../constants/Colors";
 const { height, width } = Dimensions.get("window");
 const Booking = () => {
   const [TsSlot, setTsSlot] = useState<[] | any>([]);
   const [DsSlot, setDsSlot] = useState<[] | any>([]);
   const [respond, setRespond] = useState<any>([]);
+  const router = useRouter();
   const handleRespond = async () => {
     try {
       const res = await axios.get("http://192.168.110.251:8800/bookinglogic");
@@ -40,7 +43,17 @@ const Booking = () => {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={stylesbooking.container}>
         <View style={stylesbooking.userprofile}>
-          <Text style={{ color: "white" }}></Text>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            style={stylesbooking.backButton}
+          >
+            <Icon name="arrow-left" size={24} color="white" />
+          </TouchableOpacity>
+          <View style={stylesbooking.profileview}>
+            <View style={stylesbooking.imageprofile}>
+              <Icon name="user" size={20} color="white" />
+            </View>
+          </View>
         </View>
         <View style={stylesbooking.bookingcontainer}>
           <View style={stylesbooking.bookingforcontainer}></View>
@@ -62,7 +75,7 @@ const Booking = () => {
                       <Text style={stylesbooking.dateslotecontent}>
                         {dayform} → {dayto}
                       </Text>
-                      <Text  style={stylesbooking.dateslotecontent}>Date</Text>
+                      <Text style={stylesbooking.dateslotecontent}>Date</Text>
                     </TouchableOpacity>
                   );
                 })}
@@ -79,7 +92,6 @@ const Booking = () => {
                 style={stylesbooking.scrollcontainer}
               >
                 {TsSlot.map((slot: any, index: number) => {
-                  // const [timeslote] =  timeArr;
                   return (
                     <TouchableOpacity key={index}>
                       <View style={[stylesbooking.slot]}>
@@ -133,9 +145,36 @@ const stylesbooking = StyleSheet.create({
   },
   userprofile: {
     justifyContent: "space-between",
-    backgroundColor: "blue",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.1)",
     height: height * 0.08,
-    width: width * 0.96,
+    width: "100%",
+    flexDirection: "row",
+    borderRadius: 23,
+  },
+  backButton: {
+    padding: 8,
+  },
+  profileview: {
+    padding: 8,
+  },
+  imageprofile: {
+    width: 60,
+    height: 60,
+    backgroundColor: "#012107",
+    borderRadius: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 1,
+},
+shadowOpacity: 0.18,
+shadowRadius: 1.00,
+
+elevation: 1,
+
   },
   bookingcontainer: {
     flexDirection: "column",
@@ -157,6 +196,14 @@ const stylesbooking = StyleSheet.create({
     paddingHorizontal: 10,
     top: 35,
     rowGap: 40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    elevation: 1,
   },
   bookingpagedate: {
     width: "100%",
@@ -165,7 +212,6 @@ const stylesbooking = StyleSheet.create({
   },
   bookingpagetime: {},
   bookingpageprice: {
-    maxWidth: 300,
     flexDirection: "row",
     width: "100%",
     columnGap: width * 0.17,
