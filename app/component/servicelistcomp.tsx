@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Alert, StyleSheet, Dimensions} from 'react-native';
 import axios from 'axios';
 import { ScrollView,GestureHandlerRootView, TextInput } from 'react-native-gesture-handler';
@@ -18,6 +18,9 @@ const Servicelistcomp = () => {
           console.error(err)
         }
       }
+      useEffect(()=>{
+        // handleGetService()
+      },[])
   return (
     <GestureHandlerRootView style ={stylesmodal.container}>
       <View style={stylesmodal.headingpart}>
@@ -36,9 +39,8 @@ const {height} = Dimensions.get('window')
 const stylesmodal = StyleSheet.create({
   container:{
     flex:1,
-    paddingHorizontal:20,
+    paddingHorizontal:10,
     paddingVertical:4
-
   },
   headingpart:{
    height: height *0.2,
@@ -48,6 +50,8 @@ const stylesmodal = StyleSheet.create({
    alignItems:"center"
   },
   searchpart:{
+   justifyContent:"center",
+   alignItems:"center",
    height:height *0.08,
    width:"100%",
    backgroundColor:"red",
@@ -66,7 +70,12 @@ const stylesmodal = StyleSheet.create({
     color:"white"
   },
   textinputcontainer:{
-    
+   backgroundColor:"white",
+   width:"90%",
+   height:50,
+   
+
+
   }
 
 })
