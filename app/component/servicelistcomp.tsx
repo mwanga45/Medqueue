@@ -24,6 +24,7 @@ const Servicelistcomp = () => {
       );
       if (!res.data.success) {
         Alert.alert(res.data.message);
+        return
       }
       const info = res.data;
       setservice(info.data);
@@ -33,7 +34,7 @@ const Servicelistcomp = () => {
     }
   };
   useEffect(() => {
-    // handleGetService()
+    handleGetService()
   }, []);
   return (
     <GestureHandlerRootView style={stylesmodal.container}>
@@ -44,7 +45,7 @@ const Servicelistcomp = () => {
       </View>
       <View style={stylesmodal.searchpart}>
         <View style={stylesmodal.textinputcontainer}>
-          <TextInput placeholder="search" style={stylesmodal.input} />
+          <TextInput placeholder="search for service" style={stylesmodal.input} />
           <TouchableOpacity>
             <Ionicons name="search" color="grey" size={20} />
           </TouchableOpacity>
@@ -73,13 +74,23 @@ const stylesmodal = StyleSheet.create({
     alignItems: "center",
     height: height * 0.08,
     width: "100%",
-    backgroundColor: "red",
+    backgroundColor: "rgb(64, 64, 64)",
     marginTop: height * 0.02,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+
+    elevation: 10,
+    borderRadius:20
   },
   listcontainer: {
     height: height * 0.67,
     width: "100%",
-    backgroundColor: "grey",
+    backgroundColor: "#f4f4f4",
     marginTop: height * 0.02,
     borderRadius: 25,
   },
