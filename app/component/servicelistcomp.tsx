@@ -51,7 +51,9 @@ const Servicelistcomp = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={stylesmodal.listcontainer}></View>
+      <View style={stylesmodal.listcontainer}>
+
+      </View>
     </GestureHandlerRootView>
   );
 };
@@ -76,16 +78,15 @@ const stylesmodal = StyleSheet.create({
     width: "100%",
     backgroundColor: "rgb(64, 64, 64)",
     marginTop: height * 0.02,
-    shadowColor: "#000",
+    borderRadius:25,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 10,
+      height: 1,
     },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-
-    elevation: 10,
-    borderRadius:20
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   listcontainer: {
     height: height * 0.67,
@@ -93,6 +94,14 @@ const stylesmodal = StyleSheet.create({
     backgroundColor: "#f4f4f4",
     marginTop: height * 0.02,
     borderRadius: 25,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   texttitle: {
     fontSize: 20,
