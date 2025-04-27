@@ -66,7 +66,7 @@ const FloatingButton = ({isBoolean}) => {
         { transform: [{ translateY: icon2Anim }, { translateX: icon2Anim }] }
       ]}>
         <TouchableOpacity>
-          <Icon name="stethoscope" size={25} color="#fff" />
+          <Icon name="comments" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>
 

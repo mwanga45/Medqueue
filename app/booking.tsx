@@ -16,12 +16,10 @@ import {
 } from "react-native-gesture-handler";
 import axios from "axios";
 import { useRouter } from "expo-router";
-import { Colors } from "../constants/Colors";
 const { height, width } = Dimensions.get("window");
 const Booking = () => {
   const [TsSlot, setTsSlot] = useState<[] | any>([]);
   const [DsSlot, setDsSlot] = useState<[] | any>([]);
-  const [respond, setRespond] = useState<any>([]);
   const router = useRouter();
   const handleRespond = async () => {
     try {
@@ -51,7 +49,7 @@ const Booking = () => {
           </TouchableOpacity>
           <View style={stylesbooking.profileview}>
             <View style={stylesbooking.imageprofile}>
-              <Icon name="user" size={20} color="white" />
+              <Icon name="user-circle" size={40} color="white" />
             </View>
           </View>
         </View>
@@ -114,7 +112,7 @@ const Booking = () => {
               <View>
                 <Text style={stylesbooking.textdiscription}>Price</Text>
                 <Text style={{ color: "", fontSize: 28, fontWeight: "800" }}>
-                  2500 Tsh
+                  2500Tsh
                 </Text>
               </View>
               <View>
