@@ -17,6 +17,7 @@ import {
 } from "react-native-gesture-handler";
 import axios from "axios";
 import { useRouter } from "expo-router";
+import Servicelistcomp from "./component/servicelistcomp";
 const { height, width } = Dimensions.get("window");
 const Booking = () => {
   const [TsSlot, setTsSlot] = useState<[] | any>([]);
@@ -144,7 +145,7 @@ const Booking = () => {
           </View>
         </View>
         <Modal visible={modalstatus} animationType="slide" onRequestClose={()=>setmodalstatus(false)}>
-          
+          <Servicelistcomp/>
         </Modal>
       </SafeAreaView>
     </GestureHandlerRootView>
