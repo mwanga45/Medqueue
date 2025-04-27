@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Alert, StyleSheet, Dimensions} from 'react-native';
 import axios from 'axios';
-import { ScrollView,GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ScrollView,GestureHandlerRootView, TextInput } from 'react-native-gesture-handler';
 
 const Servicelistcomp = () => {
       const [service, setservice] = useState<[]|any>([]);
@@ -20,8 +20,14 @@ const Servicelistcomp = () => {
       }
   return (
     <GestureHandlerRootView style ={stylesmodal.container}>
-      <View style={stylesmodal.headingpart}></View>
-      <View style = {stylesmodal.searchpart}></View>
+      <View style={stylesmodal.headingpart}>
+        <Text style={stylesmodal.texttitle}>Here are the List of our Service</Text>
+      </View>
+      <View style = {stylesmodal.searchpart}>
+        <View style = {stylesmodal.textinputcontainer}>
+            <TextInput/>
+        </View>
+      </View>
       <View style ={stylesmodal.listcontainer}></View>
     </GestureHandlerRootView>
   );
@@ -31,7 +37,8 @@ const stylesmodal = StyleSheet.create({
   container:{
     flex:1,
     paddingHorizontal:20,
-    paddingVertical:2
+    paddingVertical:4
+
   },
   headingpart:{
    height: height *0.2,
@@ -41,10 +48,25 @@ const stylesmodal = StyleSheet.create({
    alignItems:"center"
   },
   searchpart:{
-  
+   height:height *0.08,
+   width:"100%",
+   backgroundColor:"red",
+   marginTop:height *0.02
   },
   listcontainer:{
+    height:height *0.67,
+    width:"100%",
+    backgroundColor:"grey",
+    marginTop:height * 0.02
 
+  },
+  texttitle:{
+    fontSize:20,
+    fontWeight:"800",
+    color:"white"
+  },
+  textinputcontainer:{
+    
   }
 
 })
