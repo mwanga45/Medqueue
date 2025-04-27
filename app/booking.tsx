@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  Modal,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -20,7 +21,22 @@ const { height, width } = Dimensions.get("window");
 const Booking = () => {
   const [TsSlot, setTsSlot] = useState<[] | any>([]);
   const [DsSlot, setDsSlot] = useState<[] | any>([]);
+  const [service, setservice] = useState<[]|any>([]);
+  const [modalstatus, setmodalstatus] = useState<boolean>(true)
   const router = useRouter();
+  const handleGetService = async()=>{
+    try{
+     const res = await axios.get("http://192.168.110.251:8800/serviceAvailable")
+     if (!res.data.success){
+      Alert.alert(res.data.message)
+     }
+     const info = res.data
+     setservice(info.data)
+    }catch(err){
+      Alert.alert("something went wrong")
+      console.error(err)
+    }
+  }
   const handleRespond = async () => {
     try {
       const res = await axios.get("http://192.168.110.251:8800/bookinglogic");
@@ -127,6 +143,9 @@ const Booking = () => {
             </View>
           </View>
         </View>
+        <Modal visible={modalstatus} animationType="slide" onRequestClose={()=>setmodalstatus(false)}>
+          
+        </Modal>
       </SafeAreaView>
     </GestureHandlerRootView>
   );
