@@ -24,7 +24,7 @@ const Servicelistcomp = () => {
       );
       if (!res.data.success) {
         Alert.alert(res.data.message);
-        return
+        return;
       }
       const info = res.data;
       setservice(info.data);
@@ -33,8 +33,11 @@ const Servicelistcomp = () => {
       console.error(err);
     }
   };
+  const OnHandleService = () => {
+    Alert.alert(`Confirm the Service ${service.disease}`);
+  };
   useEffect(() => {
-    handleGetService()
+    handleGetService();
   }, []);
   return (
     <GestureHandlerRootView style={stylesmodal.container}>
@@ -45,15 +48,26 @@ const Servicelistcomp = () => {
       </View>
       <View style={stylesmodal.searchpart}>
         <View style={stylesmodal.textinputcontainer}>
-          <TextInput placeholder="search for service" style={stylesmodal.input} />
+          <TextInput
+            placeholder="search for service"
+            style={stylesmodal.input}
+          />
           <TouchableOpacity>
             <Ionicons name="search" color="grey" size={20} />
           </TouchableOpacity>
         </View>
       </View>
-      <View style={stylesmodal.listcontainer}>
-
-      </View>
+      <ScrollView style={stylesmodal.listcontainer}>
+        {service.map((item: any, index: number) => (
+          <TouchableOpacity
+            style={stylesmodal.listcover}
+            key={index}
+            onPress={OnHandleService}
+          >
+            <Text style={stylesmodal.titlelist}>{item.disease}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </GestureHandlerRootView>
   );
 };
@@ -78,8 +92,8 @@ const stylesmodal = StyleSheet.create({
     width: "100%",
     backgroundColor: "rgb(64, 64, 64)",
     marginTop: height * 0.02,
-    borderRadius:25,
-    shadowColor: '#000',
+    borderRadius: 25,
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -94,7 +108,7 @@ const stylesmodal = StyleSheet.create({
     backgroundColor: "#f4f4f4",
     marginTop: height * 0.02,
     borderRadius: 25,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -124,6 +138,8 @@ const stylesmodal = StyleSheet.create({
     fontSize: 19,
     paddingHorizontal: 20,
   },
+  listcover: {},
+  titlelist: {},
 });
 
 export default Servicelistcomp;
