@@ -66,9 +66,9 @@ const Booking = () => {
           <View style={stylesbooking.bookingforcontainer}>
             {selectedService && (
               <View style={stylesbooking.listofbooking}>
-                <Text>You picked:</Text>
-                <Text>{selectedService.servicename}</Text>
-                <Text>{selectedService.serviceprice} Tsh</Text>
+                <Text style={{color:"black", fontSize:18, fontWeight:"600"}}>You picked:</Text>
+                <Text style={stylesbooking. textdiscription}>{selectedService.servicename}</Text>
+                {/* <Text>{selectedService.serviceprice} Tsh</Text> */}
               </View>
             )}
           </View>
@@ -127,9 +127,9 @@ const Booking = () => {
             </View>
             <View style={stylesbooking.bookingpageprice}>
               <View>
-                <Text style={stylesbooking.textdiscription}>Price</Text>
+                <Text style={stylesbooking.textdiscription}>Service Price</Text>
                 <Text style={{ color: "", fontSize: 28, fontWeight: "800" }}>
-                  2500Tsh
+                  {selectedService?.serviceprice}.Sh
                 </Text>
               </View>
               <View>
@@ -197,7 +197,6 @@ const stylesbooking = StyleSheet.create({
     },
     shadowOpacity: 0.18,
     shadowRadius: 1.0,
-
     elevation: 1,
   },
   bookingcontainer: {
@@ -211,6 +210,13 @@ const stylesbooking = StyleSheet.create({
     flexDirection: "row",
     columnGap: 3,
     height: "10%",
+  },
+  listofbooking: {
+    width: "100%",
+    height: 100,
+    padding: 20,
+    backgroundColor:"rgba(0,0,0,0.2)",
+    borderRadius:20
   },
   bookingpage: {
     backgroundColor: "#f4f4f4",
@@ -309,13 +315,7 @@ const stylesbooking = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
-  },
-  listofbooking: {
-    width: "100%",
-    height: 100,
-    padding: 20,
   },
 });
 export default Booking;
