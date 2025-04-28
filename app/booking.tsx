@@ -69,8 +69,8 @@ const Booking = () => {
             <Icon name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
           <View style={stylesbooking.profileview}>
-            <TouchableOpacity style={stylesbooking.imageprofile} onPress={()=>{()=>setmodalstatus(true)}}>
-              <Icon name="user-circle" size={40} color="white" />
+            <TouchableOpacity style={stylesbooking.imageprofile} onPress={()=> setmodalstatus(true)}>
+              <Icon name="toolbox" size={30} color="white" />
             </TouchableOpacity>
           </View>
         </View>
@@ -82,12 +82,8 @@ const Booking = () => {
                 <Text style={stylesbooking. textdiscription1}>{selectedService.servicename}</Text>
                 <Text style={stylesbooking. textdiscription1}>Time: {selectedTime}</Text>
                 <Text style={stylesbooking. textdiscription1}>From: {selectedDate.from} To: {selectedDate.to}</Text>
-              </View>
-              
+              </View>  
             )}
-            {/* <TouchableOpacity onPress={()=> setmodalstatus(true)} style={stylesbooking.btnModalopen}>
-               <Text style={stylesbooking.textdiscription1}>Open</Text>
-            </TouchableOpacity> */}
           </View>
           <View style={stylesbooking.bookingpage}>
             <View style={stylesbooking.bookingpagedate}>
