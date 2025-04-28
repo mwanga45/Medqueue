@@ -9,7 +9,6 @@ import {
   Modal,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {
   ScrollView,
@@ -33,6 +32,11 @@ const Booking = () => {
     serviceprice: string;
   } | null>(null);
   const [modalstatus, setmodalstatus] = useState<boolean>(true);
+  const [bookingdata, setbookingdata] = useState({
+    servicerequested:"",
+    fromdate:"",
+    appointmenttime:""
+  })
   const router = useRouter();
 
   const handleRespond = async () => {
@@ -48,6 +52,9 @@ const Booking = () => {
       console.error(err);
     }
   };
+  const handlebookingsubmit = async () =>{
+    const res = await axios.post("http://192.168.110.251:8800/")
+  }
   useEffect(() => {
     handleRespond();
   }, []);
@@ -62,9 +69,9 @@ const Booking = () => {
             <Icon name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
           <View style={stylesbooking.profileview}>
-            <View style={stylesbooking.imageprofile}>
+            <TouchableOpacity style={stylesbooking.imageprofile} onPress={()=>{()=>setmodalstatus(true)}}>
               <Icon name="user-circle" size={40} color="white" />
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={stylesbooking.bookingcontainer}>
@@ -72,11 +79,15 @@ const Booking = () => {
             {selectedService && (
               <View style={stylesbooking.listofbooking}>
                 <Text style={{color:"black", fontSize:22, fontWeight:"600"}}>You picked:</Text>
-                <Text style={stylesbooking. textdiscription}>{selectedService.servicename}</Text>
-                <Text style={stylesbooking. textdiscription}>{selectedTime}</Text>
-                <Text style={stylesbooking. textdiscription}>From {selectedDate.from} To {selectedDate.to}</Text>
+                <Text style={stylesbooking. textdiscription1}>{selectedService.servicename}</Text>
+                <Text style={stylesbooking. textdiscription1}>Time: {selectedTime}</Text>
+                <Text style={stylesbooking. textdiscription1}>From: {selectedDate.from} To: {selectedDate.to}</Text>
               </View>
+              
             )}
+            {/* <TouchableOpacity onPress={()=> setmodalstatus(true)} style={stylesbooking.btnModalopen}>
+               <Text style={stylesbooking.textdiscription1}>Open</Text>
+            </TouchableOpacity> */}
           </View>
           <View style={stylesbooking.bookingpage}>
             <View style={stylesbooking.bookingpagedate}>
@@ -218,6 +229,12 @@ const stylesbooking = StyleSheet.create({
     columnGap: 3,
     height: "10%",
   },
+  btnModalopen:{
+    width:50,
+    height:50,
+    backgroundColor:"black"
+
+  },
   listofbooking: {
     width: "100%",
     height: height,
@@ -256,6 +273,11 @@ const stylesbooking = StyleSheet.create({
   },
   textdiscription: {
     color: "grey",
+    fontSize: 18,
+    fontWeight: 500,
+  },
+  textdiscription1: {
+    color: "#f0f0f0",
     fontSize: 18,
     fontWeight: 500,
   },
