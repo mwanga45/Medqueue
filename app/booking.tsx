@@ -65,7 +65,7 @@ const Booking = () => {
         <View style={stylesbooking.bookingcontainer}>
           <View style={stylesbooking.bookingforcontainer}>
             {selectedService && (
-              <View style={{ marginTop: 24 }}>
+              <View style={stylesbooking.listofbooking}>
                 <Text>You picked:</Text>
                 <Text>{selectedService.servicename}</Text>
                 <Text>{selectedService.serviceprice} Tsh</Text>
@@ -311,6 +311,12 @@ const stylesbooking = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  listofbooking: {
+    width: "100%",
+    height: 100,
+    padding: 20,
+    
   },
 });
 export default Booking;

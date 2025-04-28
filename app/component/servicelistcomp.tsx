@@ -24,7 +24,10 @@ interface ServiceListProps {
   }) => void;
 }
 
-const Servicelistcomp: React.FC<ServiceListProps> = ({ setModal, onSelect }) => {
+const Servicelistcomp: React.FC<ServiceListProps> = ({
+  setModal,
+  onSelect,
+}) => {
   const [service, setservice] = useState<[] | any>([]);
   const [selectedService, setselectedService] = useState<any>({
     id: 0,
@@ -48,7 +51,6 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({ setModal, onSelect }) => 
       console.error(err);
     }
   };
-
   const filteredServices = service.filter((item: { disease: string }) =>
     item.disease.toLowerCase().includes(search.toLowerCase())
   );
@@ -127,8 +129,6 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({ setModal, onSelect }) => 
   );
 };
 
-
-
 const { height } = Dimensions.get("window");
 
 const stylesmodal = StyleSheet.create({
@@ -204,7 +204,7 @@ const stylesmodal = StyleSheet.create({
     height: 100,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:"rgba(89, 172, 255, 0.97)",
+    backgroundColor: "rgba(89, 172, 255, 0.97)",
     borderWidth: 2,
     borderColor: "rgb(2, 58, 114)",
     borderRadius: 20,
@@ -219,9 +219,8 @@ const stylesmodal = StyleSheet.create({
     color: "white",
     fontWeight: "800",
     fontSize: 17,
-    marginTop:12,
-    height:30,
-    
+    marginTop: 12,
+    height: 30,
   },
   Description: {
     color: "black",
