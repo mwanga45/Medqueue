@@ -59,19 +59,26 @@ const Servicelistcomp = () => {
         </View>
       </View>
       <ScrollView style={stylesmodal.listcontainer}>
-       {Array.isArray(service)&&service.map((item:any, index :number)=>{
-        return(
-          <TouchableOpacity
-          style={stylesmodal.listcover}
-          key={index}
-          onPress={OnHandleService}
-        >
-          <Text style={stylesmodal.titlelist}>{item.disease}</Text>
-          <Text style={stylesmodal.amount}>{item.consultation_fee}</Text>
-          <Text style={stylesmodal.Description}>{item.serviceDescription}</Text>
-        </TouchableOpacity>
-        )
-       })}
+        {Array.isArray(service) &&
+          service.map((item: any, index: number) => {
+            return (
+              <TouchableOpacity
+                style={stylesmodal.listcover}
+                key={index}
+                onPress={OnHandleService}
+              >
+                <Text style={stylesmodal.titlelist}>{item.disease}</Text>
+                <View>
+                  <Text style={stylesmodal.Description}>
+                    {item.serviceDescription}
+                  </Text>
+                  <Text style={stylesmodal.amount}>
+                    {item.consultationFee}Tsh
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
       </ScrollView>
     </GestureHandlerRootView>
   );
@@ -121,7 +128,7 @@ const stylesmodal = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
-    padding:20
+    padding: 10,
   },
   texttitle: {
     fontSize: 20,
@@ -144,11 +151,31 @@ const stylesmodal = StyleSheet.create({
     fontSize: 19,
     paddingHorizontal: 20,
   },
-  listcover: {},
-  titlelist: {},
-  amount:{},
-  Description:{}
-
+  listcover: {
+    width: "100%",
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 4,
+    borderColor: "grey",
+    borderRadius: 20,
+    marginTop: 5,
+  },
+  titlelist: {
+    color: "grey",
+    fontSize: 18,
+    fontWeight: "800",
+  },
+  amount: {
+    color:"blue",
+    fontWeight:"800",
+    fontSize:17,
+  },
+  Description: {
+    color:"black",
+    fontSize:15,
+    fontWeight:"700"
+  },
 });
 
 export default Servicelistcomp;
