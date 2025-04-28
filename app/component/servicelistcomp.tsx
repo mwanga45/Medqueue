@@ -15,8 +15,16 @@ import {
 } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
+
+
 const Servicelistcomp = () => {
   const [service, setservice] = useState<[] | any>([]);
+  const [selectedService, setselectedService] = useState<any>({
+    id:0,
+    servicename:"",
+    serviceprice:"",
+    
+  })
   const handleGetService = async () => {
     try {
       const res = await axios.get(
@@ -33,19 +41,23 @@ const Servicelistcomp = () => {
       console.error(err);
     }
   };
-  const OnHandleService = () => {
-    Alert.alert(`Confirm the Service ${service.disease}`);
+  const OnHandleService = (id: number, servicename: string, serviceprice: string) => {
+    setselectedService({
+      id:id,
+      servicename:servicename,
+      serviceprice:serviceprice
+    })
+    Alert.alert(`Confirm the Service ${selectedService.servicename}`);
+
   };
   useEffect(() => {
     handleGetService();
   }, []);
+
   return (
     <GestureHandlerRootView style={stylesmodal.container}>
       <View style={stylesmodal.headingpart}>
-        <Text style={stylesmodal.texttitle}>
-          Here are the List of our Service
-          {service.disease}
-        </Text>
+        <Text style={stylesmodal.texttitle}>Service Options for You!</Text>
       </View>
       <View style={stylesmodal.searchpart}>
         <View style={stylesmodal.textinputcontainer}>
@@ -60,21 +72,25 @@ const Servicelistcomp = () => {
       </View>
       <ScrollView style={stylesmodal.listcontainer}>
         {Array.isArray(service) &&
-          service.map((item: any, index: number) => {
+          service.map((item: any) => {
             return (
               <TouchableOpacity
                 style={stylesmodal.listcover}
-                key={index}
-                onPress={OnHandleService}
+                key={item.id}
+                onPress={()=>OnHandleService(item.id,item.disease,item.consultationFee)}
               >
                 <Text style={stylesmodal.titlelist}>{item.disease}</Text>
-                <View style={{justifyContent:"center", alignItems:"center"}}>
+                <View
+                  style={{ justifyContent: "center", alignItems: "center", width:"100%" }}
+                >
                   <Text style={stylesmodal.Description}>
                     {item.serviceDescription}
                   </Text>
+                  <View style={{width:"100%", justifyContent:"center", alignItems:"center"}}>
                   <Text style={stylesmodal.amount}>
                     {item.consultationFee}Tsh
                   </Text>
+                  </View>
                 </View>
               </TouchableOpacity>
             );
@@ -93,9 +109,10 @@ const stylesmodal = StyleSheet.create({
   headingpart: {
     height: height * 0.2,
     width: "100%",
-    backgroundColor: "rgb(19, 243, 12)",
+    backgroundColor: "rgb(240, 240, 240)",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 20,
   },
   searchpart: {
     justifyContent: "center",
@@ -131,9 +148,9 @@ const stylesmodal = StyleSheet.create({
     padding: 10,
   },
   texttitle: {
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: "800",
-    color: "white",
+    color: "green",
   },
   textinputcontainer: {
     backgroundColor: "white",
@@ -156,25 +173,29 @@ const stylesmodal = StyleSheet.create({
     height: 100,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor:"rgba(89, 172, 255, 0.97)",
     borderWidth: 2,
-    borderColor: "grey",
+    borderColor: "rgb(2, 58, 114)",
     borderRadius: 20,
     marginTop: 5,
   },
   titlelist: {
-    color: "grey",
+    color: "rgb(246, 246, 246)",
     fontSize: 18,
     fontWeight: "800",
   },
   amount: {
-    color:"blue",
-    fontWeight:"800",
-    fontSize:17,
+    color: "white",
+    fontWeight: "800",
+    fontSize: 17,
+    marginTop:12,
+    height:30,
+    
   },
   Description: {
-    color:"black",
-    fontSize:15,
-    fontWeight:"700"
+    color: "black",
+    fontSize: 15,
+    fontWeight: "700",
   },
 });
 
