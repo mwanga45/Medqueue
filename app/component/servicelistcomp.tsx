@@ -68,7 +68,7 @@ const Servicelistcomp = () => {
                 onPress={OnHandleService}
               >
                 <Text style={stylesmodal.titlelist}>{item.disease}</Text>
-                <View>
+                <View style={{justifyContent:"center", alignItems:"center"}}>
                   <Text style={stylesmodal.Description}>
                     {item.serviceDescription}
                   </Text>
@@ -156,7 +156,7 @@ const stylesmodal = StyleSheet.create({
     height: 100,
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 4,
+    borderWidth: 2,
     borderColor: "grey",
     borderRadius: 20,
     marginTop: 5,
