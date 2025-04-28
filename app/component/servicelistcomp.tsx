@@ -12,6 +12,7 @@ import {
   ScrollView,
   GestureHandlerRootView,
   TextInput,
+  FlatList,
 } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -25,6 +26,7 @@ const Servicelistcomp = () => {
     serviceprice:"",
     
   })
+  const [search, setsearch]= useState<string>("")
   const handleGetService = async () => {
     try {
       const res = await axios.get(
@@ -41,6 +43,8 @@ const Servicelistcomp = () => {
       console.error(err);
     }
   };
+  const filteredServices = service.filter((item: { disease: string; }) =>
+    item.disease.toLowerCase().includes(search.toLowerCase()))
   const OnHandleService = (id: number, servicename: string, serviceprice: string) => {
     setselectedService({
       id:id,
@@ -64,6 +68,8 @@ const Servicelistcomp = () => {
           <TextInput
             placeholder="search for service"
             style={stylesmodal.input}
+            onChangeText={setsearch}
+            value={search}
           />
           <TouchableOpacity>
             <Ionicons name="search" color="grey" size={20} />
@@ -71,8 +77,8 @@ const Servicelistcomp = () => {
         </View>
       </View>
       <ScrollView style={stylesmodal.listcontainer}>
-        {Array.isArray(service) &&
-          service.map((item: any) => {
+        {Array.isArray(filteredServices) &&
+          filteredServices.map((item: any) => {
             return (
               <TouchableOpacity
                 style={stylesmodal.listcover}
@@ -95,6 +101,29 @@ const Servicelistcomp = () => {
               </TouchableOpacity>
             );
           })}
+          {/* <FlatList data={filteredServices} keyExtractor={item =>item.id.tostring()}
+
+          renderItem={({item})=>(
+            <TouchableOpacity
+            style={stylesmodal.listcover}
+            key={item.id}
+            onPress={()=>OnHandleService(item.id,item.disease,item.consultationFee)}
+          >
+            <Text style={stylesmodal.titlelist}>{item.disease}</Text>
+            <View
+              style={{ justifyContent: "center", alignItems: "center", width:"100%" }}
+            >
+              <Text style={stylesmodal.Description}>
+                {item.serviceDescription}
+              </Text>
+              <View style={{width:"100%", justifyContent:"center", alignItems:"center"}}>
+              <Text style={stylesmodal.amount}>
+                {item.consultationFee}Tsh
+              </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+          )}/> */}
       </ScrollView>
     </GestureHandlerRootView>
   );
