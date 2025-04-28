@@ -22,6 +22,11 @@ const { height, width } = Dimensions.get("window");
 const Booking = () => {
   const [TsSlot, setTsSlot] = useState<[] | any>([]);
   const [DsSlot, setDsSlot] = useState<[] | any>([]);
+  const [selectedTime, setselectedTime] = useState<any>("")
+  const [selectedDate , setselectedDate] = useState<any>({
+    from:"",
+    to:""
+  })
   const [selectedService, setSelectedService] = useState<{
     id: number;
     servicename: string;
@@ -66,15 +71,16 @@ const Booking = () => {
           <View style={stylesbooking.bookingforcontainer}>
             {selectedService && (
               <View style={stylesbooking.listofbooking}>
-                <Text style={{color:"black", fontSize:18, fontWeight:"600"}}>You picked:</Text>
+                <Text style={{color:"black", fontSize:22, fontWeight:"600"}}>You picked:</Text>
                 <Text style={stylesbooking. textdiscription}>{selectedService.servicename}</Text>
-                {/* <Text>{selectedService.serviceprice} Tsh</Text> */}
+                <Text style={stylesbooking. textdiscription}>{selectedTime}</Text>
+                <Text style={stylesbooking. textdiscription}>From {selectedDate.from} To {selectedDate.to}</Text>
               </View>
             )}
           </View>
           <View style={stylesbooking.bookingpage}>
             <View style={stylesbooking.bookingpagedate}>
-              <Icon name="calendar" size={20} style={{ color: "#f0f0f0" }} />
+              <Icon name="calendar" size={20} style={{ color: "#f0f0f0" }}/>
               <Text style={stylesbooking.textdiscription}>
                 Select Date for the booking
               </Text>
@@ -86,6 +92,7 @@ const Booking = () => {
                     <TouchableOpacity
                       key={index}
                       style={stylesbooking.dateslote}
+                      onPress={()=> setselectedDate({from:dayform,to:dayto})}
                     >
                       <Text style={stylesbooking.dateslotecontent}>
                         {dayform} → {dayto}
@@ -108,7 +115,7 @@ const Booking = () => {
               >
                 {TsSlot.map((slot: any, index: number) => {
                   return (
-                    <TouchableOpacity key={index}>
+                    <TouchableOpacity key={index} onPress={()=>setselectedTime(slot.time)}>
                       <View style={[stylesbooking.slot]}>
                         <Text
                           style={{
@@ -213,10 +220,11 @@ const stylesbooking = StyleSheet.create({
   },
   listofbooking: {
     width: "100%",
-    height: 100,
+    height: height,
     padding: 20,
     backgroundColor:"rgba(0,0,0,0.2)",
-    borderRadius:20
+    borderRadius:20,
+
   },
   bookingpage: {
     backgroundColor: "#f4f4f4",
@@ -265,7 +273,6 @@ const stylesbooking = StyleSheet.create({
     },
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
-
     elevation: 4,
   },
   dateslotecontainer: {
