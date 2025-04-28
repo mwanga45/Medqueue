@@ -44,6 +44,7 @@ const Servicelistcomp = () => {
       <View style={stylesmodal.headingpart}>
         <Text style={stylesmodal.texttitle}>
           Here are the List of our Service
+          {service.disease}
         </Text>
       </View>
       <View style={stylesmodal.searchpart}>
@@ -58,15 +59,19 @@ const Servicelistcomp = () => {
         </View>
       </View>
       <ScrollView style={stylesmodal.listcontainer}>
-        {service.map((item: any, index: number) => (
+       {Array.isArray(service)&&service.map((item:any, index :number)=>{
+        return(
           <TouchableOpacity
-            style={stylesmodal.listcover}
-            key={index}
-            onPress={OnHandleService}
-          >
-            <Text style={stylesmodal.titlelist}>{item.disease}</Text>
-          </TouchableOpacity>
-        ))}
+          style={stylesmodal.listcover}
+          key={index}
+          onPress={OnHandleService}
+        >
+          <Text style={stylesmodal.titlelist}>{item.disease}</Text>
+          <Text style={stylesmodal.amount}>{item.consultation_fee}</Text>
+          <Text style={stylesmodal.Description}>{item.serviceDescription}</Text>
+        </TouchableOpacity>
+        )
+       })}
       </ScrollView>
     </GestureHandlerRootView>
   );
@@ -116,6 +121,7 @@ const stylesmodal = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
+    padding:20
   },
   texttitle: {
     fontSize: 20,
@@ -140,6 +146,9 @@ const stylesmodal = StyleSheet.create({
   },
   listcover: {},
   titlelist: {},
+  amount:{},
+  Description:{}
+
 });
 
 export default Servicelistcomp;
