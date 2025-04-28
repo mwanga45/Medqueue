@@ -12,21 +12,27 @@ import {
   ScrollView,
   GestureHandlerRootView,
   TextInput,
-  FlatList,
 } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
+interface ServiceListProps {
+  setModal: (visible: boolean) => void;
+  onSelect: (service: {
+    id: number;
+    servicename: string;
+    serviceprice: string;
+  }) => void;
+}
 
-
-const Servicelistcomp = () => {
+const Servicelistcomp: React.FC<ServiceListProps> = ({ setModal, onSelect }) => {
   const [service, setservice] = useState<[] | any>([]);
   const [selectedService, setselectedService] = useState<any>({
-    id:0,
-    servicename:"",
-    serviceprice:"",
-    
-  })
-  const [search, setsearch]= useState<string>("")
+    id: 0,
+    servicename: "",
+    serviceprice: "",
+  });
+  const [search, setsearch] = useState<string>("");
+
   const handleGetService = async () => {
     try {
       const res = await axios.get(
@@ -36,24 +42,29 @@ const Servicelistcomp = () => {
         Alert.alert(res.data.message);
         return;
       }
-      const info = res.data;
-      setservice(info.data);
+      setservice(res.data.data);
     } catch (err) {
       Alert.alert("something went wrong");
       console.error(err);
     }
   };
-  const filteredServices = service.filter((item: { disease: string; }) =>
-    item.disease.toLowerCase().includes(search.toLowerCase()))
-  const OnHandleService = (id: number, servicename: string, serviceprice: string) => {
-    setselectedService({
-      id:id,
-      servicename:servicename,
-      serviceprice:serviceprice
-    })
-    Alert.alert(`Confirm the Service ${selectedService.servicename}`);
 
+  const filteredServices = service.filter((item: { disease: string }) =>
+    item.disease.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const OnHandleService = (
+    id: number,
+    servicename: string,
+    serviceprice: string
+  ) => {
+    const selection = { id, servicename, serviceprice };
+    setselectedService(selection);
+    onSelect(selection);
+    Alert.alert(`Confirm the Service ${servicename}`);
+    setModal(false);
   };
+
   useEffect(() => {
     handleGetService();
   }, []);
@@ -78,57 +89,48 @@ const Servicelistcomp = () => {
       </View>
       <ScrollView style={stylesmodal.listcontainer}>
         {Array.isArray(filteredServices) &&
-          filteredServices.map((item: any) => {
-            return (
-              <TouchableOpacity
-                style={stylesmodal.listcover}
-                key={item.id}
-                onPress={()=>OnHandleService(item.id,item.disease,item.consultationFee)}
+          filteredServices.map((item: any) => (
+            <TouchableOpacity
+              style={stylesmodal.listcover}
+              key={item.id}
+              onPress={() =>
+                OnHandleService(item.id, item.disease, item.consultationFee)
+              }
+            >
+              <Text style={stylesmodal.titlelist}>{item.disease}</Text>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                }}
               >
-                <Text style={stylesmodal.titlelist}>{item.disease}</Text>
+                <Text style={stylesmodal.Description}>
+                  {item.serviceDescription}
+                </Text>
                 <View
-                  style={{ justifyContent: "center", alignItems: "center", width:"100%" }}
+                  style={{
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
-                  <Text style={stylesmodal.Description}>
-                    {item.serviceDescription}
-                  </Text>
-                  <View style={{width:"100%", justifyContent:"center", alignItems:"center"}}>
                   <Text style={stylesmodal.amount}>
                     {item.consultationFee}Tsh
                   </Text>
-                  </View>
                 </View>
-              </TouchableOpacity>
-            );
-          })}
-          {/* <FlatList data={filteredServices} keyExtractor={item =>item.id.tostring()}
-
-          renderItem={({item})=>(
-            <TouchableOpacity
-            style={stylesmodal.listcover}
-            key={item.id}
-            onPress={()=>OnHandleService(item.id,item.disease,item.consultationFee)}
-          >
-            <Text style={stylesmodal.titlelist}>{item.disease}</Text>
-            <View
-              style={{ justifyContent: "center", alignItems: "center", width:"100%" }}
-            >
-              <Text style={stylesmodal.Description}>
-                {item.serviceDescription}
-              </Text>
-              <View style={{width:"100%", justifyContent:"center", alignItems:"center"}}>
-              <Text style={stylesmodal.amount}>
-                {item.consultationFee}Tsh
-              </Text>
               </View>
-            </View>
-          </TouchableOpacity>
-          )}/> */}
+            </TouchableOpacity>
+          ))}
       </ScrollView>
     </GestureHandlerRootView>
   );
 };
+
+
+
 const { height } = Dimensions.get("window");
+
 const stylesmodal = StyleSheet.create({
   container: {
     flex: 1,

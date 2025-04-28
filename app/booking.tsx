@@ -22,7 +22,12 @@ const { height, width } = Dimensions.get("window");
 const Booking = () => {
   const [TsSlot, setTsSlot] = useState<[] | any>([]);
   const [DsSlot, setDsSlot] = useState<[] | any>([]);
-  const [modalstatus, setmodalstatus] = useState<boolean>(true)
+  const [selectedService, setSelectedService] = useState<{
+    id: number;
+    servicename: string;
+    serviceprice: string;
+  } | null>(null);
+  const [modalstatus, setmodalstatus] = useState<boolean>(true);
   const router = useRouter();
 
   const handleRespond = async () => {
@@ -58,7 +63,15 @@ const Booking = () => {
           </View>
         </View>
         <View style={stylesbooking.bookingcontainer}>
-          <View style={stylesbooking.bookingforcontainer}></View>
+          <View style={stylesbooking.bookingforcontainer}>
+            {selectedService && (
+              <View style={{ marginTop: 24 }}>
+                <Text>You picked:</Text>
+                <Text>{selectedService.servicename}</Text>
+                <Text>{selectedService.serviceprice} Tsh</Text>
+              </View>
+            )}
+          </View>
           <View style={stylesbooking.bookingpage}>
             <View style={stylesbooking.bookingpagedate}>
               <Icon name="calendar" size={20} style={{ color: "#f0f0f0" }} />
@@ -131,8 +144,15 @@ const Booking = () => {
             </View>
           </View>
         </View>
-        <Modal visible={modalstatus} animationType="slide" onRequestClose={()=>setmodalstatus(false)}>
-          <Servicelistcomp/>
+        <Modal
+          visible={modalstatus}
+          animationType="slide"
+          onRequestClose={() => setmodalstatus(false)}
+        >
+          <Servicelistcomp
+            setModal={setmodalstatus}
+            onSelect={setSelectedService}
+          />
         </Modal>
       </SafeAreaView>
     </GestureHandlerRootView>
@@ -171,15 +191,14 @@ const stylesbooking = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 1,
-},
-shadowOpacity: 0.18,
-shadowRadius: 1.00,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
 
-elevation: 1,
-
+    elevation: 1,
   },
   bookingcontainer: {
     flexDirection: "column",
