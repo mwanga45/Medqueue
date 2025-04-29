@@ -4,7 +4,6 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { View, Text, Dimensions,StyleSheet , TouchableOpacity} from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
-// get the width of the window every time this page is mount
 const { width } = Dimensions.get("window");
 const Authentication = () => {
     const router = useRouter()
