@@ -7,3 +7,7 @@ const client = axios.create({
     timeout:10_000
 });
 export default client
+
+// const Apihandler = async(methode:string){
+//    const res = await axios.${`methode`}
+// }
