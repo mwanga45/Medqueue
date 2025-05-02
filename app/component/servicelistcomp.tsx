@@ -55,8 +55,7 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
   const filteredServices = service.filter((item: { disease: string }) =>
     item.disease.toLowerCase().includes(search.toLowerCase())
   );
-
-  const OnHandleService = (
+  const OnHandleService = async(
     id: number,
     servicename: string,
     serviceprice: string
@@ -64,8 +63,23 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
     const selection = { id, servicename, serviceprice };
     setselectedService(selection);
     onSelect(selection);
-    Alert.alert(`Confirm the Service ${servicename}`);
-    setModal(false);
+      //  const res =  await axios.get(apiurl+"updateuserslot")
+  //  if (!res.data.success){
+  //    return Alert.alert(res.data.message||"someting went wrong")
+  //  }
+   await Alert.alert(`${servicename}`,"Confirm this service to allow to progress with the process of booking",[
+    {
+      text:"Cancel",
+      style:"cancel",
+      onPress:()=>setModal(true)
+    },
+    {
+      text:"Ok",
+      style:'default',
+      onPress:()=> setModal(false)
+    }
+   ]);
+
   };
 
   useEffect(() => {
