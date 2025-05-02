@@ -17,6 +17,7 @@ import UserRegistration from "./component/userRegistration";
 import { Ionicons } from "@expo/vector-icons";
 import DeviceInfo from "react-native-device-info";
 import axios from "axios";
+import {apiurl} from "./request_response"
 
 export default function Home() {
   const [isVerfy, setisVerfy] = useState<boolean|null>(null);
@@ -27,7 +28,8 @@ export default function Home() {
   const handlecheckUserRegistration = async (deviceId :string) => {
     try {
       const res = await axios.post(
-        "http://192.168.110.251:8800/verifyuser",
+        // "http://192.168.110.251:8800/verifyuser",
+        apiurl+"verifyuser",
         {deviceId}
       );
       const Info = res.data;

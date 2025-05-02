@@ -13,7 +13,7 @@ import {
 import { useRouter } from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
-import request_response from "./request_response"
+import {apiurl} from "./request_response"
 
 type Doctor = {
   fullname: string;       
@@ -31,7 +31,10 @@ export default function DoctorAvailability() {
   const [doctors, setdoctors] = useState<any>([]);
   const handledoctorlist = async () => {
     try{
-      const response = await axios.get("http://192.168.110.251:8800/doctorinfo")
+      const response = await axios.get(
+        // "http://192.168.110.251:8800/doctorinfo"
+        apiurl+"doctorinfo"
+      )
       if (!response.data.success){
         Alert.alert("Something went wrong failed to fetch data")
         console.error("something went wrong",response.data.message)
