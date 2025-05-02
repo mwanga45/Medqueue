@@ -11,4 +11,4 @@
 // // const Apihandler = async(methode:string){
 // //    const res = await axios.${`methode`}
 // 
-export const apiurl  = "http://192.168.110.251:8800/" 
+export const apiurl  = "http://192.168.35.188:8800/" 

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
+import { apiurl } from "../request_response";
 import {
   ScrollView,
   GestureHandlerRootView,
@@ -39,7 +40,7 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
   const handleGetService = async () => {
     try {
       const res = await axios.get(
-        "http://192.168.110.251:8800/serviceAvailable"
+        apiurl+"serviceAvailable"
       );
       if (!res.data.success) {
         Alert.alert(res.data.message);

@@ -8,6 +8,7 @@ import {
   Alert,
   Modal,
 } from "react-native";
+import { apiurl } from "./request_response";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {
@@ -41,7 +42,7 @@ const Booking = () => {
 
   const handleRespond = async () => {
     try {
-      const res = await axios.get("http://192.168.110.251:8800/bookinglogic");
+      const res = await axios.get(apiurl+"bookinglogic");
       if (!res.data.success) {
         Alert.alert(res.data.message || "Something went wrong");
       }
@@ -53,7 +54,7 @@ const Booking = () => {
     }
   };
   const handlebookingsubmit = async () =>{
-    const res = await axios.post("http://192.168.110.251:8800/")
+    const res = await axios.post(apiurl+"")
   }
   useEffect(() => {
     handleRespond();

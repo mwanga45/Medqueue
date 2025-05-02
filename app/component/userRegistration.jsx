@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 // import  getDeviceId  from "../utils/deviceId";
 import axios from "axios";
 import DeviceInfo from "react-native-device-info";
+import { apiurl } from "../request_response";
 const { height } = Dimensions.get("window");
 
 const UserRegistration = () => {
@@ -95,7 +96,7 @@ const UserRegistration = () => {
         return;
       }
   
-      const response = await axios.post("http://192.168.110.251:8800/register", {
+      const response = await axios.post(apiurl+"register", {
         firstname,
         secondname,
         secretekey,
