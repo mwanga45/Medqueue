@@ -37,8 +37,10 @@ const Booking = () => {
   const [modalstatus, setmodalstatus] = useState<boolean>(true);
   const [bookingdata, setbookingdata] = useState({
     servicerequested: "",
-    fromdate: "",
+    Fromdate: "",
+    Todate: "",
     appointmenttime: "",
+    deviceId:""
   });
   const router = useRouter();
   const handleRespond = async () => {
@@ -55,7 +57,15 @@ const Booking = () => {
     }
   };
   const handlebookingsubmit = async () => {
-    const res = await axios.post(apiurl + "bookingrequest");
+    setbookingdata({
+      servicerequested:selectedService?.servicename ?? "",
+      Fromdate:selectedDate?.from ?? "",
+      Todate:selectedDate?.to ?? "",
+      appointmenttime:selectedTime,
+      deviceId:deviceId
+    })
+    const res = await axios.post(apiurl + "bookingrequest",bookingdata);
+    
   };
   useEffect(() => {
     handleRespond();
