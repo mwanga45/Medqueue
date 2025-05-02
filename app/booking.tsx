@@ -64,8 +64,18 @@ const Booking = () => {
       appointmenttime:selectedTime,
       deviceId:deviceId
     })
-    const res = await axios.post(apiurl + "bookingrequest",bookingdata);
-    
+    try{
+
+      const res = await axios.post(apiurl + "bookingrequest",bookingdata);
+      if (!res.data.success){
+        Alert.alert(res.data.message ||"Something went wrong")
+        return
+      }
+      Alert.alert("Successfully placing  a booking")
+    }catch(err){
+      Alert.alert("Server Error ")
+      console.error(err)
+    }
   };
   useEffect(() => {
     handleRespond();
@@ -181,7 +191,7 @@ const Booking = () => {
                 </Text>
               </View>
               <View>
-                <TouchableOpacity style={stylesbooking.bookngbtn}>
+                <TouchableOpacity style={stylesbooking.bookngbtn} onPress={handlebookingsubmit}>
                   <Text
                     style={{ color: "#f0f0f0", fontSize: 18, fontWeight: 600 }}
                   >
