@@ -18,16 +18,17 @@ import {
 import axios from "axios";
 import { useRouter } from "expo-router";
 import Servicelistcomp from "./component/servicelistcomp";
-import DeviceInfo from "react-native-device-info";
+import { handlegetdeviceId } from "./request_response";
 const { height, width } = Dimensions.get("window");
 const Booking = () => {
+  const [deviceId, setdeviceId] = useState("");
   const [TsSlot, setTsSlot] = useState<[] | any>([]);
   const [DsSlot, setDsSlot] = useState<[] | any>([]);
-  const [selectedTime, setselectedTime] = useState<any>("")
-  const [selectedDate , setselectedDate] = useState<any>({
-    from:"",
-    to:""
-  })
+  const [selectedTime, setselectedTime] = useState<any>("");
+  const [selectedDate, setselectedDate] = useState<any>({
+    from: "",
+    to: "",
+  });
   const [selectedService, setSelectedService] = useState<{
     id: number;
     servicename: string;
@@ -35,14 +36,14 @@ const Booking = () => {
   } | null>(null);
   const [modalstatus, setmodalstatus] = useState<boolean>(true);
   const [bookingdata, setbookingdata] = useState({
-    servicerequested:"",
-    fromdate:"",
-    appointmenttime:""
-  })
+    servicerequested: "",
+    fromdate: "",
+    appointmenttime: "",
+  });
   const router = useRouter();
   const handleRespond = async () => {
     try {
-      const res = await axios.get(apiurl+"bookinglogic");
+      const res = await axios.get(apiurl + "bookinglogic");
       if (!res.data.success) {
         Alert.alert(res.data.message || "Something went wrong");
       }
@@ -53,12 +54,15 @@ const Booking = () => {
       console.error(err);
     }
   };
-  const handlebookingsubmit = async () =>{
-    const res = await axios.post(apiurl+"bookingrequest")
-
-  }
+  const handlebookingsubmit = async () => {
+    const res = await axios.post(apiurl + "bookingrequest");
+  };
   useEffect(() => {
     handleRespond();
+    const initilize = async () => {
+      await handlegetdeviceId(apiurl, deviceId, setdeviceId);
+    };
+    initilize();
   }, []);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -71,7 +75,10 @@ const Booking = () => {
             <Icon name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
           <View style={stylesbooking.profileview}>
-            <TouchableOpacity style={stylesbooking.imageprofile} onPress={()=> setmodalstatus(true)}>
+            <TouchableOpacity
+              style={stylesbooking.imageprofile}
+              onPress={() => setmodalstatus(true)}
+            >
               <Icon name="toolbox" size={30} color="white" />
             </TouchableOpacity>
           </View>
@@ -80,16 +87,26 @@ const Booking = () => {
           <View style={stylesbooking.bookingforcontainer}>
             {selectedService && (
               <View style={stylesbooking.listofbooking}>
-                <Text style={{color:"black", fontSize:22, fontWeight:"600"}}>You picked:</Text>
-                <Text style={stylesbooking. textdiscription1}>{selectedService.servicename}</Text>
-                <Text style={stylesbooking. textdiscription1}>Time: {selectedTime}</Text>
-                <Text style={stylesbooking. textdiscription1}>From: {selectedDate.from} To: {selectedDate.to}</Text>
-              </View>  
+                <Text
+                  style={{ color: "black", fontSize: 22, fontWeight: "600" }}
+                >
+                  You picked:
+                </Text>
+                <Text style={stylesbooking.textdiscription1}>
+                  {selectedService.servicename}
+                </Text>
+                <Text style={stylesbooking.textdiscription1}>
+                  Time: {selectedTime}
+                </Text>
+                <Text style={stylesbooking.textdiscription1}>
+                  From: {selectedDate.from} To: {selectedDate.to}
+                </Text>
+              </View>
             )}
           </View>
           <View style={stylesbooking.bookingpage}>
             <View style={stylesbooking.bookingpagedate}>
-              <Icon name="calendar" size={20} style={{ color: "#f0f0f0" }}/>
+              <Icon name="calendar" size={20} style={{ color: "#f0f0f0" }} />
               <Text style={stylesbooking.textdiscription}>
                 Select Date for the booking
               </Text>
@@ -101,7 +118,9 @@ const Booking = () => {
                     <TouchableOpacity
                       key={index}
                       style={stylesbooking.dateslote}
-                      onPress={()=> setselectedDate({from:dayform,to:dayto})}
+                      onPress={() =>
+                        setselectedDate({ from: dayform, to: dayto })
+                      }
                     >
                       <Text style={stylesbooking.dateslotecontent}>
                         {dayform} → {dayto}
@@ -124,7 +143,10 @@ const Booking = () => {
               >
                 {TsSlot.map((slot: any, index: number) => {
                   return (
-                    <TouchableOpacity key={index} onPress={()=>setselectedTime(slot.time)}>
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => setselectedTime(slot.time)}
+                    >
                       <View style={[stylesbooking.slot]}>
                         <Text
                           style={{
@@ -227,19 +249,17 @@ const stylesbooking = StyleSheet.create({
     columnGap: 3,
     height: "10%",
   },
-  btnModalopen:{
-    width:50,
-    height:50,
-    backgroundColor:"black"
-
+  btnModalopen: {
+    width: 50,
+    height: 50,
+    backgroundColor: "black",
   },
   listofbooking: {
     width: "100%",
     height: height,
     padding: 20,
-    backgroundColor:"rgba(0,0,0,0.2)",
-    borderRadius:20,
-
+    backgroundColor: "rgba(0,0,0,0.2)",
+    borderRadius: 20,
   },
   bookingpage: {
     backgroundColor: "#f4f4f4",

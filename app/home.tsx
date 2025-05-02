@@ -28,7 +28,6 @@ export default function Home() {
   const handlecheckUserRegistration = async (deviceId :string) => {
     try {
       const res = await axios.post(
-        // "http://192.168.110.251:8800/verifyuser",
         apiurl+"verifyuser",
         {deviceId}
       );
