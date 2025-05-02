@@ -18,6 +18,7 @@ import {
 import axios from "axios";
 import { useRouter } from "expo-router";
 import Servicelistcomp from "./component/servicelistcomp";
+import DeviceInfo from "react-native-device-info";
 const { height, width } = Dimensions.get("window");
 const Booking = () => {
   const [TsSlot, setTsSlot] = useState<[] | any>([]);
