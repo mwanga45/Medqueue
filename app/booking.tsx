@@ -40,7 +40,6 @@ const Booking = () => {
     appointmenttime:""
   })
   const router = useRouter();
-
   const handleRespond = async () => {
     try {
       const res = await axios.get(apiurl+"bookinglogic");
@@ -55,7 +54,8 @@ const Booking = () => {
     }
   };
   const handlebookingsubmit = async () =>{
-    const res = await axios.post(apiurl+"")
+    const res = await axios.post(apiurl+"bookingrequest")
+
   }
   useEffect(() => {
     handleRespond();
