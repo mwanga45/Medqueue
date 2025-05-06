@@ -14,6 +14,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import {
   ScrollView,
   GestureHandlerRootView,
+  TextInput,
 } from "react-native-gesture-handler";
 import axios from "axios";
 import { useRouter } from "expo-router";
@@ -22,6 +23,8 @@ import { handlegetdeviceId } from "./request_response";
 const { height, width } = Dimensions.get("window");
 const Booking = () => {
   const [deviceId, setdeviceId] = useState("");
+  const [SecreteKey, setSecreteKey] = useState("");
+  const [secreteModal, setsecretemodal] = useState<boolean>(true);
   const [TsSlot, setTsSlot] = useState<[] | any>([]);
   const [DsSlot, setDsSlot] = useState<[] | any>([]);
   const [selectedTime, setselectedTime] = useState<any>("");
@@ -40,7 +43,8 @@ const Booking = () => {
     Fromdate: "",
     Todate: "",
     appointmenttime: "",
-    deviceId:""
+    deviceId: "",
+    secretekey: "",
   });
   const router = useRouter();
   const handleRespond = async () => {
@@ -58,23 +62,23 @@ const Booking = () => {
   };
   const handlebookingsubmit = async () => {
     setbookingdata({
-      servicerequested:selectedService?.servicename ?? "",
-      Fromdate:selectedDate?.from ?? "",
-      Todate:selectedDate?.to ?? "",
-      appointmenttime:selectedTime,
-      deviceId:deviceId
-    })
-    try{
-
-      const res = await axios.post(apiurl + "bookingrequest",bookingdata);
-      if (!res.data.success){
-        Alert.alert(res.data.message ||"Something went wrong")
-        return
+      servicerequested: selectedService?.servicename ?? "",
+      Fromdate: selectedDate?.from ?? "",
+      Todate: selectedDate?.to ?? "",
+      appointmenttime: selectedTime,
+      deviceId: deviceId,
+      secretekey: SecreteKey,
+    });
+    try {
+      const res = await axios.post(apiurl + "bookingrequest", bookingdata);
+      if (!res.data.success) {
+        Alert.alert(res.data.message || "Something went wrong");
+        return;
       }
-      Alert.alert("Successfully placing  a booking")
-    }catch(err){
-      Alert.alert("Server Error ")
-      console.error(err)
+      Alert.alert("Successfully placing  a booking");
+    } catch (err) {
+      Alert.alert("Server Error ");
+      console.error(err);
     }
   };
   useEffect(() => {
@@ -191,7 +195,10 @@ const Booking = () => {
                 </Text>
               </View>
               <View>
-                <TouchableOpacity style={stylesbooking.bookngbtn} onPress={handlebookingsubmit}>
+                <TouchableOpacity
+                  style={stylesbooking.bookngbtn}
+                  onPress={handlebookingsubmit}
+                >
                   <Text
                     style={{ color: "#f0f0f0", fontSize: 18, fontWeight: 600 }}
                   >
@@ -211,6 +218,15 @@ const Booking = () => {
             setModal={setmodalstatus}
             onSelect={setSelectedService}
           />
+        </Modal>
+        <Modal
+          visible={secreteModal}
+          animationType="slide"
+          onRequestClose={() => setmodalstatus(!secreteModal)}
+          transparent
+        
+        >
+          <TextInput value="Secretekey"/>
         </Modal>
       </SafeAreaView>
     </GestureHandlerRootView>
