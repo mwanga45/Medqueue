@@ -61,7 +61,7 @@ const Booking = () => {
     }
   };
   const handlebookingsubmit = async () => {
-    setmodalstatus(true)
+    setmodalstatus(true);
     setbookingdata({
       servicerequested: selectedService?.servicename ?? "",
       Fromdate: selectedDate?.from ?? "",
@@ -226,9 +226,7 @@ const Booking = () => {
           onRequestClose={() => setmodalstatus(false)}
         >
           <View style={stylesbooking.secretestyles}>
-            <Text
-              style={{ color: "white", fontSize: 20, fontWeight:"800" }}
-            >
+            <Text style={{ color: "white", fontSize: 20, fontWeight: "800" }}>
               Please Enter Secrete Key
             </Text>
             <View style={stylesbooking.secretInputcontainer}>
@@ -412,16 +410,13 @@ const stylesbooking = StyleSheet.create({
     elevation: 5,
   },
   secretestyles: {
-    flex:1,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     height: height,
     width: width,
-    backgroundColor:"rgb(0, 103, 171)",
-    rowGap:20
-    
-
-  
+    backgroundColor: "rgb(0, 103, 171)",
+    rowGap: 20,
   },
   secretInputcontainer: {
     width: "100%",
@@ -432,13 +427,12 @@ const stylesbooking = StyleSheet.create({
   styleInput: {
     width: "80%",
     height: 45,
-    borderWidth:1,
-    borderRadius:20,
-    borderColor:"blue",
-    paddingHorizontal:20,
-    backgroundColor:"grey",
-    color:"white"
-  
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "blue",
+    paddingHorizontal: 20,
+    backgroundColor: "grey",
+    color: "white",
   },
 });
 export default Booking;
