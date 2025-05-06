@@ -24,7 +24,7 @@ const { height, width } = Dimensions.get("window");
 const Booking = () => {
   const [deviceId, setdeviceId] = useState("");
   const [SecreteKey, setSecreteKey] = useState("");
-  const [secreteModal, setsecretemodal] = useState<boolean>(true);
+  const [secreteModal, setsecretemodal] = useState<boolean>(false);
   const [TsSlot, setTsSlot] = useState<[] | any>([]);
   const [DsSlot, setDsSlot] = useState<[] | any>([]);
   const [selectedTime, setselectedTime] = useState<any>("");
@@ -37,7 +37,7 @@ const Booking = () => {
     servicename: string;
     serviceprice: string;
   } | null>(null);
-  const [modalstatus, setmodalstatus] = useState<boolean>(true);
+  const [modalstatus, setmodalstatus] = useState<boolean>(false);
   const [bookingdata, setbookingdata] = useState({
     servicerequested: "",
     Fromdate: "",
@@ -61,6 +61,7 @@ const Booking = () => {
     }
   };
   const handlebookingsubmit = async () => {
+    setmodalstatus(true)
     setbookingdata({
       servicerequested: selectedService?.servicename ?? "",
       Fromdate: selectedDate?.from ?? "",
@@ -210,7 +211,7 @@ const Booking = () => {
           </View>
         </View>
         <Modal
-          visible={modalstatus}
+          visible={secreteModal}
           animationType="slide"
           onRequestClose={() => setmodalstatus(false)}
         >
@@ -220,7 +221,7 @@ const Booking = () => {
           />
         </Modal>
         <Modal
-          visible={secreteModal}
+          visible={false}
           animationType="slide"
           onRequestClose={() => setmodalstatus(false)}
         >
