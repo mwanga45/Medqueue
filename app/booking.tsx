@@ -222,11 +222,15 @@ const Booking = () => {
         <Modal
           visible={secreteModal}
           animationType="slide"
-          onRequestClose={() => setmodalstatus(!secreteModal)}
-          transparent
-        
-        >
-          <TextInput value="Secretekey"/>
+          onRequestClose={() => setmodalstatus(false)}
+         
+        > 
+          <View  style={stylesbooking.secretestyles}>
+          <Text style={{color:"grey", fontSize:20, fontWeight:"condensed"}}>Please Complete Booking By  Fill Your secrete key</Text>
+          <View style= {stylesbooking.secretInputcontainer}>
+            <TextInput style={stylesbooking.styleInput} placeholder="fill secrete key"/>
+          </View>
+          </View>
         </Modal>
       </SafeAreaView>
     </GestureHandlerRootView>
@@ -400,5 +404,22 @@ const stylesbooking = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  secretestyles:{
+  justifyContent:"center",
+  alignItems:"center",
+  height: height,
+  width:width
+  },
+  secretInputcontainer:{
+     width:"100%",
+     height:40,
+     justifyContent:"center",
+     alignItems:"center",
+     marginTop:200
+  },
+  styleInput:{
+    width:"80%",
+    height:35
+  }
 });
 export default Booking;
