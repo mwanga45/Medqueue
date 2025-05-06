@@ -223,13 +223,19 @@ const Booking = () => {
           visible={secreteModal}
           animationType="slide"
           onRequestClose={() => setmodalstatus(false)}
-         
-        > 
-          <View  style={stylesbooking.secretestyles}>
-          <Text style={{color:"grey", fontSize:20, fontWeight:"condensed"}}>Please Complete Booking By  Fill Your secrete key</Text>
-          <View style= {stylesbooking.secretInputcontainer}>
-            <TextInput style={stylesbooking.styleInput} placeholder="fill secrete key"/>
-          </View>
+        >
+          <View style={stylesbooking.secretestyles}>
+            <Text
+              style={{ color: "white", fontSize: 20, fontWeight:"800" }}
+            >
+              Please Enter Secrete Key
+            </Text>
+            <View style={stylesbooking.secretInputcontainer}>
+              <TextInput
+                style={stylesbooking.styleInput}
+                placeholder="fill secrete key"
+              />
+            </View>
           </View>
         </Modal>
       </SafeAreaView>
@@ -404,22 +410,34 @@ const stylesbooking = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  secretestyles:{
-  justifyContent:"center",
-  alignItems:"center",
-  height: height,
-  width:width
+  secretestyles: {
+    flex:1,
+    justifyContent: "center",
+    alignItems: "center",
+    height: height,
+    width: width,
+    backgroundColor:"rgb(0, 103, 171)",
+    rowGap:20
+    
+
+  
   },
-  secretInputcontainer:{
-     width:"100%",
-     height:40,
-     justifyContent:"center",
-     alignItems:"center",
-     marginTop:200
+  secretInputcontainer: {
+    width: "100%",
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  styleInput:{
-    width:"80%",
-    height:35
-  }
+  styleInput: {
+    width: "80%",
+    height: 45,
+    borderWidth:1,
+    borderRadius:20,
+    borderColor:"blue",
+    paddingHorizontal:20,
+    backgroundColor:"grey",
+    color:"white"
+  
+  },
 });
 export default Booking;
