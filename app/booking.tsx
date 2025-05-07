@@ -24,7 +24,7 @@ const { height, width } = Dimensions.get("window");
 const Booking = () => {
   const [deviceId, setdeviceId] = useState("");
   const [SecreteKey, setSecreteKey] = useState("");
-  const [secreteModal, setsecretemodal] = useState<boolean>(false);
+  const [secreteModal, setsecretemodal] = useState<boolean>(true);
   const [TsSlot, setTsSlot] = useState<[] | any>([]);
   const [DsSlot, setDsSlot] = useState<[] | any>([]);
   const [selectedTime, setselectedTime] = useState<any>("");
@@ -211,7 +211,7 @@ const Booking = () => {
           </View>
         </View>
         <Modal
-          visible={secreteModal}
+          visible={modalstatus}
           animationType="slide"
           onRequestClose={() => setmodalstatus(false)}
         >
