@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Colors } from '../constants/Colors';
 
+
 export default function Layout() {
   return (
     <>
@@ -44,6 +45,14 @@ export default function Layout() {
            backgroundColor:"rgb(5, 157, 11)"
           }
           
+        }}/>
+        <Stack.Screen name="chatpage" options={{
+          headerShown:false,
+          title:"",
+          headerBackTitle:"",
+          contentStyle:{
+            backgroundColor:"rgb(0,0,4)"
+          }
         }}/>
       </Stack>
     </>

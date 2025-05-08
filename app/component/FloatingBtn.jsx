@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, StyleSheet, Animated, PanResponder } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useRouter } from "expo-router";
 
 const FloatingButton = ({isBoolean}) => {
+  const router =  useRouter()
   const [icon1Anim] = useState(new Animated.Value(0));
   const [icon2Anim] = useState(new Animated.Value(0));
   const [icon3Anim] = useState(new Animated.Value(0));
@@ -65,7 +67,7 @@ const FloatingButton = ({isBoolean}) => {
         styles.subButton,
         { transform: [{ translateY: icon2Anim }, { translateX: icon2Anim }] }
       ]}>
-        <TouchableOpacity>
+        <TouchableOpacity  onPress={()=> router.push('/chatpage')}>
           <Icon name="comments" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>
