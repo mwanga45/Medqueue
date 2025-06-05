@@ -54,6 +54,13 @@ export default function Layout() {
             backgroundColor:"rgb(0,0,4)"
           }
         }}/>
+        <Stack.Screen name="login" options={{
+          headerShown:false,
+          title:"",
+          contentStyle:{
+            backgroundColor:"rgb(0, 29, 19)",
+          }
+        }}/>
       </Stack>
     </>
   );

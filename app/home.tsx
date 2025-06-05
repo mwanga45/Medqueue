@@ -90,7 +90,7 @@ export default function Home() {
               size={30}
               text="Booking-history"
               backgroundColor="#4b5f"
-              onclick={() => {}}
+              onclick={() =>router.push("/login")}
             />
           </View>
         </View>
