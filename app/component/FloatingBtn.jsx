@@ -73,7 +73,7 @@ const FloatingButton = ({isBoolean}) => {
       </Animated.View>
 
       <Animated.View style={[styles.subButton, { transform: [{ translateX: icon3Anim }] }]}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=> router.push('/login')}>
           <Icon name="sign-out" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>
