@@ -1,16 +1,17 @@
-import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Touchable, TouchableOpacity,Modal } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Touchable, TouchableOpacity, Modal } from 'react-native'
 import React, { useState } from 'react'
 import UserRegistration from "./component/userRegistration";
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dimensions } from 'react-native';
+import axios from 'axios';
 const { width, height } = Dimensions.get('window')
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Ionicons } from "@expo/vector-icons";
 import { GestureHandlerRootView, TextInput } from 'react-native-gesture-handler';
 export default function Login() {
     const [isReg, setisReg] = useState<boolean>(true)
-      const [isClosed, setClosed] = useState(true);
-      const [isVerfy, setisVerfy] = useState<boolean|null>(null);
+    const [isClosed, setClosed] = useState(true);
+    const [isVerfy, setisVerfy] = useState<boolean | null>(null);
     return (
 
         <GestureHandlerRootView>
@@ -37,7 +38,7 @@ export default function Login() {
                                 </View>
                                 <View style={styles.textInput}>
                                     <Icon name="lock" size={20} />
-                                    <TextInput style={{ width: "100%", height: 40 }} placeholder='password'></TextInput>
+                                    <TextInput style={{ width: "100%", height: 40 }} placeholder='Secretekey'></TextInput>
                                 </View>
                                 <View style={styles.btnContainer}>
                                     <TouchableOpacity style={styles.btn} >
@@ -66,7 +67,6 @@ export default function Login() {
                             </Modal>
 
                         )
-
                         }
                     </KeyboardAvoidingView>
                 </View>
@@ -150,7 +150,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 50,
-        backgroundColor: "rgb(6, 112, 179)"
+        backgroundColor: "rgb(6, 112, 179)",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+
+        elevation: 6,
     }
 
 
