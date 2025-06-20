@@ -16,6 +16,14 @@ import {
 } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
+interface incomingservice {
+  id: string;
+  servicename: string;
+  consultationFee: any;
+  created_at: string;
+  duration_minutes: number;
+}
+
 interface ServiceListProps {
   setModal: (visible: boolean) => void;
   onSelect: (service: {
@@ -29,19 +37,19 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
   setModal,
   onSelect,
 }) => {
-  const [service, setservice] = useState<[] | any>([]);
-  const [selectedService, setselectedService] = useState<any>({
-    id: 0,
+  const [service, setservice] = useState<incomingservice[]>([]);
+  const [selectedService, setselectedService] = useState<incomingservice>({
+    id: "",
     servicename: "",
-    serviceprice: "",
+    consultationFee: "",
+    created_at: "",
+    duration_minutes: 0,
   });
   const [search, setsearch] = useState<string>("");
 
   const handleGetService = async () => {
     try {
-      const res = await axios.get(
-        apiurl+"serviceAvailable"
-      );
+      const res = await axios.get(apiurl + "booking/getservice");
       if (!res.data.success) {
         Alert.alert(res.data.message);
         return;
@@ -52,34 +60,37 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
       console.error(err);
     }
   };
-  const filteredServices = service.filter((item: { disease: string }) =>
-    item.disease.toLowerCase().includes(search.toLowerCase())
+
+  // — FIXED FILTER:
+  const filteredServices = service.filter(item =>
+    item.servicename.toLowerCase().includes(search.toLowerCase())
   );
-  const OnHandleService = async(
+
+  const OnHandleService = async (
     id: number,
     servicename: string,
     serviceprice: string
   ) => {
     const selection = { id, servicename, serviceprice };
-    setselectedService(selection);
+    setselectedService(selection as any);
     onSelect(selection);
-      //  const res =  await axios.get(apiurl+"updateuserslot")
-  //  if (!res.data.success){
-  //    return Alert.alert(res.data.message||"someting went wrong")
-  //  }
-   await Alert.alert(`${servicename}`,"Confirm this service to allow to progress with the process of booking",[
-    {
-      text:"Cancel",
-      style:"cancel",
-      onPress:()=>setModal(true)
-    },
-    {
-      text:"Ok",
-      style:'default',
-      onPress:()=> setModal(false)
-    }
-   ]);
 
+    await Alert.alert(
+      `${servicename}`,
+      "Confirm this service to allow to progress with the process of booking",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+          onPress: () => setModal(true),
+        },
+        {
+          text: "Ok",
+          style: "default",
+          onPress: () => setModal(false),
+        },
+      ]
+    );
   };
 
   useEffect(() => {
@@ -105,40 +116,40 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
         </View>
       </View>
       <ScrollView style={stylesmodal.listcontainer}>
-        {Array.isArray(filteredServices) &&
-          filteredServices.map((item: any) => (
-            <TouchableOpacity
-              style={stylesmodal.listcover}
-              key={item.id}
-              onPress={() =>
-                OnHandleService(item.id, item.disease, item.consultationFee)
-              }
+        {filteredServices.map(item => (
+          <TouchableOpacity
+            style={stylesmodal.listcover}
+            key={item.id}
+            onPress={() =>
+              OnHandleService(
+                Number(item.id),
+                item.servicename,
+                String(item.consultationFee)
+              )
+            }
+          >
+            <Text style={stylesmodal.titlelist}>{item.servicename}</Text>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+              }}
             >
-              <Text style={stylesmodal.titlelist}>{item.disease}</Text>
               <View
                 style={{
+                  width: "100%",
                   justifyContent: "center",
                   alignItems: "center",
-                  width: "100%",
                 }}
               >
-                <Text style={stylesmodal.Description}>
-                  {item.serviceDescription}
+                <Text style={stylesmodal.amount}>
+                  {item.consultationFee} Tsh
                 </Text>
-                <View
-                  style={{
-                    width: "100%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={stylesmodal.amount}>
-                    {item.consultationFee}Tsh
-                  </Text>
-                </View>
               </View>
-            </TouchableOpacity>
-          ))}
+            </View>
+          </TouchableOpacity>
+        ))}
       </ScrollView>
     </GestureHandlerRootView>
   );
