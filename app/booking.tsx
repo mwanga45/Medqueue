@@ -49,12 +49,13 @@ const Booking = () => {
   const router = useRouter();
   const handleRespond = async () => {
     try {
-      const res = await axios.get(apiurl + "bookinglogic");
+      // const res = await axios.get(apiurl + "bookinglogic");
+      const res = await axios.get(apiurl+"booking/serviceslot")
       if (!res.data.success) {
         Alert.alert(res.data.message || "Something went wrong");
       }
-      setDsSlot(res.data.dslot);
-      setTsSlot(res.data.tslot);
+      setDsSlot(res.data.result);
+      setTsSlot(res.data.result);
     } catch (err: any) {
       Alert.alert("Something went wrong");
       console.error(err);

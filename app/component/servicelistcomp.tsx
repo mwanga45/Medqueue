@@ -45,11 +45,20 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
     created_at: "",
     duration_minutes: 0,
   });
-  const [search, setsearch] = useState<string>("");
+  const [search, setsearch] = useState<string>(""); 
 
+  const handlegetSlotforService = async()=>{
+    try{
+      const req = await axios.post(apiurl +"booking/serviceslot",)
+
+    }catch (err){
+      Alert.alert("something went wrong")
+      console.error(err)
+    }
+  }
   const handleGetService = async () => {
     try {
-      const res = await axios.get(apiurl + "booking/getservice");
+      const res = await axios.get(apiurl +"booking/getservice");
       if (!res.data.success) {
         Alert.alert(res.data.message);
         return;
@@ -61,7 +70,7 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
     }
   };
 
-  // — FIXED FILTER:
+ 
   const filteredServices = service.filter(item =>
     item.servicename.toLowerCase().includes(search.toLowerCase())
   );

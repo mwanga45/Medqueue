@@ -32,11 +32,10 @@ export default function DoctorAvailability() {
   const handledoctorlist = async () => {
     try{
       const response = await axios.get(
-        // "http://192.168.110.251:8800/doctorinfo"
-        apiurl+"doctorinfo"
+        apiurl+"info/docAv"
       )
       if (!response.data.success){
-        Alert.alert("Something went wrong failed to fetch data")
+        Alert.alert(response.data.message)
         console.error("something went wrong",response.data.message)
         return
       }
