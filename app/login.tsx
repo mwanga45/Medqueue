@@ -8,10 +8,20 @@ const { width, height } = Dimensions.get('window')
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Ionicons } from "@expo/vector-icons";
 import { GestureHandlerRootView, TextInput } from 'react-native-gesture-handler';
+import { apiurl } from './request_response';
 export default function Login() {
     const [isReg, setisReg] = useState<boolean>(true)
     const [isClosed, setClosed] = useState(true);
     const [isVerfy, setisVerfy] = useState<boolean | null>(null);
+
+    const handleLogin = async() =>{
+        try{
+            const res = await axios.post(apiurl+"")
+
+        }catch(err){
+            console.error(err)
+        }
+    }
     return (
 
         <GestureHandlerRootView>
@@ -48,7 +58,7 @@ export default function Login() {
                             </View>
                         ) : (
                             <Modal
-                                // visible={isReg === false}
+                                
                                 onRequestClose={() => setisReg(!isReg)}
                                 animationType="slide"
                             >

@@ -19,11 +19,13 @@ export default function Specialgroup() {
   const [secretKey, setSecretKey] = useState('');
   const [age, setAge] = useState('');
   const [phone, setPhone] = useState('');
+  const [description, setDescription] = useState('');
   const [Specreg, setSpecreg] = useState({
     username: "",
     secretKey: "",
     age: "",
-    phone: ""
+    phone: "",
+    description:""
   })
 
   const handleSubmit = async () => {
@@ -32,7 +34,8 @@ export default function Specialgroup() {
         username: username,
         secretKey: secretKey,
         age: age,
-        phone: phone
+        phone: phone,
+        description:description
       })
       const req = await axios.post(apiurl+"user/assignspec",Specreg)
       console.log(Specreg)
@@ -50,7 +53,7 @@ export default function Specialgroup() {
     <GestureHandlerRootView style={styles.root}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.header}>Account Management</Text>
-        
+
 
         <View style={styles.inputGroup}>
           <Icon name="user" size={20} style={styles.icon} />
@@ -96,6 +99,19 @@ export default function Specialgroup() {
             value={phone}
             onChangeText={setPhone}
             placeholderTextColor="#666"
+          />
+        </View>
+             <View style={[styles.inputGroup, styles.textAreaGroup]}>
+          <Icon name="comment" size={20} style={styles.iconTop} />
+          <TextInput
+            style={[styles.input, styles.textArea]}
+            placeholder="Description"
+            value={description}
+            onChangeText={setDescription}
+            placeholderTextColor="#666"
+            multiline
+            numberOfLines={4}
+            textAlignVertical="top"
           />
         </View>
 
@@ -164,5 +180,16 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: '600',
+  },
+   textAreaGroup: {
+    paddingVertical: 10,
+  },
+  textArea: {
+    height: 100,
+  },
+    iconTop: {
+    marginRight: 10,
+    marginTop: 12,
+    color: '#555',
   },
 });
