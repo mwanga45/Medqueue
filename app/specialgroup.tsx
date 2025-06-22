@@ -15,13 +15,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { apiurl } from './request_response';
 
 export default function Specialgroup() {
-  const [username, setUsername] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [secondname, setSecondname] = useState('')
   const [secretKey, setSecretKey] = useState('');
   const [age, setAge] = useState('');
   const [phone, setPhone] = useState('');
   const [description, setDescription] = useState('');
   const [Specreg, setSpecreg] = useState({
-    username: "",
+    firstname: "",
+    secondname:"",
     secretKey: "",
     age: "",
     phone: "",
@@ -31,20 +33,23 @@ export default function Specialgroup() {
   const handleSubmit = async () => {
     try {
       setSpecreg({
-        username: username,
+        firstname: firstname,
+        secondname:secondname,
         secretKey: secretKey,
         age: age,
         phone: phone,
         description:description
       })
       const req = await axios.post(apiurl+"user/assignspec",Specreg)
-      console.log(Specreg)
+      if (req.data.success === false){
+        Alert.alert(req.data.message)
+      }
 
     } catch (err) {
       Alert.alert("Something went wrong")
       console.error(err)
     }
-    console.log({ username, secretKey, age, phone });
+  
   };
   useEffect(() => {
   }, [])
@@ -59,9 +64,19 @@ export default function Specialgroup() {
           <Icon name="user" size={20} style={styles.icon} />
           <TextInput
             style={styles.input}
+            placeholder="Firsname"
+            value={firstname}
+            onChangeText={setFirstname}
+            placeholderTextColor="#666"
+          />
+        </View>
+        <View style={styles.inputGroup}>
+          <Icon name="user" size={20} style={styles.icon} />
+          <TextInput
+            style={styles.input}
             placeholder="Username"
-            value={username}
-            onChangeText={setUsername}
+            value={secondname}
+            onChangeText={setSecondname}
             placeholderTextColor="#666"
           />
         </View>
