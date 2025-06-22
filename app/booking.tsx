@@ -157,16 +157,22 @@ const Booking = () => {
                 Select Date for the booking
               </Text>
               <View style={stylesbooking.dateslotecontainer}>
-                {uniqueDates.map((date, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={stylesbooking.dateslote}
-                    onPress={() => setselectedDate({ from: date, to: date })}
-                  >
-                    <Text style={stylesbooking.dateslotecontent}>{date}</Text>
-                    <Text style={stylesbooking.dateslotecontent}>Date</Text>
-                  </TouchableOpacity>
-                ))}
+                {uniqueDates.map((date, index) => {
+                  
+                  const slotForDate = slotService?.find(slot => slot.date === date);
+                  
+                  const dayShort = slotForDate ? slotForDate.day_of_week.slice(0, 3) : '';
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      style={stylesbooking.dateslote}
+                      onPress={() => setselectedDate({ from: date, to: date })}
+                    >
+                      <Text style={stylesbooking.dateslotecontent}>{date.split("-")[2]}</Text>
+                      <Text style={stylesbooking.dateslotecontent}>{dayShort}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
               </View>
             </View>
             <View style={stylesbooking.bookingpagetime}>

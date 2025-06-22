@@ -16,11 +16,12 @@ import axios from "axios";
 import {apiurl} from "./request_response"
 
 type Doctor = {
-  fullname: string;       
-  specialty: string;     
-  timeinterval: string;   
-  rating: string;
-  isAvailable: boolean;   
+  fullname: string;
+  specialty: string;
+  start_time: string;
+  end_time: string;
+  dayofweek: string;
+  isAvailable: boolean;
 };
 
 
@@ -28,7 +29,8 @@ export default function DoctorAvailability() {
   const [filterstatus, setfilterstatus] = useState<
     "unavailable" | "available" | "all"
   >("all");
-  const [doctors, setdoctors] = useState<any>([]);
+  const [dayFilter, setDayFilter] = useState<string | null>(null);
+  const [doctors, setdoctors] = useState<Doctor[]>([]);
   const handledoctorlist = async () => {
     try{
       const response = await axios.get(
@@ -40,21 +42,25 @@ export default function DoctorAvailability() {
         return
       }
       const docs : Doctor[]= response.data.data
-     setdoctors(docs)
+      setdoctors(docs)
     }
-  catch (err){
-    console.error("something went wrong here ",err)
-    Alert.alert("Network error", "Unable to reach server");
-  }
+    catch (err){
+      console.error("something went wrong here ",err)
+      Alert.alert("Network error", "Unable to reach server");
+    }
   };
   const totalCount = doctors.length;
   const Available = doctors.filter((a: Doctor) => a.isAvailable).length;
   const countNotAvailable = totalCount - Available
 
-  const dispaly  = doctors.filter((d:Doctor)=> {
-    if (filterstatus === 'available') return d.isAvailable
-    if (filterstatus === 'unavailable') return !d.isAvailable
-    return true
+  // Get unique days from doctors
+  const uniqueDays = Array.from(new Set(doctors.map(d => d.dayofweek)));
+
+  const display = doctors.filter((d:Doctor)=> {
+    if (filterstatus === 'available' && !d.isAvailable) return false;
+    if (filterstatus === 'unavailable' && d.isAvailable) return false;
+    if (dayFilter && d.dayofweek !== dayFilter) return false;
+    return true;
   })
 
   useEffect(() => {
@@ -143,16 +149,34 @@ export default function DoctorAvailability() {
         </TouchableOpacity>
       </View>
 
+      {/* Day of week filter */}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{marginBottom: 10, paddingHorizontal: 16}}>
+        <TouchableOpacity
+          style={[styles.filterButton, !dayFilter && styles.activeFilter]}
+          onPress={() => setDayFilter(null)}
+        >
+          <Text style={[styles.filterText, !dayFilter && styles.activeFilterText]}>All Days</Text>
+        </TouchableOpacity>
+        {uniqueDays.map((day, idx) => (
+          <TouchableOpacity
+            key={idx}
+            style={[styles.filterButton, dayFilter === day && styles.activeFilter]}
+            onPress={() => setDayFilter(day)}
+          >
+            <Text style={[styles.filterText, dayFilter === day && styles.activeFilterText]}>{day}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
       <ScrollView style={styles.doctorList}>
-        {dispaly.map((doctor:any, idx:number) => (
+        {display.map((doctor:any, idx:number) => (
           <View key={idx} style={styles.doctorCard}>
             <View style={styles.doctorInfo}>
               <Text style={styles.doctorName}>{doctor.fullname}</Text>
-              <Text style={styles.doctorSpecialty}>{doctor.speciality}</Text>
-              <View style={styles.ratingContainer}>
-                <Icon name="star" size={16} color="#FFC107" />
-                <Text style={styles.ratingText}>{doctor.rating}</Text>
-              </View>
+              <Text style={styles.doctorSpecialty}>{doctor.specialty}</Text>
+              <Text style={styles.doctorDayTime}>
+                {doctor.dayofweek} | {doctor.start_time} - {doctor.end_time}
+              </Text>
             </View>
             <View style={styles.availabilityContainer}>
               <View
@@ -162,7 +186,7 @@ export default function DoctorAvailability() {
                 ]}
               >
                 <Text style={styles.availabilityText}>
-                  {doctor.available ? "Available" : "Unavailable"}
+                  {doctor.isAvailable ? "Available" : "Unavailable"}
                 </Text>
               </View>
             </View>
@@ -234,9 +258,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   filterButton: {
-    paddingVertical: 8,
+    paddingVertical: 4,
     paddingHorizontal: 16,
-    borderRadius: 20,
+    borderRadius: 14,
     marginRight: 8,
     backgroundColor: "#e0e0e0",
   },
@@ -283,6 +307,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#757575",
     marginTop: 4,
+  },
+  doctorDayTime: {
+    fontSize: 13,
+    color: "#888",
+    marginTop: 2,
   },
   ratingContainer: {
     flexDirection: "row",
