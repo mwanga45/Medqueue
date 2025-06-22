@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Platform,
+  Alert,
 } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,21 +20,37 @@ export default function Specialgroup() {
   const [age, setAge] = useState('');
   const [phone, setPhone] = useState('');
   const [Specreg, setSpecreg] = useState({
-    username:"",
-    secretKey:"",
-    
-
+    username: "",
+    secretKey: "",
+    age: "",
+    phone: ""
   })
 
-  const handleSubmit = async() => {
-    const req = await axios.post(apiurl+"user/assignspec")
+  const handleSubmit = async () => {
+    try {
+      setSpecreg({
+        username: username,
+        secretKey: secretKey,
+        age: age,
+        phone: phone
+      })
+      const req = await axios.post(apiurl+"user/assignspec",Specreg)
+      console.log(Specreg)
+
+    } catch (err) {
+      Alert.alert("Something went wrong")
+      console.error(err)
+    }
     console.log({ username, secretKey, age, phone });
   };
+  useEffect(() => {
+  }, [])
 
   return (
     <GestureHandlerRootView style={styles.root}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.header}>Account Management</Text>
+        
 
         <View style={styles.inputGroup}>
           <Icon name="user" size={20} style={styles.icon} />
