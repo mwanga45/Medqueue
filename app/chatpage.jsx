@@ -16,7 +16,7 @@ import axios from 'axios';
 import { apiurl } from "./request_response";
 import {useRouter} from "expo-router"
 
-const API_URL = apiurl+'chatbot'; 
+const API_URL = apiurl+'auth/chatbot'; 
 const ChatPage = () => {
   const router = useRouter()
   const [messages, setMessages] = useState([{

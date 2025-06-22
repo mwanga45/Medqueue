@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Colors } from '../constants/Colors';
 
-
 export default function Layout() {
   return (
     <>
@@ -59,6 +58,13 @@ export default function Layout() {
           title:"",
           contentStyle:{
             backgroundColor:"rgb(0, 29, 19)",
+          }
+        }}/>
+        <Stack.Screen name="specialgroup" options={{
+          headerShown:false,
+          title:"",
+          contentStyle:{
+            backgroundColor:"green"
           }
         }}/>
       </Stack>
