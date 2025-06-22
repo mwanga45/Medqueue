@@ -23,25 +23,25 @@ export default function Specialgroup() {
   const [description, setDescription] = useState('');
   const [Specreg, setSpecreg] = useState({
     firstname: "",
-    secondname:"",
+    secondname: "",
     secretKey: "",
     age: "",
     phone: "",
-    description:""
+    description: ""
   })
 
   const handleSubmit = async () => {
     try {
       setSpecreg({
         firstname: firstname,
-        secondname:secondname,
+        secondname: secondname,
         secretKey: secretKey,
         age: age,
         phone: phone,
-        description:description
+        description: description
       })
-      const req = await axios.post(apiurl+"user/assignspec",Specreg)
-      if (req.data.success === false){
+      const req = await axios.post(apiurl + "user/assignspec", Specreg)
+      if (req.data.success === false) {
         Alert.alert(req.data.message)
       }
 
@@ -49,7 +49,7 @@ export default function Specialgroup() {
       Alert.alert("Something went wrong")
       console.error(err)
     }
-  
+
   };
   useEffect(() => {
   }, [])
@@ -58,8 +58,6 @@ export default function Specialgroup() {
     <GestureHandlerRootView style={styles.root}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.header}>Account Management</Text>
-
-
         <View style={styles.inputGroup}>
           <Icon name="user" size={20} style={styles.icon} />
           <TextInput
@@ -116,7 +114,7 @@ export default function Specialgroup() {
             placeholderTextColor="#666"
           />
         </View>
-             <View style={[styles.inputGroup, styles.textAreaGroup]}>
+        <View style={[styles.inputGroup, styles.textAreaGroup]}>
           <Icon name="comment" size={20} style={styles.iconTop} />
           <TextInput
             style={[styles.input, styles.textArea]}
@@ -196,13 +194,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
   },
-   textAreaGroup: {
+  textAreaGroup: {
     paddingVertical: 10,
   },
   textArea: {
     height: 100,
   },
-    iconTop: {
+  iconTop: {
     marginRight: 10,
     marginTop: 12,
     color: '#555',

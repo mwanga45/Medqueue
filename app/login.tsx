@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Touchable, TouchableOpacity, Modal } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Touchable, TouchableOpacity, Modal, Alert } from 'react-native'
 import React, { useState } from 'react'
 import UserRegistration from "./component/userRegistration";
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dimensions } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 const { width, height } = Dimensions.get('window')
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -11,13 +12,25 @@ import { GestureHandlerRootView, TextInput } from 'react-native-gesture-handler'
 import { apiurl } from './request_response';
 export default function Login() {
     const [isReg, setisReg] = useState<boolean>(true)
+    const [loginreq, setLoginreq] = useState({
+        secretekey:"",
+        email:""
+    })
     const [isClosed, setClosed] = useState(true);
     const [isVerfy, setisVerfy] = useState<boolean | null>(null);
-
+   const handleonchange = (fieldname:string, value:string) =>{
+    setLoginreq((prev)=>({
+        ...prev,[fieldname]:value
+    }))
+   }
     const handleLogin = async() =>{
-        try{
-            const res = await axios.post(apiurl+"")
-
+        try{             
+            const res = await axios.post(apiurl+"auth/login",loginreq)
+            if (res.data.success === false){
+                Alert.alert(res.data.message)
+            }
+            await AsyncStorage.setItem("userToken",res.data.token)
+            console.log(res.data.token)
         }catch(err){
             console.error(err)
         }
@@ -40,18 +53,17 @@ export default function Login() {
                     </View>
                     <KeyboardAvoidingView>
                         {isReg === true ? (
-
                             <View style={styles.form}>
                                 <View style={styles.textInput}>
                                     <Icon name="envelope" size={20} />
-                                    <TextInput style={{ width: "100%", height: 40 }} placeholder='.....@gmail.com'></TextInput>
+                                    <TextInput style={{ width: "100%", height: 40 }} placeholder='.....@gmail.com' value={loginreq.email} onChangeText={(text)=>handleonchange("email",text)}></TextInput>
                                 </View>
                                 <View style={styles.textInput}>
                                     <Icon name="lock" size={20} />
-                                    <TextInput style={{ width: "100%", height: 40 }} placeholder='Secretekey'></TextInput>
+                                    <TextInput style={{ width: "100%", height: 40 }} placeholder='Secretekey' value={loginreq.secretekey} onChangeText={(text)=>handleonchange("secretekey",text)}></TextInput>
                                 </View>
                                 <View style={styles.btnContainer}>
-                                    <TouchableOpacity style={styles.btn} >
+                                    <TouchableOpacity style={styles.btn} onPress={handleLogin} >
                                         <Text>Login</Text>
                                     </TouchableOpacity>
                                 </View>
