@@ -37,14 +37,12 @@ const Booking = () => {
   const [deviceId, setdeviceId] = useState("");
   const [SecreteKey, setSecreteKey] = useState("");
   const [secreteModal, setsecretemodal] = useState<boolean>(true);
-  const [TsSlot, setTsSlot] = useState<[] | any>([]);
-  const [DsSlot, setDsSlot] = useState<[] | any>([]);
+  const [slotService , setslotService] = useState<slotService[]|null>([]);
   const [selectedTime, setselectedTime] = useState<any>("");
   const [selectedDate, setselectedDate] = useState<any>({
     from: "",
     to: "",
   });
-  const [slotService , setslotService] = useState<slotService[]|null>()
   const [selectedService, setSelectedService] = useState<{
     id: number;
     servicename: string;
@@ -60,14 +58,24 @@ const Booking = () => {
     secretekey: "",
   });
   const router = useRouter();
+
+  // Extract unique dates from slotService
+  const uniqueDates = Array.from(
+    new Set(slotService?.map((slot) => slot.date))
+  );
+
+  // Filter slots for selected date
+  const filteredSlots = slotService?.filter(
+    (slot) => slot.date === selectedDate.from
+  );
+
   const handleRespond = async () => {
     try {
       const res = await axios.get(apiurl+"booking/serviceslot")
       if (!res.data.success) {
         Alert.alert(res.data.message || "Something went wrong");
       }
-      setDsSlot(res.data.result);
-      setTsSlot(res.data.result);
+      setslotService(res.data.result);
     } catch (err: any) {
       Alert.alert("Something went wrong");
       console.error(err);
@@ -149,24 +157,16 @@ const Booking = () => {
                 Select Date for the booking
               </Text>
               <View style={stylesbooking.dateslotecontainer}>
-                {DsSlot.map((day: any, index: number) => {
-                  const [dayform] = day.From.split("/");
-                  const [dayto] = day.To.split("/");
-                  return (
-                    <TouchableOpacity
-                      key={index}
-                      style={stylesbooking.dateslote}
-                      onPress={() =>
-                        setselectedDate({ from: dayform, to: dayto })
-                      }
-                    >
-                      <Text style={stylesbooking.dateslotecontent}>
-                        {dayform} → {dayto}
-                      </Text>
-                      <Text style={stylesbooking.dateslotecontent}>Date</Text>
-                    </TouchableOpacity>
-                  );
-                })}
+                {uniqueDates.map((date, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={stylesbooking.dateslote}
+                    onPress={() => setselectedDate({ from: date, to: date })}
+                  >
+                    <Text style={stylesbooking.dateslotecontent}>{date}</Text>
+                    <Text style={stylesbooking.dateslotecontent}>Date</Text>
+                  </TouchableOpacity>
+                ))}
               </View>
             </View>
             <View style={stylesbooking.bookingpagetime}>
@@ -179,11 +179,11 @@ const Booking = () => {
                 persistentScrollbar={true}
                 style={stylesbooking.scrollcontainer}
               >
-                {TsSlot.map((slot: any, index: number) => {
-                  return (
+                {filteredSlots && filteredSlots.length > 0 ? (
+                  filteredSlots.map((slot, index) => (
                     <TouchableOpacity
                       key={index}
-                      onPress={() => setselectedTime(slot.time)}
+                      onPress={() => setselectedTime(slot.start_time + " - " + slot.end_time)}
                     >
                       <View style={[stylesbooking.slot]}>
                         <Text
@@ -193,12 +193,16 @@ const Booking = () => {
                             fontWeight: 600,
                           }}
                         >
-                          {slot.time}
+                          {slot.start_time} - {slot.end_time}
                         </Text>
                       </View>
                     </TouchableOpacity>
-                  );
-                })}
+                  ))
+                ) : (
+                  <Text style={{ color: "grey", fontSize: 16, margin: 10 }}>
+                    No slots available for this date
+                  </Text>
+                )}
               </ScrollView>
             </View>
             <View style={stylesbooking.bookingpageprice}>

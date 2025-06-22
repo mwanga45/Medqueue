@@ -110,8 +110,7 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
       if (!res.data.success){
         Alert.alert(res.data.message)
       }
-      setslotResult(res.data.results)
-    
+    setSlot(res.data.data)
       setrequestedserv({
         servid:"",
         servicename:"",
