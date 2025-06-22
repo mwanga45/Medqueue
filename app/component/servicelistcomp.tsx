@@ -23,6 +23,22 @@ interface incomingservice {
   created_at: string;
   duration_minutes: number;
 }
+interface requestedservice {
+  servid:string;
+  timeInter:number;
+  servicename:string
+}
+interface SlotsInfo {
+  doctorId:number;
+  doctorName:string;
+  servicename:string;
+  start_time:string;
+  end_time:string;
+  day_of_week:string;
+  date:string;
+  duration_minutes:string;
+  fee:number;
+}
 
 interface ServiceListProps {
   setModal: (visible: boolean) => void;
@@ -31,13 +47,23 @@ interface ServiceListProps {
     servicename: string;
     serviceprice: string;
   }) => void;
+  setSlot:any
 }
+
 
 const Servicelistcomp: React.FC<ServiceListProps> = ({
   setModal,
   onSelect,
+  setSlot,
 }) => {
   const [service, setservice] = useState<incomingservice[]>([]);
+  const [requestedserv, setrequestedserv] = useState<requestedservice>({
+    servid:"",
+    servicename:"",
+    timeInter:0
+
+  })
+  const [slotResesult, setslotResult] = useState<SlotsInfo[]>([])
   const [selectedService, setselectedService] = useState<incomingservice>({
     id: "",
     servicename: "",
@@ -46,16 +72,6 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
     duration_minutes: 0,
   });
   const [search, setsearch] = useState<string>(""); 
-
-  const handlegetSlotforService = async()=>{
-    try{
-      const req = await axios.post(apiurl +"booking/serviceslot",)
-
-    }catch (err){
-      Alert.alert("something went wrong")
-      console.error(err)
-    }
-  }
   const handleGetService = async () => {
     try {
       const res = await axios.get(apiurl +"booking/getservice");
@@ -78,11 +94,35 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
   const OnHandleService = async (
     id: number,
     servicename: string,
-    serviceprice: string
+    serviceprice: string,
+    duration:number
   ) => {
     const selection = { id, servicename, serviceprice };
     setselectedService(selection as any);
     onSelect(selection);
+    const payload = {
+      servid: id,
+      servicename,
+      timeInter:duration 
+    } 
+    try{
+      const res = await axios.post(apiurl+"booking/serviceslot",payload)
+      if (!res.data.success){
+        Alert.alert(res.data.message)
+      }
+      setslotResult(res.data.results)
+    
+      setrequestedserv({
+        servid:"",
+        servicename:"",
+        timeInter:0
+      })
+      
+    }catch (err: any) {
+  console.error("serviceslot error:", err.response?.status, err.response?.data);
+  Alert.alert("Internal Server Error", err.response?.data?.message || err.message);
+}
+
 
     await Alert.alert(
       `${servicename}`,
@@ -133,7 +173,8 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
               OnHandleService(
                 Number(item.id),
                 item.servicename,
-                String(item.consultationFee)
+                String(item.consultationFee),
+                item.duration_minutes
               )
             }
           >

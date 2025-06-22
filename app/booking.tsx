@@ -21,6 +21,18 @@ import { useRouter } from "expo-router";
 import Servicelistcomp from "./component/servicelistcomp";
 import { handlegetdeviceId } from "./request_response";
 const { height, width } = Dimensions.get("window");
+interface slotService {
+  doctorId:number;
+  doctorName:string;
+  servicename:string;
+  start_time:string;
+  end_time:string;
+  day_of_week:string;
+  date:string;
+  duration_minutes:string;
+  fee:number;
+
+}
 const Booking = () => {
   const [deviceId, setdeviceId] = useState("");
   const [SecreteKey, setSecreteKey] = useState("");
@@ -32,6 +44,7 @@ const Booking = () => {
     from: "",
     to: "",
   });
+  const [slotService , setslotService] = useState<slotService[]|null>()
   const [selectedService, setSelectedService] = useState<{
     id: number;
     servicename: string;
@@ -49,7 +62,6 @@ const Booking = () => {
   const router = useRouter();
   const handleRespond = async () => {
     try {
-      // const res = await axios.get(apiurl + "bookinglogic");
       const res = await axios.get(apiurl+"booking/serviceslot")
       if (!res.data.success) {
         Alert.alert(res.data.message || "Something went wrong");
@@ -219,6 +231,7 @@ const Booking = () => {
           <Servicelistcomp
             setModal={setmodalstatus}
             onSelect={setSelectedService}
+            setSlot = {setslotService}
           />
         </Modal>
         <Modal
