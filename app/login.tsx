@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Touchable, TouchableOpacity, Modal, Alert } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Touchable, TouchableOpacity, Modal, Alert, Platform } from 'react-native'
 import React, { useState } from 'react'
 import UserRegistration from "./component/userRegistration";
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dimensions } from 'react-native';
-import { MMKV } from 'react-native-mmkv';
 import axios from 'axios';
 
 const { width, height } = Dimensions.get('window')
@@ -24,7 +23,6 @@ export default function Login() {
         ...prev,[fieldname]:value
     }))
    }
-   const  storage = new MMKV
     const handleLogin = async() =>{
         try{             
             const res = await axios.post(apiurl+"auth/login",loginreq)
@@ -33,8 +31,6 @@ export default function Login() {
                 return
             }
             const Token = res.data.token
-             storage.set('userToken',Token) 
-            console.log(res.data.token)
         }catch(err){
             console.error("something went wrong",err)
         }
