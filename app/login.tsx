@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 import UserRegistration from "./component/userRegistration";
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dimensions } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MMKV } from 'react-native-mmkv';
 import axios from 'axios';
+
 const { width, height } = Dimensions.get('window')
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Ionicons } from "@expo/vector-icons";
@@ -23,16 +24,19 @@ export default function Login() {
         ...prev,[fieldname]:value
     }))
    }
+   const  storage = new MMKV
     const handleLogin = async() =>{
         try{             
             const res = await axios.post(apiurl+"auth/login",loginreq)
             if (res.data.success === false){
                 Alert.alert(res.data.message)
+                return
             }
-            await AsyncStorage.setItem("userToken",res.data.token)
+            const Token = res.data.token
+             storage.set('userToken',Token) 
             console.log(res.data.token)
         }catch(err){
-            console.error(err)
+            console.error("something went wrong",err)
         }
     }
     return (

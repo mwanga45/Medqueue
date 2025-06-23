@@ -9,7 +9,6 @@ import {
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-// import  getDeviceId  from "../utils/deviceId";
 import axios from "axios";
 import DeviceInfo from "react-native-device-info";
 import { apiurl } from "../request_response";
@@ -96,7 +95,7 @@ const UserRegistration = () => {
         return;
       }
   
-      const response = await axios.post(apiurl+"register", {
+      const response = await axios.post(apiurl+"auth/register", {
         firstname,
         secondname,
         secretekey,
