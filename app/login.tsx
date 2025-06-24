@@ -4,6 +4,7 @@ import UserRegistration from "./component/userRegistration";
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dimensions } from 'react-native';
 import axios from 'axios';
+import * as SecureStore from 'expo-secure-store';
 
 const { width, height } = Dimensions.get('window')
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -33,6 +34,7 @@ export default function Login() {
             }
             const Token = res.data.token
             console.log(Token)
+            await SecureStore.setItemAsync('userToken', Token);
         }catch(err){
             console.error("something went wrong",err)
         }
