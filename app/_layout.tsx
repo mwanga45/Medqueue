@@ -67,7 +67,14 @@ export default function Layout() {
             backgroundColor:"green"
           }
         }}/>
-        <Stack.Screen name="Push" />
+        {/* <Stack.Screen name="Push" /> */}
+        <Stack.Screen name="medicAssign" options={{
+          headerShown:false,
+          title:"",
+          contentStyle:{
+            backgroundColor:"rgb(0,0,4)"
+          }
+        }} />
       </Stack>
     </>
   );
