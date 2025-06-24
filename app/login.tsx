@@ -24,13 +24,15 @@ export default function Login() {
     }))
    }
     const handleLogin = async() =>{
-        try{             
+        try{   
+            console.log(loginreq)          
             const res = await axios.post(apiurl+"auth/login",loginreq)
             if (res.data.success === false){
                 Alert.alert(res.data.message)
                 return
             }
             const Token = res.data.token
+            console.log(Token)
         }catch(err){
             console.error("something went wrong",err)
         }
