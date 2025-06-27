@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dimensions } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
 
 
 const { width, height } = Dimensions.get('window')
@@ -25,6 +26,7 @@ export default function Login() {
         ...prev,[fieldname]:value
     }))
    }
+   const router = useRouter()
     const handleLogin = async() =>{
         try{   
             console.log(loginreq)          
@@ -34,10 +36,9 @@ export default function Login() {
                 return
             }
             const Token = res.data.token
-            // console.log(Token)
             await AsyncStorage.setItem('userToken', Token);
-            const getToken = await AsyncStorage.getItem('userToken')
-            console.log("here is token ",getToken)
+           router.push('/home')
+
         }catch(err){
             console.error("something went wrong",err)
         }

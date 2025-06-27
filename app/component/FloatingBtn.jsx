@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, TouchableOpacity, StyleSheet, Animated, PanResponder } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FloatingButton = ({isBoolean}) => {
   const router =  useRouter()
@@ -73,7 +74,10 @@ const FloatingButton = ({isBoolean}) => {
       </Animated.View>
 
       <Animated.View style={[styles.subButton, { transform: [{ translateX: icon3Anim }] }]}>
-        <TouchableOpacity onPress={()=> router.push('/login')}>
+        <TouchableOpacity onPress={async ()=> {
+          await AsyncStorage.setItem('userToken', '');
+          router.push('/login');
+        }}>
           <Icon name="sign-out" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>

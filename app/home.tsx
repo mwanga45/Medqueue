@@ -18,10 +18,13 @@ import { Ionicons } from "@expo/vector-icons";
 import DeviceInfo from "react-native-device-info";
 import axios from "axios";
 import {apiurl} from "./request_response"
+import { jwtDecode } from "jwt-decode";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home() {
   const [isVerfy, setisVerfy] = useState<boolean|null>(null);
   const [deviceId , setdeviceId] = useState<string>("")
+  const [username, setUsername] = useState<string>("");
   const router = useRouter();
   const [isClosed, setClosed] = useState(true);
 
@@ -43,19 +46,33 @@ export default function Home() {
       console.error("Something went wrong here", err);
     }
   };
-    useEffect(() => {
-      const initializer =async()=>{
-        try{
-          const deviceId = await DeviceInfo.getUniqueId()
-          setdeviceId(deviceId)
-          await handlecheckUserRegistration(deviceId)
 
-        }catch(err){
-          Alert.alert("Failed to get Unique Id for device")
-          console.error(err)
-        }
+  // Fetch username from token
+  const fetchUsernameFromToken = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      if (token) {
+        const decoded: any = jwtDecode(token);
+        setUsername(decoded.fullname || decoded.Username || "");
       }
-      initializer();
+    } catch (err) {
+      console.error("Failed to decode token", err);
+    }
+  };
+
+  useEffect(() => {
+    const initializer =async()=>{
+      try{
+        const deviceId = await DeviceInfo.getUniqueId()
+        setdeviceId(deviceId)
+        await handlecheckUserRegistration(deviceId)
+        await fetchUsernameFromToken();
+      }catch(err){
+        Alert.alert("Failed to get Unique Id for device")
+        console.error(err)
+      }
+    }
+    initializer();
   }, []);
 
 
@@ -116,7 +133,7 @@ export default function Home() {
         </View>
         <View style={styles.usernameaccount}>
           <Text style={{ color: "grey", fontSize: 18, fontWeight: 800 }}>
-            Hi Issa Mwanga
+            {username ? `Hi ${username}` : "Hi"}
           </Text>
         </View>
       </View>
