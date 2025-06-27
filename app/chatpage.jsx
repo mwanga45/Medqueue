@@ -33,7 +33,6 @@ const ChatPage = () => {
     if (!inputText.trim() || loading) return;
 
     try {
-      // Add user message
       const userMessage = {
         id: Date.now().toString(),
         text: inputText,

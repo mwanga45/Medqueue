@@ -37,7 +37,7 @@ export default function Login() {
             // console.log(Token)
             await AsyncStorage.setItem('userToken', Token);
             const getToken = await AsyncStorage.getItem('userToken')
-            console.log("here is token ")
+            console.log("here is token ",getToken)
         }catch(err){
             console.error("something went wrong",err)
         }
