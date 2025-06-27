@@ -61,20 +61,34 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const initializer =async()=>{
-      try{
-        const token = await AsyncStorage.getItem('userToken')
-        if (token === ''){
-          router.push('/login')
+    const initializer = async () => {
+      try {
+        const token = await AsyncStorage.getItem('userToken');
+        if (!token) {
+          router.push('/login');
+          return;
         }
-        await fetchUsernameFromToken();
-      }catch(err){
-        Alert.alert("Failed to get Unique Id for device")
-        console.error(err)
+        try {
+          const decoded: any = jwtDecode(token);
+          setUsername(decoded.fullname || decoded.Username || "");
+          if (decoded.exp && Date.now() >= decoded.exp * 1000) {
+            await AsyncStorage.setItem('userToken', '');
+            router.push('/login');
+            return;
+          }
+        } catch (decodeErr) {
+          await AsyncStorage.setItem('userToken', '');
+          router.push('/login');
+          return;
+        }
+      } catch (err) {
+        Alert.alert("Failed to get token");
+        console.error(err);
+        router.push('/login');
       }
-    }
+    };
     initializer();
-  }, []);
+  }, [router]);
 
 
   return (

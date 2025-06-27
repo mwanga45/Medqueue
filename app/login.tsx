@@ -29,7 +29,8 @@ export default function Login() {
    const router = useRouter()
     const handleLogin = async() =>{
         try{   
-            console.log(loginreq)          
+            console.log(loginreq)      
+            await  AsyncStorage.setItem('userToken','')    
             const res = await axios.post(apiurl+"auth/login",loginreq)
             if (res.data.success === false){
                 Alert.alert(res.data.message)
