@@ -21,7 +21,7 @@ const ChatPage = () => {
   const router = useRouter()
   const [messages, setMessages] = useState([{
     id: '1',
-    text: 'Hello! Welcome to Coding Money. My name is Sam. What\'s your name?',
+    text: 'Welcome to the medque Assistance Ai for more information and guiding my name is sam',
     isUser: false,
     createdAt: new Date()
   }]);
