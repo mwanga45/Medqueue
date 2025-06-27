@@ -75,6 +75,7 @@ export default function Layout() {
             backgroundColor:"rgb(0,0,4)"
           }
         }} />
+        < Stack.Screen name="PushNotification" />
       </Stack>
     </>
   );

@@ -142,7 +142,7 @@ export default function Home() {
               size={30}
               text="emergency"
               backgroundColor="#f52d56"
-              onclick={() => router.push("/emergency")}
+              onclick={() => router.push("/PushNotification")}
             />
           </View>
         </View>
