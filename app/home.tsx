@@ -21,6 +21,7 @@ import {apiurl} from "./request_response"
 import { jwtDecode } from "jwt-decode";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 export default function Home() {
   const [isVerfy, setisVerfy] = useState<boolean|null>(null);
   const [deviceId , setdeviceId] = useState<string>("")
@@ -47,7 +48,6 @@ export default function Home() {
     }
   };
 
-  // Fetch username from token
   const fetchUsernameFromToken = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
@@ -63,9 +63,10 @@ export default function Home() {
   useEffect(() => {
     const initializer =async()=>{
       try{
-        const deviceId = await DeviceInfo.getUniqueId()
-        setdeviceId(deviceId)
-        await handlecheckUserRegistration(deviceId)
+        const token = await AsyncStorage.getItem('userToken')
+        if (token === ''){
+          router.push('/login')
+        }
         await fetchUsernameFromToken();
       }catch(err){
         Alert.alert("Failed to get Unique Id for device")
