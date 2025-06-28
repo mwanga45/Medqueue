@@ -20,6 +20,7 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 import Servicelistcomp from "./component/servicelistcomp";
 import { handlegetdeviceId } from "./request_response";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const { height, width } = Dimensions.get("window");
 interface slotService {
   doctorId:number;
@@ -36,6 +37,7 @@ interface slotService {
 const Booking = () => {
   const [deviceId, setdeviceId] = useState("");
   const [SecreteKey, setSecreteKey] = useState("");
+  const [username, setUsername] = useState("");
   const [secreteModal, setsecretemodal] = useState<boolean>(true);
   const [slotService , setslotService] = useState<slotService[]|null>([]);
   const [selectedTime, setselectedTime] = useState<any>("");
@@ -49,6 +51,7 @@ const Booking = () => {
     serviceprice: string;
   } | null>(null);
   const [modalstatus, setmodalstatus] = useState<boolean>(false);
+  const [forMe, setForMe] = useState<boolean>(true);
   const [bookingdata, setbookingdata] = useState({
     servicerequested: "",
     Fromdate: "",
@@ -69,19 +72,13 @@ const Booking = () => {
     (slot) => slot.date === selectedDate.from
   );
 
-  const handleRespond = async () => {
-    try {
-      const res = await axios.get(apiurl+"booking/serviceslot")
-      if (!res.data.success) {
-        Alert.alert(res.data.message || "Something went wrong");
-      }
-      setslotService(res.data.result);
-    } catch (err: any) {
-      Alert.alert("Something went wrong");
-      console.error(err);
-    }
-  };
   const handlebookingsubmit = async () => {
+    // If booking for someone else, show secret key modal
+    if (!forMe) {
+      setsecretemodal(true);
+      return;
+    }
+
     setmodalstatus(true);
     setbookingdata({
       servicerequested: selectedService?.servicename ?? "",
@@ -91,20 +88,46 @@ const Booking = () => {
       deviceId: deviceId,
       secretekey: SecreteKey,
     });
+    
+    // Prepare booking payload with forMe state
+    const bookingPayload = {
+      doctorId: selectedService?.id?.toString() ?? "",
+      serviceId: selectedService?.id?.toString() ?? "",
+      start_time: selectedTime.split(" - ")[0] ?? "",
+      end_time: selectedTime.split(" - ")[1] ?? "",
+      date: selectedDate?.from ?? "",
+      dayofweek: "", 
+      forme: forMe,
+      specname: "", 
+      speckey: "", 
+    };
+
     try {
-      const res = await axios.post(apiurl + "bookingrequest", bookingdata);
+      const token = await AsyncStorage.getItem('userToken');
+      
+      const res = await axios.post(
+        apiurl + "booking/bookingreq", 
+        bookingPayload,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      
       if (!res.data.success) {
         Alert.alert(res.data.message || "Something went wrong");
         return;
       }
-      Alert.alert("Successfully placing  a booking");
+      Alert.alert("Successfully placing a booking");
     } catch (err) {
       Alert.alert("Server Error ");
       console.error(err);
     }
   };
   useEffect(() => {
-    handleRespond();
+    // handleRespond();
     const initilize = async () => {
       await handlegetdeviceId(apiurl, deviceId, setdeviceId);
     };
@@ -151,6 +174,42 @@ const Booking = () => {
             )}
           </View>
           <View style={stylesbooking.bookingpage}>
+            {/* ForMe Toggle Button */}
+            <View style={stylesbooking.toggleContainer}>
+              <Text style={stylesbooking.toggleLabel}>
+                Booking for:
+              </Text>
+              <View style={stylesbooking.toggleButtonContainer}>
+                <TouchableOpacity
+                  style={[
+                    stylesbooking.toggleButton,
+                    forMe && stylesbooking.toggleButtonActive
+                  ]}
+                  onPress={() => setForMe(true)}
+                >
+                  <Text style={[
+                    stylesbooking.toggleButtonText,
+                    forMe && stylesbooking.toggleButtonTextActive
+                  ]}>
+                    For Me
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    stylesbooking.toggleButton,
+                    !forMe && stylesbooking.toggleButtonActive
+                  ]}
+                  onPress={() => setForMe(false)}
+                >
+                  <Text style={[
+                    stylesbooking.toggleButtonText,
+                    !forMe && stylesbooking.toggleButtonTextActive
+                  ]}>
+                    For Someone Else
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
             <View style={stylesbooking.bookingpagedate}>
               <Icon name="calendar" size={20} style={{ color: "#f0f0f0" }} />
               <Text style={stylesbooking.textdiscription}>
@@ -245,19 +304,100 @@ const Booking = () => {
           />
         </Modal>
         <Modal
-          visible={false}
+          visible={secreteModal && !forMe}
           animationType="slide"
-          onRequestClose={() => setmodalstatus(false)}
+          onRequestClose={() => setsecretemodal(false)}
         >
           <View style={stylesbooking.secretestyles}>
             <Text style={{ color: "white", fontSize: 20, fontWeight: "800" }}>
-              Please Enter Secrete Key
+              Book for Someone Else
             </Text>
             <View style={stylesbooking.secretInputcontainer}>
               <TextInput
                 style={stylesbooking.styleInput}
-                placeholder="fill secrete key"
+                placeholder="Enter username"
+                placeholderTextColor="#ccc"
+                value={username}
+                onChangeText={setUsername}
               />
+            </View>
+            <View style={stylesbooking.secretInputcontainer}>
+              <TextInput
+                style={stylesbooking.styleInput}
+                placeholder="Enter secret key"
+                placeholderTextColor="#ccc"
+                value={SecreteKey}
+                onChangeText={setSecreteKey}
+                secureTextEntry={true}
+              />
+            </View>
+            <View style={stylesbooking.secretButtonContainer}>
+              <TouchableOpacity
+                style={stylesbooking.secretButton}
+                onPress={async () => {
+                  if (!username.trim()) {
+                    Alert.alert("Please enter a username");
+                    return;
+                  }
+                  if (!SecreteKey.trim()) {
+                    Alert.alert("Please enter a secret key");
+                    return;
+                  }
+                  
+                  setsecretemodal(false);
+                  // Proceed with booking for someone else
+                  const bookingPayload = {
+                    doctorId: selectedService?.id?.toString() ?? "",
+                    serviceId: selectedService?.id?.toString() ?? "",
+                    start_time: selectedTime.split(" - ")[0] ?? "",
+                    end_time: selectedTime.split(" - ")[1] ?? "",
+                    date: selectedDate?.from ?? "",
+                    dayofweek: "", // This will be calculated on backend
+                    forme: forMe,
+                    specname: username.trim(),
+                    speckey: SecreteKey,
+                  };
+
+                  try {
+                    // Get token from AsyncStorage
+                    const token = await AsyncStorage.getItem('userToken');
+                    
+                    const res = await axios.post(
+                      apiurl + "booking/bookingreq", 
+                      bookingPayload,
+                      {
+                        headers: {
+                          'Authorization': `Bearer ${token}`,
+                          'Content-Type': 'application/json'
+                        }
+                      }
+                    );
+                    
+                    if (!res.data.success) {
+                      Alert.alert(res.data.message || "Something went wrong");
+                      return;
+                    }
+                    Alert.alert("Successfully placing a booking");
+                    setSecreteKey("");
+                    setUsername("");
+                  } catch (err) {
+                    Alert.alert("Server Error");
+                    console.error(err);
+                  }
+                }}
+              >
+                <Text style={stylesbooking.secretButtonText}>Submit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[stylesbooking.secretButton, stylesbooking.cancelButton]}
+                onPress={() => {
+                  setsecretemodal(false);
+                  setSecreteKey("");
+                  setUsername("");
+                }}
+              >
+                <Text style={stylesbooking.secretButtonText}>Cancel</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
@@ -441,6 +581,7 @@ const stylesbooking = StyleSheet.create({
     width: width,
     backgroundColor: "rgb(0, 103, 171)",
     rowGap: 20,
+    paddingHorizontal: 20,
   },
   secretInputcontainer: {
     width: "100%",
@@ -457,6 +598,62 @@ const stylesbooking = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: "grey",
     color: "white",
+  },
+  toggleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  toggleLabel: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#333",
+  },
+  toggleButtonContainer: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 25,
+    overflow: "hidden",
+  },
+  toggleButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    backgroundColor: "#f8f9fa",
+  },
+  toggleButtonActive: {
+    backgroundColor: "#007bff",
+  },
+  toggleButtonText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#666",
+  },
+  toggleButtonTextActive: {
+    color: "white",
+  },
+  secretButtonContainer: {
+    flexDirection: "row",
+    columnGap: 10,
+    marginTop: 20,
+  },
+  secretButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    backgroundColor: "#007bff",
+    borderRadius: 25,
+    minWidth: 100,
+    alignItems: "center",
+  },
+  secretButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  cancelButton: {
+    backgroundColor: "#6c757d",
   },
 });
 export default Booking;

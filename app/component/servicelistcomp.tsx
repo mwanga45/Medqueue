@@ -15,6 +15,7 @@ import {
   TextInput,
 } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface incomingservice {
   id: string;
@@ -74,7 +75,12 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
   const [search, setsearch] = useState<string>(""); 
   const handleGetService = async () => {
     try {
-      const res = await axios.get(apiurl +"booking/getservice");
+      const token = await AsyncStorage.getItem('userToken');
+      const res = await axios.get(apiurl +"booking/getservice", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!res.data.success) {
         Alert.alert(res.data.message);
         return;
@@ -106,7 +112,12 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
       timeInter:duration 
     } 
     try{
-      const res = await axios.post(apiurl+"booking/serviceslot",payload)
+      const token = await AsyncStorage.getItem('userToken');
+      const res = await axios.post(apiurl+"booking/serviceslot", payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!res.data.success){
         Alert.alert(res.data.message)
       }
