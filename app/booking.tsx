@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   Modal,
+  useWindowDimensions,
 } from "react-native";
 import { apiurl } from "./request_response";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -21,7 +22,10 @@ import { useRouter } from "expo-router";
 import Servicelistcomp from "./component/servicelistcomp";
 import { handlegetdeviceId } from "./request_response";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const { height, width } = Dimensions.get("window");
+
+// Get initial dimensions
+const { height: initialHeight, width: initialWidth } = Dimensions.get("window");
+
 interface slotService {
   doctorId:number;
   doctorName:string;
@@ -34,7 +38,10 @@ interface slotService {
   fee:number;
 
 }
+
 const Booking = () => {
+  // Use responsive dimensions
+  const { height, width } = useWindowDimensions();
   const [deviceId, setdeviceId] = useState("");
   const [SecreteKey, setSecreteKey] = useState("");
   const [username, setUsername] = useState("");
@@ -50,6 +57,7 @@ const Booking = () => {
     servicename: string;
     serviceprice: string;
   } | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<slotService | null>(null);
   const [modalstatus, setmodalstatus] = useState<boolean>(false);
   const [forMe, setForMe] = useState<boolean>(true);
   const [bookingdata, setbookingdata] = useState({
@@ -62,6 +70,15 @@ const Booking = () => {
   });
   const router = useRouter();
 
+  // Calculate responsive values
+  const responsiveHeight = height || initialHeight;
+  const responsiveWidth = width || initialWidth;
+  
+  // Responsive scaling factors - adjusted to ensure minimum visibility
+  const scaleFactor = Math.min(responsiveWidth / 375, responsiveHeight / 812); // Base on iPhone X dimensions
+  const scaledFontSize = (size: number) => Math.max(size * scaleFactor, size * 0.9); // Increased minimum from 0.8 to 0.9
+  const scaledDimension = (dim: number) => Math.max(dim * scaleFactor, dim * 0.8); // Added minimum scaling
+
   // Extract unique dates from slotService
   const uniqueDates = Array.from(
     new Set(slotService?.map((slot) => slot.date))
@@ -72,10 +89,33 @@ const Booking = () => {
     (slot) => slot.date === selectedDate.from
   );
 
+  // Function to get day of week from date string
+  const getDayOfWeek = (dateString: string): string => {
+    const date = new Date(dateString);
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return days[date.getDay()];
+  };
+
   const handlebookingsubmit = async () => {
     // If booking for someone else, show secret key modal
     if (!forMe) {
       setsecretemodal(true);
+      return;
+    }
+
+    // Validate that we have all required data
+    if (!selectedSlot) {
+      Alert.alert("Please select a time slot first");
+      return;
+    }
+
+    if (!selectedTime) {
+      Alert.alert("Please select a time slot");
+      return;
+    }
+
+    if (!selectedDate.from) {
+      Alert.alert("Please select a date");
       return;
     }
 
@@ -91,12 +131,12 @@ const Booking = () => {
     
     // Prepare booking payload with forMe state
     const bookingPayload = {
-      doctorId: selectedService?.id?.toString() ?? "",
+      doctorId: selectedSlot?.doctorId?.toString() ?? "",
       serviceId: selectedService?.id?.toString() ?? "",
       start_time: selectedTime.split(" - ")[0] ?? "",
       end_time: selectedTime.split(" - ")[1] ?? "",
       date: selectedDate?.from ?? "",
-      dayofweek: "", 
+      dayofweek: getDayOfWeek(selectedDate?.from ?? ""), 
       forme: forMe,
       specname: "", 
       speckey: "", 
@@ -116,6 +156,7 @@ const Booking = () => {
         }
       );
       
+      console.log(bookingPayload)
       if (!res.data.success) {
         Alert.alert(res.data.message || "Something went wrong");
         return;
@@ -126,170 +167,286 @@ const Booking = () => {
       console.error(err);
     }
   };
-  useEffect(() => {
-    // handleRespond();
-    const initilize = async () => {
-      await handlegetdeviceId(apiurl, deviceId, setdeviceId);
-    };
-    initilize();
-  }, []);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaView style={stylesbooking.container}>
-        <View style={stylesbooking.userprofile}>
+      <SafeAreaView style={[stylesbooking.container, { 
+        height: responsiveHeight,
+        rowGap: responsiveHeight * 0.214,
+        paddingHorizontal: scaledDimension(12)
+      }]}>
+        <View style={[stylesbooking.userprofile, { 
+          height: responsiveHeight * 0.08,
+          borderRadius: scaledDimension(23)
+        }]}>
           <TouchableOpacity
             onPress={() => router.back()}
-            style={stylesbooking.backButton}
+            style={[stylesbooking.backButton, { padding: scaledDimension(8) }]}
           >
-            <Icon name="arrow-left" size={24} color="white" />
+            <Icon name="arrow-left" size={scaledDimension(24)} color="white" />
           </TouchableOpacity>
-          <View style={stylesbooking.profileview}>
+          <View style={[stylesbooking.profileview, { padding: scaledDimension(8) }]}>
             <TouchableOpacity
-              style={stylesbooking.imageprofile}
+              style={[stylesbooking.imageprofile, { 
+                width: scaledDimension(60),
+                height: scaledDimension(60),
+                borderRadius: scaledDimension(60)
+              }]}
               onPress={() => setmodalstatus(true)}
             >
-              <Icon name="toolbox" size={30} color="white" />
+              <Icon name="toolbox" size={scaledDimension(30)} color="white" />
             </TouchableOpacity>
           </View>
         </View>
-        <View style={stylesbooking.bookingcontainer}>
-          <View style={stylesbooking.bookingforcontainer}>
+        <View style={[stylesbooking.bookingcontainer, { 
+          height: responsiveHeight * 0.7,
+          width: responsiveWidth * 0.96,
+          rowGap: "5%"
+        }]}>
+          <View style={[stylesbooking.bookingforcontainer, { 
+            height: "10%",
+            columnGap: scaledDimension(3)
+          }]}>
             {selectedService && (
-              <View style={stylesbooking.listofbooking}>
+              <View style={[stylesbooking.listofbooking, { 
+                width: "100%",
+                height: responsiveHeight,
+                padding: scaledDimension(20),
+                borderRadius: scaledDimension(20)
+              }]}>
                 <Text
-                  style={{ color: "black", fontSize: 22, fontWeight: "600" }}
+                  style={{ 
+                    color: "black", 
+                    fontSize: scaledFontSize(22), 
+                    fontWeight: "600" 
+                  }}
                 >
                   You picked:
                 </Text>
-                <Text style={stylesbooking.textdiscription1}>
+                <Text style={[stylesbooking.textdiscription1, { 
+                  fontSize: scaledFontSize(18),
+                  fontWeight: "500"
+                }]}>
                   {selectedService.servicename}
                 </Text>
-                <Text style={stylesbooking.textdiscription1}>
+                <Text style={[stylesbooking.textdiscription1, { 
+                  fontSize: scaledFontSize(18),
+                  fontWeight: "500"
+                }]}>
                   Time: {selectedTime}
                 </Text>
-                <Text style={stylesbooking.textdiscription1}>
+                <Text style={[stylesbooking.textdiscription1, { 
+                  fontSize: scaledFontSize(18),
+                  fontWeight: "500"
+                }]}>
                   From: {selectedDate.from} To: {selectedDate.to}
                 </Text>
               </View>
             )}
           </View>
-          <View style={stylesbooking.bookingpage}>
-            {/* ForMe Toggle Button */}
-            <View style={stylesbooking.toggleContainer}>
-              <Text style={stylesbooking.toggleLabel}>
-                Booking for:
-              </Text>
-              <View style={stylesbooking.toggleButtonContainer}>
-                <TouchableOpacity
-                  style={[
-                    stylesbooking.toggleButton,
-                    forMe && stylesbooking.toggleButtonActive
-                  ]}
-                  onPress={() => setForMe(true)}
-                >
-                  <Text style={[
-                    stylesbooking.toggleButtonText,
-                    forMe && stylesbooking.toggleButtonTextActive
-                  ]}>
-                    For Me
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    stylesbooking.toggleButton,
-                    !forMe && stylesbooking.toggleButtonActive
-                  ]}
-                  onPress={() => setForMe(false)}
-                >
-                  <Text style={[
-                    stylesbooking.toggleButtonText,
-                    !forMe && stylesbooking.toggleButtonTextActive
-                  ]}>
-                    For Someone Else
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={stylesbooking.bookingpagedate}>
-              <Icon name="calendar" size={20} style={{ color: "#f0f0f0" }} />
-              <Text style={stylesbooking.textdiscription}>
-                Select Date for the booking
-              </Text>
-              <View style={stylesbooking.dateslotecontainer}>
-                {uniqueDates.map((date, index) => {
-                  
-                  const slotForDate = slotService?.find(slot => slot.date === date);
-                  
-                  const dayShort = slotForDate ? slotForDate.day_of_week.slice(0, 3) : '';
-                  return (
-                    <TouchableOpacity
-                      key={index}
-                      style={stylesbooking.dateslote}
-                      onPress={() => setselectedDate({ from: date, to: date })}
-                    >
-                      <Text style={stylesbooking.dateslotecontent}>{date.split("-")[2]}</Text>
-                      <Text style={stylesbooking.dateslotecontent}>{dayShort}</Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-            </View>
-            <View style={stylesbooking.bookingpagetime}>
-              <Text style={stylesbooking.textdiscription}>
-                Select a time slot
-              </Text>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={true}
-                persistentScrollbar={true}
-                style={stylesbooking.scrollcontainer}
-              >
-                {filteredSlots && filteredSlots.length > 0 ? (
-                  filteredSlots.map((slot, index) => (
-                    <TouchableOpacity
-                      key={index}
-                      onPress={() => setselectedTime(slot.start_time + " - " + slot.end_time)}
-                    >
-                      <View style={[stylesbooking.slot]}>
-                        <Text
-                          style={{
-                            color: "grey",
-                            fontSize: 18,
-                            fontWeight: 600,
-                          }}
-                        >
-                          {slot.start_time} - {slot.end_time}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  ))
-                ) : (
-                  <Text style={{ color: "grey", fontSize: 16, margin: 10 }}>
-                    No slots available for this date
-                  </Text>
-                )}
-              </ScrollView>
-            </View>
-            <View style={stylesbooking.bookingpageprice}>
-              <View>
-                <Text style={stylesbooking.textdiscription}>Service Price</Text>
-                <Text style={{ color: "", fontSize: 28, fontWeight: "800" }}>
-                  {selectedService?.serviceprice}.Sh
+          <View style={[stylesbooking.bookingpage, { 
+            height: "80%",
+            borderRadius: scaledDimension(40),
+            paddingVertical: scaledDimension(20),
+            paddingHorizontal: scaledDimension(10),
+            top: scaledDimension(35),
+            rowGap: scaledDimension(30)
+          }]}>
+            <ScrollView 
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ paddingBottom: scaledDimension(20) }}
+            >
+              {/* ForMe Toggle Button */}
+              <View style={[stylesbooking.toggleContainer, { 
+                marginBottom: scaledDimension(20),
+                paddingHorizontal: scaledDimension(10)
+              }]}>
+                <Text style={[stylesbooking.toggleLabel, { 
+                  fontSize: scaledFontSize(16),
+                  fontWeight: "600"
+                }]}>
+                  Booking for:
                 </Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  style={stylesbooking.bookngbtn}
-                  onPress={handlebookingsubmit}
-                >
-                  <Text
-                    style={{ color: "#f0f0f0", fontSize: 18, fontWeight: 600 }}
+                <View style={[stylesbooking.toggleButtonContainer, { 
+                  borderRadius: scaledDimension(25)
+                }]}>
+                  <TouchableOpacity
+                    style={[
+                      stylesbooking.toggleButton,
+                      { 
+                        paddingVertical: scaledDimension(8),
+                        paddingHorizontal: scaledDimension(16)
+                      },
+                      forMe && stylesbooking.toggleButtonActive
+                    ]}
+                    onPress={() => setForMe(true)}
                   >
-                    Book Now
-                  </Text>
-                </TouchableOpacity>
+                    <Text style={[
+                      stylesbooking.toggleButtonText,
+                      { fontSize: scaledFontSize(14) },
+                      forMe && stylesbooking.toggleButtonTextActive
+                    ]}>
+                      For Me
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      stylesbooking.toggleButton,
+                      { 
+                        paddingVertical: scaledDimension(8),
+                        paddingHorizontal: scaledDimension(16)
+                      },
+                      !forMe && stylesbooking.toggleButtonActive
+                    ]}
+                    onPress={() => setForMe(false)}
+                  >
+                    <Text style={[
+                      stylesbooking.toggleButtonText,
+                      { fontSize: scaledFontSize(14) },
+                      !forMe && stylesbooking.toggleButtonTextActive
+                    ]}>
+                      For Someone Else
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
+              <View style={[stylesbooking.bookingpagedate, { 
+                rowGap: scaledDimension(10)
+              }]}>
+                <Icon name="calendar" size={scaledDimension(20)} style={{ color: "#f0f0f0" }} />
+                <Text style={[stylesbooking.textdiscription, { 
+                  fontSize: scaledFontSize(18),
+                  fontWeight: "500"
+                }]}>
+                  Select Date for the booking
+                </Text>
+                <View style={[stylesbooking.dateslotecontainer, { 
+                  columnGap: responsiveWidth * 0.043
+                }]}>
+                  {uniqueDates.map((date, index) => {
+                    
+                    const slotForDate = slotService?.find(slot => slot.date === date);
+                    
+                    const dayShort = slotForDate ? slotForDate.day_of_week.slice(0, 3) : '';
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        style={[stylesbooking.dateslote, { 
+                          width: scaledDimension(80),
+                          height: scaledDimension(100),
+                          borderRadius: scaledDimension(10)
+                        }]}
+                        onPress={() => setselectedDate({ from: date, to: date })}
+                      >
+                        <Text style={[stylesbooking.dateslotecontent, { 
+                          fontSize: scaledFontSize(20),
+                          fontWeight: "800"
+                        }]}>{date.split("-")[2]}</Text>
+                        <Text style={[stylesbooking.dateslotecontent, { 
+                          fontSize: scaledFontSize(20),
+                          fontWeight: "800"
+                        }]}>{dayShort}</Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              </View>
+              <View style={stylesbooking.bookingpagetime}>
+                <Text style={[stylesbooking.textdiscription, { 
+                  fontSize: scaledFontSize(18),
+                  fontWeight: "500"
+                }]}>
+                  Select a time slot
+                </Text>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={true}
+                  persistentScrollbar={true}
+                  style={[stylesbooking.scrollcontainer, { 
+                    height: scaledDimension(80)
+                  }]}
+                >
+                  {filteredSlots && filteredSlots.length > 0 ? (
+                    filteredSlots.map((slot, index) => (
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => {
+                          setselectedTime(slot.start_time + " - " + slot.end_time);
+                          setSelectedSlot(slot);
+                        }}
+                      >
+                        <View style={[stylesbooking.slot, { 
+                          width: scaledDimension(150),
+                          height: scaledDimension(50),
+                          borderRadius: scaledDimension(13),
+                          marginTop: scaledDimension(10),
+                          marginHorizontal: scaledDimension(23)
+                        }]}>
+                          <Text
+                            style={{
+                              color: "grey",
+                              fontSize: scaledFontSize(18),
+                              fontWeight: 600,
+                            }}
+                          >
+                            {slot.start_time} - {slot.end_time}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    ))
+                  ) : (
+                    <Text style={{ 
+                      color: "grey", 
+                      fontSize: scaledFontSize(16), 
+                      margin: scaledDimension(10) 
+                    }}>
+                      No slots available for this date
+                    </Text>
+                  )}
+                </ScrollView>
+              </View>
+              <View style={[stylesbooking.bookingpageprice, { 
+                columnGap: responsiveWidth * 0.17,
+                marginTop: scaledDimension(20),
+                paddingHorizontal: scaledDimension(10)
+              }]}>
+                <View style={{ flex: 1 }}>
+                  <Text style={[stylesbooking.textdiscription, { 
+                    fontSize: scaledFontSize(18),
+                    fontWeight: "500",
+                    marginBottom: scaledDimension(5)
+                  }]}>Service Price</Text>
+                  <Text style={{ 
+                    color: "#333", 
+                    fontSize: scaledFontSize(28), 
+                    fontWeight: "800" 
+                  }}>
+                    {selectedService?.serviceprice}.Sh
+                  </Text>
+                </View>
+                <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                  <TouchableOpacity
+                    style={[stylesbooking.bookngbtn, { 
+                      height: scaledDimension(55),
+                      width: scaledDimension(180),
+                      borderRadius: scaledDimension(25),
+                      backgroundColor: "#007bff"
+                    }]}
+                    onPress={handlebookingsubmit}
+                  >
+                    <Text
+                      style={{ 
+                        color: "#ffffff", 
+                        fontSize: scaledFontSize(18), 
+                        fontWeight: "600" 
+                      }}
+                    >
+                      Book Now
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </ScrollView>
           </View>
         </View>
         <Modal
@@ -308,22 +465,45 @@ const Booking = () => {
           animationType="slide"
           onRequestClose={() => setsecretemodal(false)}
         >
-          <View style={stylesbooking.secretestyles}>
-            <Text style={{ color: "white", fontSize: 20, fontWeight: "800" }}>
+          <View style={[stylesbooking.secretestyles, { 
+            height: responsiveHeight,
+            width: responsiveWidth,
+            rowGap: scaledDimension(20),
+            paddingHorizontal: scaledDimension(20)
+          }]}>
+            <Text style={{ 
+              color: "white", 
+              fontSize: scaledFontSize(20), 
+              fontWeight: "800" 
+            }}>
               Book for Someone Else
             </Text>
-            <View style={stylesbooking.secretInputcontainer}>
+            <View style={[stylesbooking.secretInputcontainer, { 
+              height: scaledDimension(50)
+            }]}>
               <TextInput
-                style={stylesbooking.styleInput}
+                style={[stylesbooking.styleInput, { 
+                  width: "80%",
+                  height: scaledDimension(45),
+                  borderRadius: scaledDimension(20),
+                  paddingHorizontal: scaledDimension(20)
+                }]}
                 placeholder="Enter username"
                 placeholderTextColor="#ccc"
                 value={username}
                 onChangeText={setUsername}
               />
             </View>
-            <View style={stylesbooking.secretInputcontainer}>
+            <View style={[stylesbooking.secretInputcontainer, { 
+              height: scaledDimension(50)
+            }]}>
               <TextInput
-                style={stylesbooking.styleInput}
+                style={[stylesbooking.styleInput, { 
+                  width: "80%",
+                  height: scaledDimension(45),
+                  borderRadius: scaledDimension(20),
+                  paddingHorizontal: scaledDimension(20)
+                }]}
                 placeholder="Enter secret key"
                 placeholderTextColor="#ccc"
                 value={SecreteKey}
@@ -331,9 +511,17 @@ const Booking = () => {
                 secureTextEntry={true}
               />
             </View>
-            <View style={stylesbooking.secretButtonContainer}>
+            <View style={[stylesbooking.secretButtonContainer, { 
+              columnGap: scaledDimension(10),
+              marginTop: scaledDimension(20)
+            }]}>
               <TouchableOpacity
-                style={stylesbooking.secretButton}
+                style={[stylesbooking.secretButton, { 
+                  paddingVertical: scaledDimension(12),
+                  paddingHorizontal: scaledDimension(24),
+                  borderRadius: scaledDimension(25),
+                  minWidth: scaledDimension(100)
+                }]}
                 onPress={async () => {
                   if (!username.trim()) {
                     Alert.alert("Please enter a username");
@@ -345,14 +533,14 @@ const Booking = () => {
                   }
                   
                   setsecretemodal(false);
-                  // Proceed with booking for someone else
+                 
                   const bookingPayload = {
-                    doctorId: selectedService?.id?.toString() ?? "",
+                    doctorId: selectedSlot?.doctorId?.toString() ?? "",
                     serviceId: selectedService?.id?.toString() ?? "",
                     start_time: selectedTime.split(" - ")[0] ?? "",
                     end_time: selectedTime.split(" - ")[1] ?? "",
                     date: selectedDate?.from ?? "",
-                    dayofweek: "", // This will be calculated on backend
+                    dayofweek: getDayOfWeek(selectedDate?.from ?? ""),
                     forme: forMe,
                     specname: username.trim(),
                     speckey: SecreteKey,
@@ -386,17 +574,28 @@ const Booking = () => {
                   }
                 }}
               >
-                <Text style={stylesbooking.secretButtonText}>Submit</Text>
+                <Text style={[stylesbooking.secretButtonText, { 
+                  fontSize: scaledFontSize(16),
+                  fontWeight: "600"
+                }]}>Submit</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[stylesbooking.secretButton, stylesbooking.cancelButton]}
+                style={[stylesbooking.secretButton, stylesbooking.cancelButton, { 
+                  paddingVertical: scaledDimension(12),
+                  paddingHorizontal: scaledDimension(24),
+                  borderRadius: scaledDimension(25),
+                  minWidth: scaledDimension(100)
+                }]}
                 onPress={() => {
                   setsecretemodal(false);
                   setSecreteKey("");
                   setUsername("");
                 }}
               >
-                <Text style={stylesbooking.secretButtonText}>Cancel</Text>
+                <Text style={[stylesbooking.secretButtonText, { 
+                  fontSize: scaledFontSize(16),
+                  fontWeight: "600"
+                }]}>Cancel</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -410,8 +609,6 @@ const stylesbooking = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 12,
     flexDirection: "column",
-    height: height,
-    rowGap: height * 0.214,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -419,7 +616,6 @@ const stylesbooking = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.1)",
-    height: height * 0.08,
     width: "100%",
     flexDirection: "row",
     borderRadius: 23,
@@ -448,8 +644,6 @@ const stylesbooking = StyleSheet.create({
   },
   bookingcontainer: {
     flexDirection: "column",
-    height: height * 0.7,
-    width: width * 0.96,
     rowGap: "5%",
     padding: 0,
   },
@@ -465,19 +659,18 @@ const stylesbooking = StyleSheet.create({
   },
   listofbooking: {
     width: "100%",
-    height: height,
     padding: 20,
     backgroundColor: "rgba(0,0,0,0.2)",
     borderRadius: 20,
   },
   bookingpage: {
     backgroundColor: "#f4f4f4",
-    height: "75%",
+    height: "80%",
     borderRadius: 40,
     paddingVertical: 20,
     paddingHorizontal: 10,
     top: 35,
-    rowGap: 40,
+    rowGap: 30,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -496,7 +689,6 @@ const stylesbooking = StyleSheet.create({
   bookingpageprice: {
     flexDirection: "row",
     width: "100%",
-    columnGap: width * 0.17,
   },
   textdiscription: {
     color: "grey",
@@ -526,7 +718,6 @@ const stylesbooking = StyleSheet.create({
   },
   dateslotecontainer: {
     flexDirection: "row",
-    columnGap: width * 0.043,
   },
   slot: {
     width: 150,
@@ -577,8 +768,6 @@ const stylesbooking = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    height: height,
-    width: width,
     backgroundColor: "rgb(0, 103, 171)",
     rowGap: 20,
     paddingHorizontal: 20,
