@@ -17,23 +17,24 @@ import UserRegistration from "./component/userRegistration";
 import { Ionicons } from "@expo/vector-icons";
 import DeviceInfo from "react-native-device-info";
 import axios from "axios";
-import {apiurl} from "./request_response"
+import { apiurl } from "./request_response"
 import { jwtDecode } from "jwt-decode";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import MapView, { Marker } from "react-native-maps";
 
 
 export default function Home() {
-  const [isVerfy, setisVerfy] = useState<boolean|null>(null);
-  const [deviceId , setdeviceId] = useState<string>("")
+  const [isVerfy, setisVerfy] = useState<boolean | null>(null);
+  const [deviceId, setdeviceId] = useState<string>("")
   const [username, setUsername] = useState<string>("");
   const router = useRouter();
   const [isClosed, setClosed] = useState(true);
 
-  const handlecheckUserRegistration = async (deviceId :string) => {
+  const handlecheckUserRegistration = async (deviceId: string) => {
     try {
       const res = await axios.post(
-        apiurl+"verifyuser",
-        {deviceId}
+        apiurl + "verifyuser",
+        { deviceId }
       );
       const Info = res.data;
       if (!res.data.success) {
@@ -122,7 +123,7 @@ export default function Home() {
               size={30}
               text="Medicine-prescription"
               backgroundColor="#4b5f"
-              onclick={() =>router.push("/medicAssign")}
+              onclick={() => router.push("/medicAssign")}
             />
           </View>
         </View>
@@ -141,7 +142,7 @@ export default function Home() {
               name="history"
               size={30}
               text="Booking-history"
-              backgroundColor="#64556"
+              backgroundColor="#645"
               onclick={() => router.push("/PushNotification")}
             />
           </View>
@@ -169,6 +170,34 @@ export default function Home() {
           <Ionicons name="medical" size={100} color="white" />
           <UserRegistration />
         </View>
+      </Modal>
+      <Modal
+        visible={isVerfy === true}
+        onRequestClose={() => setClosed(false)}
+        animationType="slide">
+        <SafeAreaView
+          style={{
+            backgroundColor: "#05992C",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            paddingHorizontal: 0.5,
+          }}>
+          <MapView
+            style={{ width: "100%", height: "100%" }}
+            initialRegion={{
+              latitude: -6.76714,
+              longitude: 39.2706,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005
+            }}>
+            <Marker
+              coordinate={{ latitude: -6.76714, longitude: 39.2706 }}
+              title="Hospital Location"
+              description="This is the location of the hospital."/>
+
+          </MapView>
+        </SafeAreaView>
       </Modal>
     </SafeAreaView>
   );
