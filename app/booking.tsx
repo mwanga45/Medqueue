@@ -199,12 +199,12 @@ const Booking = () => {
           </View>
         </View>
         <View style={[stylesbooking.bookingcontainer, { 
-          height: responsiveHeight * 0.7,
+          height: responsiveHeight * 0.9,
           width: responsiveWidth * 0.96,
           rowGap: "5%"
         }]}>
           <View style={[stylesbooking.bookingforcontainer, { 
-            height: "10%",
+            height: "15%",
             columnGap: scaledDimension(3)
           }]}>
             {selectedService && (
@@ -227,7 +227,7 @@ const Booking = () => {
                   fontSize: scaledFontSize(18),
                   fontWeight: "500"
                 }]}>
-                  {selectedService.servicename}
+                  servicename:{selectedService.servicename}
                 </Text>
                 <Text style={[stylesbooking.textdiscription1, { 
                   fontSize: scaledFontSize(18),
@@ -256,7 +256,7 @@ const Booking = () => {
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ paddingBottom: scaledDimension(20) }}
             >
-              {/* ForMe Toggle Button */}
+              
               <View style={[stylesbooking.toggleContainer, { 
                 marginBottom: scaledDimension(20),
                 paddingHorizontal: scaledDimension(10)

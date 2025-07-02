@@ -118,9 +118,9 @@ export default function Home() {
           </View>
           <View>
             <QuickAction
-              name="history"
+              name="prescription"
               size={30}
-              text="Booking-history"
+              text="Medicine-prescription"
               backgroundColor="#4b5f"
               onclick={() =>router.push("/medicAssign")}
             />
@@ -138,10 +138,10 @@ export default function Home() {
           </View>
           <View>
             <QuickAction
-              name="ambulance"
+              name="history"
               size={30}
-              text="emergency"
-              backgroundColor="#f52d56"
+              text="Booking-history"
+              backgroundColor="#64556"
               onclick={() => router.push("/PushNotification")}
             />
           </View>
