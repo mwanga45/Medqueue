@@ -15,11 +15,14 @@ export default function Profile() {
             <Icon name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
           <Text style={{ fontSize: 19, fontWeight: 500, textAlign: 'center', marginTop: 20, color: "white" }}>Your Profile</Text>
-          <TouchableOpacity>
+          <TouchableOpacity >
             <Icon name="bell" size={24} color="white" />
           </TouchableOpacity>
         </View>
-        
+        <View style > 
+
+        </View>
+
       </View>
       <View>
 
@@ -51,6 +54,12 @@ const styles = StyleSheet.create({
     alignContent: "center",
     borderWidth: 2,
     borderColor: "white"
+
+  },
+  ImageProfile :{
+    justifyContent:"center",
+    alignContent:"center"
+
 
   }
 
