@@ -65,7 +65,7 @@ export default function Layout() {
           title:"",
           contentStyle:{
             backgroundColor:"green",
-            padding:0
+            
           }
         }}/>
         {/* <Stack.Screen name="Push" /> */}
