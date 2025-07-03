@@ -59,7 +59,7 @@ const FloatingButton = ({isBoolean}) => {
       ]}
     >
       <Animated.View style={[styles.subButton, { transform: [{ translateY: icon1Anim }] }]}>
-        <TouchableOpacity onPress={()=>router.push("/specialgroup")}>
+        <TouchableOpacity onPress={()=>router.push("/profile")}>
           <Icon name="user" size={25} color="#fff" />
         </TouchableOpacity>
       </Animated.View>

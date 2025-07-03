@@ -60,11 +60,12 @@ export default function Layout() {
             backgroundColor:"rgb(0, 29, 19)",
           }
         }}/>
-        <Stack.Screen name="specialgroup" options={{
+        <Stack.Screen name="Profile" options={{
           headerShown:false,
           title:"",
           contentStyle:{
-            backgroundColor:"green"
+            backgroundColor:"green",
+            padding:0
           }
         }}/>
         {/* <Stack.Screen name="Push" /> */}

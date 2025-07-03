@@ -12,11 +12,11 @@ import {
 } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { apiurl } from './request_response';
+import { apiurl } from '../request_response';
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Specialgroup() {
+export default function Specreg() {
   const [firstname, setFirstname] = useState('');
   const [secondname, setSecondname] = useState('')
   const [secretKey, setSecretKey] = useState('');
