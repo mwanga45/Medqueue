@@ -73,11 +73,11 @@ export default function Profile() {
 }
 const styles = StyleSheet.create({
   upperView: {
+    bottom:21,
     backgroundColor: "black",
     height: height * 0.45,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
-    paddingBottom: 20,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },

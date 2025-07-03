@@ -63,6 +63,7 @@ export default function Layout() {
         <Stack.Screen name="Profile" options={{
           headerShown:false,
           title:"",
+          headerBackTitle:"",
           contentStyle:{
             backgroundColor:"green",
             
@@ -72,6 +73,7 @@ export default function Layout() {
         <Stack.Screen name="medicAssign" options={{
           headerShown:false,
           title:"",
+          headerBackTitle:"",
           contentStyle:{
             backgroundColor:"rgb(0,0,4)"
           }
