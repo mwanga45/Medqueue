@@ -8,6 +8,7 @@ import {
   Dimensions,
   Modal,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 import FloatingBtn from "./component/FloatingBtn";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -29,25 +30,11 @@ export default function Home() {
   const [username, setUsername] = useState<string>("");
   const router = useRouter();
   const [isClosed, setClosed] = useState(true);
+  const [showMap, setShowMap] = useState(false); 
 
-  const handlecheckUserRegistration = async (deviceId: string) => {
-    try {
-      const res = await axios.post(
-        apiurl + "verifyuser",
-        { deviceId }
-      );
-      const Info = res.data;
-      if (!res.data.success) {
-        Alert.alert(res.data.message || "something went wrong ");
-        console.error(res.data.message)
-        return;
-      }
-      setisVerfy(res.data.data.user_exist);
-    } catch (err) {
-      Alert.alert("something went wrong here");
-      console.error("Something went wrong here", err);
-    }
-  };
+  const handleopenMap = () =>{
+    setShowMap(true); 
+  }
 
   const fetchUsernameFromToken = async () => {
     try {
@@ -96,13 +83,17 @@ export default function Home() {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
       <View style={styles.headerContainer}>
+        <View style={{ alignItems: "flex-end", position: "absolute", top: 10, left: 10, width:"100%", justifyContent:"flex-end" }}>
+        <TouchableOpacity style={styles.homemap}  onPress={handleopenMap}>
+          <Ionicons name="earth" size={34} color="white" />
+        </TouchableOpacity>
+        </View>
         <View>
           <Text style={styles.headerText}>MedQueu</Text>
           <Icon name="hospital-symbol" size={100} style={{ color: "silver" }} />
         </View>
       </View>
       <View>
-        {/* <Text style={styles.TextQuick}>{deviceId}</Text> */}
         <Text style={styles.TextQuick}>QuickAction</Text>
       </View>
       <View style={styles.content}>
@@ -172,8 +163,8 @@ export default function Home() {
         </View>
       </Modal>
       <Modal
-        visible={isVerfy === true}
-        onRequestClose={() => setClosed(false)}
+        visible={showMap} 
+        onRequestClose={() => setShowMap(false)} 
         animationType="slide">
         <SafeAreaView
           style={{
@@ -194,8 +185,9 @@ export default function Home() {
             <Marker
               coordinate={{ latitude: -6.76714, longitude: 39.2706 }}
               title="Hospital Location"
-              description="This is the location of the hospital."/>
-
+              description="This is the location of the hospital."
+              onDrag={(e) => JSON.stringify(e.nativeEvent.coordinate)}
+                />
           </MapView>
         </SafeAreaView>
       </Modal>
@@ -239,6 +231,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     paddingTop: 10,
+  },
+  homemap: {
+    position: "absolute",
+    top: 8,
+    left: 10,
+    backgroundColor: "#4CAF50",
+    padding: 10,
+    borderRadius: 50,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
 
   Homepagecover2: {
