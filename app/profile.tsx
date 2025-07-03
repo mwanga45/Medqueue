@@ -1,16 +1,39 @@
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native'
 import React, { useEffect } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
+import { apiurl } from './request_response';
 
 
 const { height, width } = Dimensions.get("window")
 export default function Profile() {
   const [username, setUsername] = React.useState<string>("");
   const [userEmail, setUserEmail] = React.useState<string>("");
+  const handlegetbookinghistory = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const res = await axios.get(apiurl + "user/bookinghistory", {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+      if (res.data.success === false) {
+        Alert.alert(res.data.message);
+        return;
+      }
+      console.log("Booking history:", res.data.history);
+    }catch(err){
+      console.error("Error fetching booking history:", err);
+        Alert.alert("Failed to fetch booking history. Please try again later.");
+  
+      }
+    }
+
 
   useEffect(() => {
     const initilizer = async () => {
@@ -26,6 +49,7 @@ export default function Profile() {
       console.log("Decoded token:", decoded);
     }
     initilizer();
+    handlegetbookinghistory();
   }, [])
   const router = useRouter()
   return (
