@@ -6,16 +6,20 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const { height, width } = Dimensions.get("window")
 export default function Profile() {
-  const  router  = useRouter()
+  const router = useRouter()
   return (
-    <SafeAreaView style={{flex:1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.upperView}>
-        <View style ={styles.viewbar} >
+        <View style={styles.viewbar} >
+          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+            <Icon name="arrow-left" size={24} color="white" />
+          </TouchableOpacity>
           <Text style={{ fontSize: 19, fontWeight: 500, textAlign: 'center', marginTop: 20, color: "white" }}>Your Profile</Text>
-               <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-                    <Icon name="arrow-left" size={24} color="white" />
-                  </TouchableOpacity>
+          <TouchableOpacity>
+            <Icon name="bell" size={24} color="white" />
+          </TouchableOpacity>
         </View>
+        
       </View>
       <View>
 
@@ -29,19 +33,24 @@ const styles = StyleSheet.create({
 
   upperView: {
     backgroundColor: "black",
-    height: height * 0.5,
+    height: height * 0.6,
     borderRadius: 25,
     bottom: 0
 
 
   },
-    backButton: {
+  backButton: {
     padding: 8,
+    justifyContent: "center"
   },
-  viewbar :{
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignItems:"center"
+  viewbar: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 8,
+    paddingVertical: 20,
+    alignContent: "center",
+    borderWidth: 2,
+    borderColor: "white"
 
   }
 
