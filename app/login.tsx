@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Touchable, TouchableOpacity, Modal, Alert, Platform } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import UserRegistration from "./component/userRegistration";
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dimensions } from 'react-native';
@@ -29,13 +29,15 @@ export default function Login() {
    const router = useRouter()
     const handleLogin = async() =>{
         try{   
-            console.log(loginreq)      
-            await  AsyncStorage.setItem('userToken','')    
+         
+            await  AsyncStorage.setItem('userToken','')  
+            await AsyncStorage.setItem('userEmail','')  
             const res = await axios.post(apiurl+"auth/login",loginreq)
             if (res.data.success === false){
                 Alert.alert(res.data.message)
                 return
             }
+            const userEmail = AsyncStorage.setItem('userEmail', loginreq.email);
             const Token = res.data.token
             await AsyncStorage.setItem('userToken', Token);
            router.push('/home')
@@ -44,6 +46,7 @@ export default function Login() {
             console.error("something went wrong",err)
         }
     }
+
     return (
 
         <GestureHandlerRootView>

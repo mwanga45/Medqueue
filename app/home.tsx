@@ -36,7 +36,8 @@ export default function Home() {
     setShowMap(true); 
   }
 
-  const fetchUsernameFromToken = async () => {
+
+  const dfetchUsernameFromToken = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       if (token) {

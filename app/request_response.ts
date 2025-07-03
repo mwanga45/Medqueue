@@ -1,8 +1,8 @@
 import axios from "axios" 
 import { Alert } from "react-native"
 import DeviceInfo from "react-native-device-info"
-// export const apiurl  = "http://192.168.152.123:8801/" 
-export const apiurl  = "http://172.21.151.38:8801/"
+export const apiurl  = "http://192.168.152.123:8801/" 
+// export const apiurl  = "http://172.21.151.38:8801/"
 // export const apiurl  = "http://172.24.23.186:8800/" 
 
 export const handlegetdeviceId = async(apiurl:string,devicestate: any, setdeviceId: any): Promise<string> =>{

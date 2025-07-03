@@ -1,11 +1,32 @@
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { jwtDecode } from 'jwt-decode';
+
 
 const { height, width } = Dimensions.get("window")
 export default function Profile() {
+  const [username, setUsername] = React.useState<string>("");
+  const [userEmail, setUserEmail] = React.useState<string>("");
+
+  useEffect(() => {
+    const initilizer = async () => {
+      const token = await AsyncStorage.getItem('userToken')
+      if (!token) {
+        router.push('/login')
+        return;
+      }
+      const decoded: any = jwtDecode(token);
+      setUsername(decoded.fullname || decoded.Username || "");
+      const email = await AsyncStorage.getItem('userEmail');
+      setUserEmail(email || "");   
+      console.log("Decoded token:", decoded);
+    }
+    initilizer();
+  }, [])
   const router = useRouter()
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
@@ -23,8 +44,8 @@ export default function Profile() {
           <View style={styles.avatarCircle}>
             <Icon name="user" size={60} color="#888" />
           </View>
-          <Text style={styles.userName}>John Doe</Text>
-          <Text style={styles.userEmail}>johndoe@email.com</Text>
+          <Text style={styles.userName}>{username}</Text>
+          <Text style={styles.userEmail}>{userEmail}</Text>
         </View>
       </View>
       <View style={styles.infoSection}>
@@ -35,16 +56,16 @@ export default function Profile() {
       </View>
       <View style={styles.bottomBar}>
         <TouchableOpacity style={styles.barButton}>
-          <Icon name="home" size={28} color="#222" />
-          <Text style={styles.barButtonText}>Home</Text>
+          <Icon name="id-card" size={28} color="#222" />
+          <Text style={styles.barButtonText}>Special register</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.barButton}>
-          <Icon name="edit" size={28} color="#222" />
-          <Text style={styles.barButtonText}>Edit</Text>
+          <Icon name="history" size={28} color="#222" />
+          <Text style={styles.barButtonText}>Booking history</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.barButton}>
-          <Icon name="cog" size={28} color="#222" />
-          <Text style={styles.barButtonText}>Settings</Text>
+          <Icon name="user-edit" size={28} color="#222" />
+          <Text style={styles.barButtonText}>Edit profile</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
