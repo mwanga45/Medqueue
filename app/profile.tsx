@@ -26,7 +26,7 @@ export default function Profile() {
         Alert.alert(res.data.message);
         return;
       }
-      console.log("Booking history:", res.data.history);
+      console.log("Booking history:", res.data.data);
     }catch(err){
       console.error("Error fetching booking history:", err);
         Alert.alert("Failed to fetch booking history. Please try again later.");
@@ -46,7 +46,7 @@ export default function Profile() {
       setUsername(decoded.fullname || decoded.Username || "");
       const email = await AsyncStorage.getItem('userEmail');
       setUserEmail(email || "");   
-      console.log("Decoded token:", decoded);
+      
     }
     initilizer();
     handlegetbookinghistory();
