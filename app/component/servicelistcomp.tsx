@@ -215,6 +215,7 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
   );
 };
 
+
 const { height } = Dimensions.get("window");
 
 const stylesmodal = StyleSheet.create({
