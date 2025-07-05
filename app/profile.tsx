@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -7,13 +7,37 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { apiurl } from './request_response';
+import BookingHistoryModal from './component/BookingHistoryModal';
 
 
 const { height, width } = Dimensions.get("window")
+
+interface BookingHistoryItem {
+  booking_id?: number;
+  id?: number;
+  user_id?: number;
+  service_id?: number;
+  spec_id?: number;
+  dayofweek?: number;
+  day_of_week?: number;
+  starttime?: string;
+  start_time?: string;
+  endtime?: string;
+  end_time?: string;
+  bookingdate?: string;
+  booking_date?: string;
+  status?: string;
+}
+
 export default function Profile() {
   const [username, setUsername] = React.useState<string>("");
   const [userEmail, setUserEmail] = React.useState<string>("");
+  const [bookingHistory, setBookingHistory] = useState<BookingHistoryItem[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const handlegetbookinghistory = async () => {
+    setLoading(true);
     try {
       const token = await AsyncStorage.getItem('userToken');
       const res = await axios.get(apiurl + "user/bookinghistory", {
@@ -26,13 +50,23 @@ export default function Profile() {
         Alert.alert(res.data.message);
         return;
       }
-      console.log("Booking history:", res.data.data);
-    }catch(err){
+      console.log("Booking history response:", res.data);
+      console.log("Booking history data:", res.data.data);
+      console.log("Booking history length:", res.data.data?.length || 0);
+      setBookingHistory(res.data.data || []);
+    } catch(err) {
       console.error("Error fetching booking history:", err);
-        Alert.alert("Failed to fetch booking history. Please try again later.");
-  
-      }
+      Alert.alert("Failed to fetch booking history. Please try again later.");
+    } finally {
+      setLoading(false);
     }
+  }
+
+  const openBookingHistory = async () => {
+    console.log("Opening booking history modal...");
+    setModalVisible(true);
+    await handlegetbookinghistory();
+  };
 
 
   useEffect(() => {
@@ -49,55 +83,66 @@ export default function Profile() {
       
     }
     initilizer();
-    handlegetbookinghistory();
   }, [])
   const router = useRouter()
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
-      <View style={styles.upperView}>
-        <View style={styles.viewbar} >
-          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-            <Icon name="arrow-left" size={24} color="white" />
-          </TouchableOpacity>
-          <Text style={styles.profileTitle}>Your Profile</Text>
-          <TouchableOpacity >
-            <Icon name="bell" size={24} color="white" />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.ImageProfile}>
-          <View style={styles.avatarCircle}>
-            <Icon name="user" size={60} color="#888" />
+    <View style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.upperView}>
+          <View style={styles.viewbar} >
+            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+              <Icon name="arrow-left" size={24} color="white" />
+            </TouchableOpacity>
+            <Text style={styles.profileTitle}>Your Profile</Text>
+            <TouchableOpacity >
+              <Icon name="bell" size={24} color="white" />
+            </TouchableOpacity>
           </View>
-          <Text style={styles.userName}>{username}</Text>
-          <Text style={styles.userEmail}>{userEmail}</Text>
+          <View style={styles.ImageProfile}>
+            <View style={styles.avatarCircle}>
+              <Icon name="user" size={60} color="#888" />
+            </View>
+            <Text style={styles.userName}>{username}</Text>
+            <Text style={styles.userEmail}>{userEmail}</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.infoSection}>
-        <Text style={styles.infoLabel}>Phone</Text>
-        <Text style={styles.infoValue}>+123 456 7890</Text>
-        <Text style={styles.infoLabel}>Address</Text>
-        <Text style={styles.infoValue}>123 Main St, City</Text>
-      </View>
-      <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.barButton}>
-          <Icon name="id-card" size={28} color="#222" />
-          <Text style={styles.barButtonText}>Special register</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.barButton}>
-          <Icon name="history" size={28} color="#222" />
-          <Text style={styles.barButtonText}>Booking history</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.barButton}>
-          <Icon name="user-edit" size={28} color="#222" />
-          <Text style={styles.barButtonText}>Edit profile</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+        <View style={styles.infoSection}>
+          <Text style={styles.infoLabel}>Phone</Text>
+          <Text style={styles.infoValue}>+123 456 7890</Text>
+          <Text style={styles.infoLabel}>Address</Text>
+          <Text style={styles.infoValue}>123 Main St, City</Text>
+        </View>
+        <View style={styles.bottomBar}>
+          <TouchableOpacity style={styles.barButton}>
+            <Icon name="id-card" size={28} color="#222" />
+            <Text style={styles.barButtonText}>Special register</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.barButton} onPress={openBookingHistory}>
+            <Icon name="history" size={28} color="#222" />
+            <Text style={styles.barButtonText}>Booking history</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.barButton}>
+            <Icon name="user-edit" size={28} color="#222" />
+            <Text style={styles.barButtonText}>Edit profile</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+
+      {/* Booking History Modal - Outside SafeAreaView to ensure full screen coverage */}
+      <BookingHistoryModal
+        visible={modalVisible}
+        onClose={() => {
+          console.log("Closing modal");
+          setModalVisible(false);
+        }}
+        bookingHistory={bookingHistory}
+        loading={loading}
+      />
+    </View>
   )
 }
 const styles = StyleSheet.create({
   upperView: {
-    bottom:21,
     backgroundColor: "black",
     height: height * 0.45,
     borderBottomLeftRadius: 25,
@@ -187,6 +232,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 70,
+    zIndex: 1,
   },
   barButton: {
     alignItems: 'center',
