@@ -54,7 +54,7 @@ export default function Profile() {
       console.log("Booking history data:", res.data.data);
       console.log("Booking history length:", res.data.data?.length || 0);
       setBookingHistory(res.data.data || []);
-    } catch(err) {
+    } catch (err) {
       console.error("Error fetching booking history:", err);
       Alert.alert("Failed to fetch booking history. Please try again later.");
     } finally {
@@ -67,7 +67,15 @@ export default function Profile() {
     setModalVisible(true);
     await handlegetbookinghistory();
   };
+  const handlegetPendingbooking = async () => {
+    try {
+      
 
+    } catch (err) {
+      console.log("Internal server Error", err)
+      Alert.alert("Internal severError")
+    }
+  }
 
   useEffect(() => {
     const initilizer = async () => {
@@ -79,8 +87,8 @@ export default function Profile() {
       const decoded: any = jwtDecode(token);
       setUsername(decoded.fullname || decoded.Username || "");
       const email = await AsyncStorage.getItem('userEmail');
-      setUserEmail(email || "");   
-      
+      setUserEmail(email || "");
+
     }
     initilizer();
   }, [])
