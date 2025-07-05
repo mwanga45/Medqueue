@@ -131,9 +131,9 @@ export default function Home() {
           </View>
           <View>
             <QuickAction
-              name="history"
+              name=""
               size={30}
-              text="Booking-history"
+              text="Recommendation"
               backgroundColor="#645"
               onclick={() => router.push("/PushNotification")}
             />

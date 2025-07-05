@@ -16,7 +16,7 @@ import { apiurl } from './request_response';
 export default function Login() {
     const [isReg, setisReg] = useState<boolean>(true)
     const [loginreq, setLoginreq] = useState({
-        secretekey:"",
+        secretKey:"",
         email:""
     })
     const [isClosed, setClosed] = useState(true);
@@ -37,7 +37,7 @@ export default function Login() {
                 Alert.alert(res.data.message)
                 return
             }
-            const userEmail = AsyncStorage.setItem('userEmail', loginreq.email);
+            await AsyncStorage.setItem('userEmail', loginreq.email);
             const Token = res.data.token
             await AsyncStorage.setItem('userToken', Token);
            router.push('/home')
@@ -72,7 +72,7 @@ export default function Login() {
                                 </View>
                                 <View style={styles.textInput}>
                                     <Icon name="lock" size={20} />
-                                    <TextInput style={{ width: "100%", height: 40 }} placeholder='Secretekey' value={loginreq.secretekey} onChangeText={(text)=>handleonchange("secretekey",text)}></TextInput>
+                                    <TextInput style={{ width: "100%", height: 40 }} placeholder='Secret Key' value={loginreq.secretKey} onChangeText={(text)=>handleonchange("secretKey",text)}></TextInput>
                                 </View>
                                 <View style={styles.btnContainer}>
                                     <TouchableOpacity style={styles.btn} onPress={handleLogin} >
