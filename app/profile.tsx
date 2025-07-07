@@ -213,8 +213,7 @@ export default function Profile() {
       const token = await AsyncStorage.getItem('userToken');
       const res = await axios.post(apiurl + "user/recommendation", 
         { 
-          message: recommendationMessage,
-          user_email: userEmail 
+          message: recommendationMessage
         },
         {
           headers: {
