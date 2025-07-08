@@ -188,7 +188,7 @@ export default function Profile() {
               );
               if (res.data.success) {
                 Alert.alert("Success", "Booking cancelled successfully");
-                handlegetPendingbooking(); // Refresh the list
+                handlegetPendingbooking();
               } else {
                 Alert.alert("Error", res.data.message);
               }
