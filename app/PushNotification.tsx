@@ -3,6 +3,7 @@ import { View, Text, Button, Platform, Alert } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import axios from 'axios';
+import { apiurl } from './request_response';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -45,7 +46,7 @@ export default function PushNotification() {
       if (expoPushToken) {
         try {
           // Replace with your backend endpoint
-          await axios.post('http://<YOUR_BACKEND_URL>/api/register-push-token', {
+          await axios.post(apiurl+'user/register-push-token', {
             deviceId: expoPushToken,
           });
           setTokenRegistered(true);
