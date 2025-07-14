@@ -22,6 +22,7 @@ import { apiurl } from "./request_response"
 import { jwtDecode } from "jwt-decode";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MapView, { Marker } from "react-native-maps";
+import App from "./testappnotification";
 
 
 export default function Home() {

@@ -9,7 +9,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lynxprazo.MedqueV3",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -17,6 +21,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.lynxprazo.MedqueV3"
+     
     },
     "web": {
       "bundler": "metro",

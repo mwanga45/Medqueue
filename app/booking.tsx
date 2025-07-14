@@ -22,8 +22,6 @@ import { useRouter } from "expo-router";
 import Servicelistcomp from "./component/servicelistcomp";
 import { handlegetdeviceId } from "./request_response";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// Get initial dimensions
 const { height: initialHeight, width: initialWidth } = Dimensions.get("window");
 
 interface slotService {

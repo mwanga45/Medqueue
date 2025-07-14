@@ -16,6 +16,7 @@ import {
 } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface incomingservice {
   id: string;
@@ -158,27 +159,33 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
 
   return (
     <GestureHandlerRootView style={stylesmodal.container}>
-      <View style={stylesmodal.headingpart}>
-        <Text style={stylesmodal.texttitle}>Service Options for You!</Text>
-      </View>
+      <LinearGradient
+        colors={["#43e97b", "#38f9d7"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={stylesmodal.gradientHeader}
+      >
+        <Text style={stylesmodal.texttitleGradient}>Service Options for You!</Text>
+        <View style={stylesmodal.underlineHighlight} />
+      </LinearGradient>
       <View style={stylesmodal.searchpart}>
         <View style={stylesmodal.textinputcontainer}>
+          <Ionicons name="search" color="#43e97b" size={22} style={{marginLeft: 10}} />
           <TextInput
-            placeholder="search for service"
+            placeholder="Search for a service..."
             style={stylesmodal.input}
             onChangeText={setsearch}
             value={search}
+            placeholderTextColor="#aaa"
           />
-          <TouchableOpacity>
-            <Ionicons name="search" color="grey" size={20} />
-          </TouchableOpacity>
         </View>
       </View>
-      <ScrollView style={stylesmodal.listcontainer}>
+      <ScrollView style={stylesmodal.listcontainer} showsVerticalScrollIndicator={false}>
         {filteredServices.map(item => (
           <TouchableOpacity
             style={stylesmodal.listcover}
             key={item.id}
+            activeOpacity={0.85}
             onPress={() =>
               OnHandleService(
                 Number(item.id),
@@ -188,25 +195,13 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
               )
             }
           >
-            <Text style={stylesmodal.titlelist}>{item.servicename}</Text>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-              }}
-            >
-              <View
-                style={{
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={stylesmodal.amount}>
-                  {item.consultationFee} Tsh
-                </Text>
+            <View style={stylesmodal.cardRow}>
+              <Ionicons name="medkit" size={32} color="#43e97b" style={{marginRight: 12}} />
+              <View style={{flex: 1}}>
+                <Text style={stylesmodal.titlelist}>{item.servicename}</Text>
+                <Text style={stylesmodal.amount}>{item.consultationFee} Tsh</Text>
               </View>
+              <Ionicons name="chevron-forward" size={24} color="#38f9d7" />
             </View>
           </TouchableOpacity>
         ))}
@@ -223,44 +218,48 @@ const stylesmodal = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     paddingVertical: 4,
+    backgroundColor: '#f8fefc',
   },
-  headingpart: {
-    height: height * 0.2,
+  gradientHeader: {
+    height: height * 0.18,
     width: "100%",
-    backgroundColor: "rgb(240, 240, 240)",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 20,
+    borderRadius: 24,
+    marginBottom: 10,
+    shadowColor: '#43e97b',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+    elevation: 6,
   },
+  headingpart: { display: 'none' }, // Hide old header
   searchpart: {
     justifyContent: "center",
     alignItems: "center",
     height: height * 0.08,
     width: "100%",
-    backgroundColor: "rgb(64, 64, 64)",
-    marginTop: height * 0.02,
+    backgroundColor: "#fff",
+    marginTop: height * 0.01,
     borderRadius: 25,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    shadowColor: "#218c4a",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.22,
+    shadowRadius: 12,
+    elevation: 8,
+    marginBottom: 8,
+    borderWidth: 2,
+    borderColor: "#43e97b",
   },
   listcontainer: {
     height: height * 0.67,
     width: "100%",
-    backgroundColor: "#f4f4f4",
-    marginTop: height * 0.02,
+    backgroundColor: "#e6f9ed",
+    marginTop: height * 0.01,
     borderRadius: 25,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
+    shadowColor: "#38f9d7",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
     shadowRadius: 2,
     elevation: 2,
     padding: 10,
@@ -268,51 +267,96 @@ const stylesmodal = StyleSheet.create({
   texttitle: {
     fontSize: 28,
     fontWeight: "800",
-    color: "green",
+    color: "#fff",
+    letterSpacing: 1.2,
+    textShadowColor: 'rgba(0,0,0,0.08)',
+    textShadowOffset: { width: 1, height: 2 },
+    textShadowRadius: 4,
+  },
+  texttitleGradient: {
+    fontSize: 34,
+    fontWeight: "900",
+    letterSpacing: 1.5,
+    textAlign: 'center',
+    paddingHorizontal: 10,
+    textShadowColor: '#43e97b',
+    textShadowOffset: { width: 0, height: 4 },
+    textShadowRadius: 12,
+    marginTop: 10,
+    marginBottom: 6,
+  },
+  underlineHighlight: {
+    width: 180,
+    height: 7,
+    backgroundColor: '#b6f5d8',
+    borderRadius: 8,
+    alignSelf: 'center',
+    marginTop: -8,
+    marginBottom: 2,
+    opacity: 0.7,
   },
   textinputcontainer: {
-    backgroundColor: "white",
+    backgroundColor: "#f4f4f4",
     width: "90%",
-    height: 50,
+    height: 48,
     borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
     flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 8,
+    shadowColor: "#43e97b",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 2,
+    elevation: 1,
   },
   input: {
-    width: "80%",
+    width: "85%",
     height: "100%",
     fontWeight: "500",
-    fontSize: 19,
-    paddingHorizontal: 20,
+    fontSize: 18,
+    paddingHorizontal: 12,
+    color: '#222',
   },
   listcover: {
     width: "100%",
-    height: 100,
+    minHeight: 80,
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(233, 244, 255, 0.97)",
-    borderWidth: 2,
-    borderColor: "rgb(226, 239, 252)",
-    borderRadius: 20,
-    marginTop: 5,
+    alignItems: "flex-start",
+    backgroundColor: "#e0f7ef",
+    borderWidth: 2.5,
+    borderColor: "#43e97b",
+    borderRadius: 18,
+    marginTop: 10,
+    marginBottom: 4,
+    padding: 16,
+    shadowColor: "#218c4a",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.28,
+    shadowRadius: 16,
+    elevation: 12,
+  },
+  cardRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
   },
   titlelist: {
-    color: "rgb(24, 24, 24)",
-    fontSize: 18,
-    fontWeight: "800",
+    color: "#218c4a",
+    fontSize: 19,
+    fontWeight: "700",
+    marginBottom: 2,
   },
   amount: {
-    color: "grey",
-    fontWeight: "800",
-    fontSize: 17,
-    marginTop: 12,
-    height: 30,
+    color: "#43e97b",
+    fontWeight: "700",
+    fontSize: 16,
+    marginTop: 2,
+    height: 24,
   },
   Description: {
-    color: "black",
+    color: "#333",
     fontSize: 15,
-    fontWeight: "700",
+    fontWeight: "600",
   },
 });
 

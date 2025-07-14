@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "430222359833",
+    "project_id": "medquev3",
+    "storage_bucket": "medquev3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430222359833:android:d133272f26be8eb5411988",
+        "android_client_info": {
+          "package_name": "com.prazoo.medqueV3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCsvlR5Ckx4qdV1PXZr-9uJmJvyXb8oeM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,7 +9,6 @@ import axios from 'axios';
 import { apiurl } from './request_response';
 import BookingHistoryModal from './component/BookingHistoryModal';
 
-
 const { height, width } = Dimensions.get("window")
 
 interface BookingHistoryItem {
@@ -324,7 +323,7 @@ export default function Profile() {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-      {/* Recommendation Modal */}
+
       <Modal
         visible={recommendationModalVisible}
         animationType="slide"
@@ -389,7 +388,7 @@ export default function Profile() {
       <BookingHistoryModal
         visible={modalVisible}
         onClose={() => {
-          console.log("Closing modal");
+      
           setModalVisible(false);
         }}
         bookingHistory={bookingHistory}

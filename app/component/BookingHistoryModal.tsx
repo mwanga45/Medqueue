@@ -23,8 +23,8 @@ interface BookingHistoryItem {
   dayofweek?: number;
   day_of_week?: number;
   starttime?: string;
-  start_time?: string;
-  endtime?: string;
+  start_time?: string |any;
+  endtime?: string|any;
   end_time?: string;
   bookingdate?: string;
   booking_date?: string;
@@ -108,7 +108,6 @@ export default function BookingHistoryModal({
             </TouchableOpacity>
           </View>
 
-          {/* Content */}
           <View style={styles.content}>
             {loading ? (
               <View style={styles.loadingContainer}>
@@ -125,9 +124,6 @@ export default function BookingHistoryModal({
               </View>
             ) : (
               <>
-
-
-                {/* Booking List */}
                 <ScrollView 
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{ paddingBottom: 20 }}
@@ -135,24 +131,20 @@ export default function BookingHistoryModal({
                   {bookingHistory.map((booking, index) => {
                     const bookingId = booking.booking_id || booking.id || 0;
                     const bookingDate = booking.booking_date || booking.bookingdate || '';
-                    const startTime = booking.start_time || booking.starttime || '';
-                    const endTime = booking.end_time || booking.endtime || '';
+                    const startTime = booking.start_time.split("T")[1].replace("Z","") || '';
+                    const endTime = booking.start_time.split("T")[1].replace("z","")||""
                     const dayOfWeek = booking.dayofweek || booking.day_of_week || 0;
                     const status = booking.status || 'unknown';
                     const serviceId = booking.service_id || 0;
                     const specId = booking.spec_id || 0;
                     
-                    console.log(`Booking ${index} - Start: "${startTime}", End: "${endTime}"`);
-                    
-
-
                     return (
                       <View key={`booking-${index}`} style={styles.bookingCard}>
                         <View style={styles.bookingHeader}>
                           <View style={styles.bookingIdContainer}>
                             <Icon name="hashtag" size={12} color="#666" />
                             <Text style={styles.bookingId}>
-                              #{bookingId || 'N/A'}
+                              {bookingId || 'N/A'}
                             </Text>
                           </View>
                           <View

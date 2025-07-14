@@ -1,7 +1,7 @@
 import axios from "axios" 
 import { Alert } from "react-native"
 import DeviceInfo from "react-native-device-info"
-export const apiurl  = "http://192.168.186.123:8801/" 
+export const apiurl  = "http://192.168.117.123:8801/" 
 // export const apiurl  = "http://172.21.151.38:8801/"
 
 
