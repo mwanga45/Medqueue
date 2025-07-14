@@ -1,27 +1,20 @@
-import axios from "axios" 
-import { Alert } from "react-native"
-import DeviceInfo from "react-native-device-info"
 export const apiurl  = "http://192.168.117.123:8801/" 
-// export const apiurl  = "http://172.21.151.38:8801/"
 
+// request_response.ts
+import Constants from 'expo-constants';
 
-export const handlegetdeviceId = async(apiurl:string,devicestate: any, setdeviceId: any): Promise<string> =>{
-    const deviceId =  await DeviceInfo.getUniqueId()
-    try{
-        // const res = await axios.post(apiurl+"verifyuse",{deviceId})
-        const res = await axios.post(apiurl + "verifyuser", { deviceId }); 
+// Get API URL from environment configuration
+// export const apiurl = Constants.expoConfig?.extra?.apiUrl || "http://192.168.117.123:8801/";
 
-        if (!res.data.success){
-            Alert.alert(res.data.message || "Something went wrong")
-            let err =  res.data.message
-            return  err
-        }
+// Get current environment
+export const appEnv = Constants.expoConfig?.extra?.appEnv || 'production';
 
-    }catch(err){
-        Alert.alert("Something went wrong here")
-        console.error("Something went wrong here", err)
-    }
-    
-     setdeviceId(deviceId)
-    return  deviceId
-}
+// Log environment info (optional, for debugging)
+console.log(`[Environment] Running in ${appEnv} mode`);
+console.log(`[API] Using base URL: ${apiurl}`);
+
+// Optional: Add a helper to detect development mode
+export const isDev = appEnv === 'development';
+export const isPreview = appEnv === 'preview';
+export const isProduction = appEnv === 'production';
+

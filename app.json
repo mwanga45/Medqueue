@@ -8,6 +8,7 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.lynxprazo.MedqueV3",
@@ -21,14 +22,20 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.lynxprazo.MedqueV3",
-      
       "googleServicesFile": "./android/app/google-services.json"
     },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+    
+    
+    "extra": {
+      "environment": "production",
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "943be5f9-0d56-4b51-81f8-a03ef910c141"
+      }
     },
+    
     "plugins": [
       "expo-router",
       [
@@ -41,7 +48,6 @@
         }
       ],
       "expo-secure-store",
-      
       [
         "expo-notifications",
         {
@@ -53,14 +59,6 @@
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "943be5f9-0d56-4b51-81f8-a03ef910c141"
-      }
     }
   }
 }
