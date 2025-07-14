@@ -20,7 +20,6 @@ import {
 import axios from "axios";
 import { useRouter } from "expo-router";
 import Servicelistcomp from "./component/servicelistcomp";
-import { handlegetdeviceId } from "./request_response";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const { height: initialHeight, width: initialWidth } = Dimensions.get("window");
 
@@ -38,7 +37,7 @@ interface slotService {
 }
 
 const Booking = () => {
-  // Use responsive dimensions
+
   const { height, width } = useWindowDimensions();
   const [deviceId, setdeviceId] = useState("");
   const [SecreteKey, setSecreteKey] = useState("");
@@ -68,11 +67,11 @@ const Booking = () => {
   });
   const router = useRouter();
 
-  // Calculate responsive values
+
   const responsiveHeight = height || initialHeight;
   const responsiveWidth = width || initialWidth;
   
-  // Responsive scaling factors - adjusted to ensure minimum visibility
+
   const scaleFactor = Math.min(responsiveWidth / 375, responsiveHeight / 812); // Base on iPhone X dimensions
   const scaledFontSize = (size: number) => Math.max(size * scaleFactor, size * 0.9); // Increased minimum from 0.8 to 0.9
   const scaledDimension = (dim: number) => Math.max(dim * scaleFactor, dim * 0.8); // Added minimum scaling
@@ -154,12 +153,13 @@ const Booking = () => {
         }
       );
       
-      console.log(bookingPayload)
+      
       if (!res.data.success) {
         Alert.alert(res.data.message || "Something went wrong");
         return;
       }
       Alert.alert("Successfully placing a booking");
+      
     } catch (err) {
       Alert.alert("Server Error ");
       console.error(err);
@@ -545,7 +545,7 @@ const Booking = () => {
                   };
 
                   try {
-                    // Get token from AsyncStorage
+           
                     const token = await AsyncStorage.getItem('userToken');
                     
                     const res = await axios.post(

@@ -54,7 +54,7 @@ export default function Profile() {
     setLoading(true);
     try {
       const token = await AsyncStorage.getItem('userToken');
-      const res = await axios.get(apiurl + "user/bookinghistory", {
+      const res = await axios.get(apiurl+"user/bookinghistory", {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json"
@@ -84,7 +84,7 @@ export default function Profile() {
   const handlegetPendingbooking = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
-      const res = await axios.get(apiurl + "user/pendingbookings", {
+      const res = await axios.get(apiurl+"user/pendingbookings", {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json"
@@ -282,7 +282,7 @@ export default function Profile() {
                   <View style={styles.detailRow}>
                     <Icon name="clock" size={14} color="#007AFF" />
                     <Text style={styles.detailText}>
-                      {formatTime(booking.start_time)} - {formatTime(booking.end_time)}
+                      {formatTime(booking.start_time.split("T")[1].replace("Z",""))} - {formatTime(booking.end_time.split("T")[1].replace("Z",""))}
                     </Text>
                   </View>
                   <View style={styles.detailRow}>

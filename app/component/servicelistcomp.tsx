@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  ActivityIndicator,
+  Modal,
 } from "react-native";
 import axios from "axios";
 import { apiurl } from "../request_response";
@@ -17,6 +19,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
+import { BlurView } from 'expo-blur';
 
 interface incomingservice {
   id: string;
@@ -74,6 +77,7 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
     duration_minutes: 0,
   });
   const [search, setsearch] = useState<string>(""); 
+  const [loading, setLoading] = useState(false);
   const handleGetService = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
@@ -104,6 +108,7 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
     serviceprice: string,
     duration:number
   ) => {
+    setLoading(true);
     const selection = { id, servicename, serviceprice };
     setselectedService(selection as any);
     onSelect(selection);
@@ -122,7 +127,7 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
       if (!res.data.success){
         Alert.alert(res.data.message)
       }
-    setSlot(res.data.data)
+      setSlot(res.data.data)
       setrequestedserv({
         servid:"",
         servicename:"",
@@ -133,6 +138,7 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
   console.error("serviceslot error:", err.response?.status, err.response?.data);
   Alert.alert("Internal Server Error", err.response?.data?.message || err.message);
 }
+    setLoading(false);
 
 
     await Alert.alert(
@@ -159,6 +165,16 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
 
   return (
     <GestureHandlerRootView style={stylesmodal.container}>
+      {/* Loading Overlay */}
+      <Modal visible={loading} transparent animationType="fade">
+        <View style={stylesmodal.loadingOverlay}>
+          <BlurView intensity={90} tint="light" style={stylesmodal.absoluteFill} />
+          <View style={stylesmodal.loadingContent}>
+            <ActivityIndicator size="large" color="#43e97b" />
+            <Text style={stylesmodal.loadingText}>Loading service details...</Text>
+          </View>
+        </View>
+      </Modal>
       <LinearGradient
         colors={["#43e97b", "#38f9d7"]}
         start={{ x: 0, y: 0 }}
@@ -186,14 +202,16 @@ const Servicelistcomp: React.FC<ServiceListProps> = ({
             style={stylesmodal.listcover}
             key={item.id}
             activeOpacity={0.85}
-            onPress={() =>
-              OnHandleService(
-                Number(item.id),
-                item.servicename,
-                String(item.consultationFee),
-                item.duration_minutes
-              )
-            }
+            onPress={() => {
+              if (!loading) {
+                OnHandleService(
+                  Number(item.id),
+                  item.servicename,
+                  String(item.consultationFee),
+                  item.duration_minutes
+                );
+              }
+            }}
           >
             <View style={stylesmodal.cardRow}>
               <Ionicons name="medkit" size={32} color="#43e97b" style={{marginRight: 12}} />
@@ -357,6 +375,32 @@ const stylesmodal = StyleSheet.create({
     color: "#333",
     fontSize: 15,
     fontWeight: "600",
+  },
+  loadingOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 100,
+  },
+  absoluteFill: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  loadingContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  loadingText: {
+    marginTop: 18,
+    fontSize: 18,
+    color: '#218c4a',
+    fontWeight: '700',
+    letterSpacing: 1,
   },
 });
 
