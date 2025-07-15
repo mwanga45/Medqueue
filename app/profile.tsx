@@ -176,7 +176,7 @@ export default function Profile() {
           onPress: async () => {
             try {
               const token = await AsyncStorage.getItem('userToken');
-              const res = await axios.post(apiurl + "booking/cancelbooking",
+              const res = await axios.post(apiurl+"booking/cancelbooking",
                 { booking_id: bookingId },
                 {
                   headers: {
@@ -238,7 +238,7 @@ export default function Profile() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
+    <View style={{ flex: 1, backgroundColor: '#f5f5f5', paddingHorizontal:5 }}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.upperView}>
           <View style={styles.viewbar} >

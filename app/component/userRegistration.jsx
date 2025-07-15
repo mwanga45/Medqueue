@@ -44,8 +44,8 @@ const UserRegistration = () => {
   };
 
   const validatePhone = (phone) => {
-    const regex1 = /^07\d{8}$/;
-    const regex2 = /^(?:0|\+255)7\d{8}$/;
+    const regex1 = /^0[67]\d{8}$/;
+    const regex2 = /^(?:0|\+255)[67]\d{8}$/;
     return regex1.test(phone) || regex2.test(phone);
   };
   const handleSubmit = async () => {
