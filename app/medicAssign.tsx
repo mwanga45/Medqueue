@@ -48,50 +48,49 @@ export default function MedicAssign() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView contentContainerStyle={styles.scrollBg}>
-        <LinearGradient colors={['#0d6efd', '#50C9C3']} style={styles.gradientHeader}>
+        <LinearGradient colors={['green', 'green']} style={styles.gradientHeader}>
           <View style={styles.header}>
-            <Ionicons name="calendar" size={32} color="#fff" />
-            <Text style={styles.title}>Assign Medical Schedule</Text>
+            <Text style={styles.title}>New Medication</Text>
           </View>
         </LinearGradient>
         <View style={styles.formCard}>
           <View style={styles.form}>
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Doctor Name</Text>
+              <Text style={styles.label}>Medical name</Text>
               <TextInput
                 style={styles.input}
-                placeholder="e.g., Dr. Smith"
+                placeholder="e.g.,Paracetamol"
                 value={doctorName}
                 onChangeText={setDoctorName}
               />
             </View>
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Patient Name</Text>
+              <Text style={styles.label}>Dosage</Text>
               <TextInput
                 style={styles.input}
-                placeholder="e.g., John Doe"
+                placeholder="e.g.,500gm"
                 value={patientName}
                 onChangeText={setPatientName}
               />
             </View>
             <View style={styles.row}>
-              <View style={[styles.inputGroup, styles.flex]}>
-                <Text style={styles.label}>Date</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="YYYY-MM-DD"
-                  value={appointmentDate}
-                  onChangeText={setAppointmentDate}
-                />
+              <View style={styles.howoftenContainer}>
+                <TouchableOpacity style={styles.routine}>
+                  <Text>Once daily</Text>
+                </TouchableOpacity >
+                <TouchableOpacity style={styles.routine}>
+                  <Text>Twice daily</Text>
+                </TouchableOpacity>
               </View>
-              <View style={[styles.inputGroup, styles.flex]}>
-                <Text style={styles.label}>Time</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="HH:MM AM/PM"
-                  value={appointmentTime}
-                  onChangeText={setAppointmentTime}
-                />
+            </View>
+            <View style={styles.row}>
+              <View style={styles.howoftenContainer}>
+                <TouchableOpacity style={styles.routine}>
+                  <Text> Three times daily</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.routine}>
+                  <Text> Four times daily</Text>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.inputGroup}>
@@ -185,9 +184,33 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: '#ffffff',
   },
+  howoftenContainer: {
+    flexDirection: "row"
+  },
+  routine: {
+    width: 130,
+    height: 105,
+    backgroundColor: "#f4f4dd",
+    borderRadius: 6,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.32,
+    shadowRadius: 5.46,
+    elevation: 9,
+    marginHorizontal:12
+
+    
+  },
+
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom:12,
     gap: 16,
   },
   flex: {
@@ -198,16 +221,20 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   saveButton: {
-    backgroundColor: '#50C9C3',
+    backgroundColor: 'green',
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 10,
-    shadowColor: '#50C9C3',
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.43,
+    shadowRadius: 9.51,
+
+    elevation: 15,
   },
   saveButtonText: {
     color: '#ffffff',

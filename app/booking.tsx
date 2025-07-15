@@ -126,7 +126,7 @@ const Booking = () => {
       secretekey: SecreteKey,
     });
     
-    // Prepare booking payload with forMe state
+
     const bookingPayload = {
       doctorId: selectedSlot?.doctorId?.toString() ?? "",
       serviceId: selectedService?.id?.toString() ?? "",
@@ -152,20 +152,17 @@ const Booking = () => {
           }
         }
       );
-      
-      
       if (!res.data.success) {
         Alert.alert(res.data.message || "Something went wrong");
         return;
       }
       Alert.alert("Successfully placing a booking");
-      
+      router.push("/profile")
     } catch (err) {
       Alert.alert("Server Error ");
       console.error(err);
     }
   };
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={[stylesbooking.container, { 
