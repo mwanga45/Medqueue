@@ -105,6 +105,7 @@ const UserRegistration = () => {
         homeaddress,
         deviceId
       });
+            // console.log(firstname, secondname, secretekey, dial, email, birthdate, homeaddress, deviceId)
   
       if (response.data.success) {
         Alert.alert("Registration Successful", `${firstname} ${secondname}`);
@@ -119,6 +120,7 @@ const UserRegistration = () => {
           homeaddress: "",
         });
       }
+
   
     } catch (error) {
       Alert.alert(

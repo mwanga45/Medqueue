@@ -1,6 +1,6 @@
 // export const apiurl  = "http://192.168.117.123:8801/" 
-export const apiurl  = "http://10.127.131.38:8801/" 
-// export const apiurl  = "http://192.168.117.123:8801/" 
+// export const apiurl  = "http://10.127.131.38:8801/" 
+export const apiurl  = "http://192.168.117.123:8801/" 
 
 // request_response.ts
 import Constants from 'expo-constants';
