@@ -190,6 +190,7 @@ export default function Profile() {
                 handlegetPendingbooking();
               } else {
                 Alert.alert("Error", res.data.message);
+                console.log(res)
               }
             } catch (err) {
               console.error("Error cancelling booking:", err);

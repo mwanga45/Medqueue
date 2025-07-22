@@ -24,7 +24,7 @@ export default function MedicAssign() {
       notes,
     };
 
-    // In a real app, you would send this data to your backend API
+  
     console.log('Saving schedule:', scheduleDetails);
 
     Alert.alert(

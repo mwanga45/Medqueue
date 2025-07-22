@@ -38,9 +38,8 @@ const UserRegistration = () => {
     setdeviceId(deviceId)
   }
   const validateEmail = (email) => {
-    const regex =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
-    return regex.test(String(email).toLowerCase());
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(String(email).trim().toLowerCase());
   };
 
   const validatePhone = (phone) => {
