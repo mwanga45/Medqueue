@@ -53,7 +53,6 @@ export default function DoctorAvailability() {
   const Available = doctors.filter((a: Doctor) => a.isAvailable).length;
   const countNotAvailable = totalCount - Available
 
-  // Get unique days from doctors
   const uniqueDays = Array.from(new Set(doctors.map(d => d.dayofweek)));
 
   const display = doctors.filter((d:Doctor)=> {
@@ -85,7 +84,7 @@ export default function DoctorAvailability() {
       </View>
 
       {/* Stats */}
-      <View style={styles.statsContainer}>
+      {/* <View style={styles.statsContainer}>
         <View style={styles.statCard}>
           <Text style={styles.statNumber}>{totalCount}</Text>
           <Text style={styles.statLabel}>Total Doctors</Text>
@@ -98,7 +97,7 @@ export default function DoctorAvailability() {
           <Text style={styles.statNumber}>{countNotAvailable}</Text>
           <Text style={styles.statLabel}>Unavailable</Text>
         </View>
-      </View>
+      </View> */}
 
       {/* Filter Buttons */}
       <View style={styles.filterContainer}>
@@ -115,7 +114,7 @@ export default function DoctorAvailability() {
             All
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={[
             styles.filterButton,
             filterstatus === "available" && styles.activeFilter,
@@ -130,8 +129,8 @@ export default function DoctorAvailability() {
           >
             Available
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableOpacity> */}
+        {/* <TouchableOpacity
           style={[
             styles.filterButton,
             filterstatus === "unavailable" && styles.activeFilter,
@@ -146,7 +145,7 @@ export default function DoctorAvailability() {
           >
             Unavailable
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       {/* Day of week filter */}
@@ -182,11 +181,11 @@ export default function DoctorAvailability() {
               <View
                 style={[
                   styles.availabilityIndicator,
-                  { backgroundColor: doctor.isAvailable ? "#4CAF50" : "#f44336" },
+                  { backgroundColor: doctor.isAvailable ? "#4CAF50" : "#0d7100ff" },
                 ]}
               >
                 <Text style={styles.availabilityText}>
-                  {doctor.isAvailable ? "Available" : "Unavailable"}
+                  {doctor.isAvailable ? "Available" : "Available"}
                 </Text>
               </View>
             </View>
